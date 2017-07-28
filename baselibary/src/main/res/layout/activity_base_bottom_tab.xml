@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/activity_toolbar"/>
-    <lmy.com.utilslib.view.HomeViewPager
+    <lmy.com.utilslib.base.ui.view.HomeViewPager
         android:id="@+id/viewPager"
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:background="#c7c7c7"
         android:layout_height="0.1dp"/>
 
-    <lmy.com.utilslib.view.BottomTabView
+    <lmy.com.utilslib.base.ui.view.BottomTabView
         android:id="@+id/bottomTabView"
         android:gravity="bottom"
         android:layout_width="match_parent"

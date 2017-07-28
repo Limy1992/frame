@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,8 +13,8 @@ import java.util.List;
 
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.adapter.HomeViewPagerAdapter;
-import lmy.com.utilslib.view.BottomTabView;
-import lmy.com.utilslib.view.HomeViewPager;
+import lmy.com.utilslib.base.ui.view.BottomTabView;
+import lmy.com.utilslib.base.ui.view.HomeViewPager;
 
 /**
  * home底部button

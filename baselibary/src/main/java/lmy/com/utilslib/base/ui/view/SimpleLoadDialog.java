@@ -1,4 +1,4 @@
-package lmy.com.utilslib.view;
+package lmy.com.utilslib.base.ui.view;
 
 import android.app.Activity;
 import android.app.Dialog;

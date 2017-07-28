@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lmy.com.utilslib.base.ui.fragment.BaseBottomTabActivity;
-import lmy.com.utilslib.view.BottomTabView;
+import lmy.com.utilslib.base.ui.view.BottomTabView;
 
 public class MainActivity extends BaseBottomTabActivity {
 
