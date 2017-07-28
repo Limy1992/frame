@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lmy.com.conlib.ButtonView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="click"
+        android:text="123" />
+
+
+
+    <FrameLayout
+        android:id="@+id/fr"
+        android:background="@drawable/punch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            />
+    </FrameLayout>
+
+
+
+
+
+    <TextView
+         android:visibility="gone"
+        android:id="@+id/shop_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="shopCar" />
+
+</lmy.com.conlib.ButtonView>
