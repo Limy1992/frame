@@ -36,7 +36,7 @@ public class WebViewVideo extends BaseActivity {
     @Override
     protected int getContentView() {
         initWindow();
-        return R.layout.web_view_activity2;
+        return R.layout.web_view_activity;
     }
 
     @Override
