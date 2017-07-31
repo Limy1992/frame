@@ -19,9 +19,6 @@ import lmy.com.utilslib.base.ui.activity.BaseActivity;
 
 public class OneActivity extends BaseActivity {
 
-    @BindView(R.id.tv)
-    TextView tv;
-
     @Override
     protected int getContentView() {
         return R.layout.activity_one;

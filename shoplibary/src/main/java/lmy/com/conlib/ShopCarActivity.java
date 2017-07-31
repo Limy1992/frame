@@ -2,17 +2,11 @@ package lmy.com.conlib;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AnimationSet;
-import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import com.github.mzule.activityrouter.annotation.Router;
@@ -21,7 +15,10 @@ import com.github.mzule.activityrouter.annotation.Router;
 import butterknife.BindView;
 import lmy.com.utilslib.base.ui.activity.BaseActivity;
 import lmy.com.utilslib.utils.LogUtils;
-import lmy.com.utilslib.web.FrameWebView;
+
+import lmy.com.utilslib.web.TenetWebView;
+import lmy.com.utilslib.web.WebViewFile;
+
 
 /**
  * Created by lmy on 2017/7/17
@@ -66,7 +63,7 @@ public class ShopCarActivity extends BaseActivity {
     }
 
     public void click(View view) {
-        startNextActivity(FrameWebView.class);
+        startNextActivity(TenetWebView.class);
 //        startNextActivity(NetActivity.class);
     }
 
