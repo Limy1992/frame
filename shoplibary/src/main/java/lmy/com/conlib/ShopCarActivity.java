@@ -1,8 +1,12 @@
 package lmy.com.conlib;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,6 +31,8 @@ import lmy.com.utilslib.web.WebViewFile;
 public class ShopCarActivity extends BaseActivity {
     @BindView(R2.id.shop_tv)
     TextView shopTv;
+    @BindView(R2.id.tv)
+    TextView tv;
     @BindView(R2.id.fr)
     FrameLayout lv;
     @BindView(R2.id.ll)
@@ -52,8 +58,8 @@ public class ShopCarActivity extends BaseActivity {
     protected void initData() {
         String name = getIntents("name");
         String age = getIntents("age");
-        LogUtils.e("name="+name);
-        LogUtils.e("age="+age);
+        LogUtils.e("name=" + name);
+        LogUtils.e("age=" + age);
         lv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,16 +74,55 @@ public class ShopCarActivity extends BaseActivity {
     }
 
 
+    float startA = 0f;
+    float endA = 180f;
 
-    public void startAni(){
-
-        ObjectAnimator animator = ObjectAnimator.ofFloat(lv, "rotationY", 0f, 180f);
+    public void startAni() {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(lv, "rotationY", startA, endA);
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(lv, "scaleX", 1.0f, 0.3f, 0.3f, 1.0f);
         ObjectAnimator animator3 = ObjectAnimator.ofFloat(lv, "scaleY", 1.0f, 0.3f, 0.3f, 1.0f);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(2000);
 //        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animatorSet.playTogether(animator, animator2, animator3);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float animatedValue = (float) animation.getAnimatedValue();
+                if (animatedValue == 90f) {
+                    tv.setText("456");
+                }
+            }
+
+        });
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                Log.e("tag", "onAnimationStart");
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                startA += endA;
+                endA += endA;
+                if (startA > 180) {
+                    startA = 0;
+                }
+                if (endA > 360) {
+                    endA = 180;
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                Log.e("tag", "onAnimationCancel");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                Log.e("tag", "onAnimationRepeat=");
+            }
+        });
         animatorSet.start();
     }
 
