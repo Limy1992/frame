@@ -1,11 +1,11 @@
 package lmy.com.utilslib.net;
 
 import android.content.Context;
-import android.util.Log;
-
+import android.text.TextUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import lmy.com.utilslib.utils.CommonManger;
 import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.ToastUtils;
 import lmy.com.utilslib.base.ui.view.SimpleLoadDialog;
@@ -53,6 +53,19 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
 
     @Override
     public void onError(Throwable e) {
+        //只有网络异常的时候调用  recode不调用此方法.在本类对recode的实现,提供公共方法,是否重写
+        if (!e.getLocalizedMessage().equals(ApiException.codes)) {
+            _onError(e.toString());
+            dismissProgressDialog();
+            return;
+        }
+
+        //管理recode
+        administrationCode(e);
+
+    }
+
+    private void administrationCode(Throwable e) {
         switch (e.getLocalizedMessage()) {
             case "190":
                 onRecode();
@@ -60,10 +73,7 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
                 break;
         }
 
-        //网络异常调用
-        _onError(e.toString());
         dismissProgressDialog();
-
     }
 
     @Override

@@ -6,9 +6,9 @@ package lmy.com.utilslib.net;
  * Created by lmy on 2017/7/11
  */
 
-public class ApiException extends RuntimeException {
+class ApiException extends RuntimeException {
     private static String messages;
-    private static String codes;
+    static String codes;
 
     ApiException(int resultCode, String message) {
         this(getApiExceptionMessage(resultCode, message));
