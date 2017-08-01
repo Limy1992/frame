@@ -24,7 +24,6 @@ public class TenetWebView extends WebNetResult {
     protected void loadWebViewUrl() {
 //        webView.loadUrl("https://mp.weixin.qq.com/s/iFX9gOJm-gYnuP9PpR3n4Q");
         webView.loadUrl("file:///android_asset/title.html");
-//        webView.loadUrl("https://www.baidu.com");
     }
 
     //与js交互
