@@ -3,7 +3,6 @@ package lmy.com.utilslib.web;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +46,8 @@ public class WebViewVideo extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         webView = new X5WebView(this, null);
+        //初始化WebViewClient
+        initWebViewClient();
         web_fl.addView(webView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
@@ -120,39 +121,21 @@ public class WebViewVideo extends BaseActivity {
 
     @Override
     protected void initData() {
+        //网络请求 提供之类取实现
+        netResult();
         WebSettings webSetting = webView.getSettings();
-        webSetting.setAllowFileAccess(true);
-        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        webSetting.setSupportZoom(true);
-        webSetting.setBuiltInZoomControls(true);
-        webSetting.setUseWideViewPort(true);
-        webSetting.setSupportMultipleWindows(false);
-
-        webSetting.setAppCacheEnabled(true);
-
-        webSetting.setDomStorageEnabled(true);
-        webSetting.setJavaScriptEnabled(true);
-        webSetting.setGeolocationEnabled(true);
-        webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
         webSetting.setAppCachePath(this.getDir("appcache", 0).getPath());
         webSetting.setDatabasePath(this.getDir("databases", 0).getPath());
-        webSetting.setGeolocationDatabasePath(this.getDir("geolocation", 0)
-                .getPath());
-
-        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
-
+        webSetting.setGeolocationDatabasePath(this.getDir("geolocation", 0).getPath());
         long time = System.currentTimeMillis();
+        //js交互
+        interactiveJS();
         //加载url地址
         loadWebViewUrl();
-
-        TbsLog.d("time-cost", "cost time: "
-                + (System.currentTimeMillis() - time));
+        TbsLog.d("time-cost", "cost time: " + (System.currentTimeMillis() - time));
         CookieSyncManager.createInstance(this);
         CookieSyncManager.getInstance().sync();
     }
-
-    protected void loadWebViewUrl() {}
-    protected void filePathCallBacks(ValueCallback<Uri[]> filePathCallback) {}
 
     private void initWindow() {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -182,5 +165,11 @@ public class WebViewVideo extends BaseActivity {
         super.onDestroy();
 
     }
+
+    protected void netResult() {}
+    protected void interactiveJS() {}
+    protected void loadWebViewUrl() {}
+    protected void initWebViewClient() {}
+    protected void filePathCallBacks(ValueCallback<Uri[]> filePathCallback) {}
 
 }
