@@ -62,12 +62,16 @@ public abstract class BaseTopActivity extends TopBarBaseActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.activity_next_err_pager, null);
         //事件操作
         againLoadData(view);
-
     }
 
     //网络错误页面加载自定义布局
     public void nextErrPager(@LayoutRes int layoutRes) {
         View view = LayoutInflater.from(this).inflate(layoutRes, null);
+        againLoadData(view);
+    }
+
+    //网络错误页面加载自定义布局
+    public void nextErrPager(View view) {
         againLoadData(view);
     }
 
