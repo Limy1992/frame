@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.github.mzule.activityrouter.annotation.Router;
 import com.lmy.audio.ui.fragment.TabFragment1;
 import com.lmy.audio.ui.fragment.TabFragment2;
 import com.lmy.audio.ui.fragment.TabFragment3;
@@ -17,7 +18,12 @@ import java.util.List;
 import lmy.com.utilslib.base.ui.fragment.BaseBottomTabActivity;
 import lmy.com.utilslib.base.ui.view.BottomTabView;
 
+@Router("mainActivity")
 public class MainActivity extends BaseBottomTabActivity {
+    @Override
+    protected void initOr() {
+       //其他操作
+    }
 
     @Override
     protected List<BottomTabView.TabItemView> getTabViews() {
@@ -44,13 +50,8 @@ public class MainActivity extends BaseBottomTabActivity {
     }
 
     @Override
-    protected List<String> getTitleLists() {
-        List<String> list = new ArrayList<>();
-        list.add("标题1");
-        list.add("标题2");
-        list.add("标题3");
-        list.add("标题4");
-        return list;
+    protected String[] getTitleLists() {
+        return new String[]{"标题1", "标题2","标题3","标题4"};
     }
 
     @Override
