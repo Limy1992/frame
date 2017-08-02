@@ -53,6 +53,12 @@ public abstract class BaseTopActivity extends TopBarBaseActivity {
         return intent;
     }
 
+    public void startNextActivity(String pager, Bundle bundle) {
+        Intent intent = new Intent(pager);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     public String getIntents(String key){
         return getIntent().getStringExtra(key);
     }
