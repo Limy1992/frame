@@ -22,56 +22,69 @@ import lmy.com.utilslib.base.ui.view.HomeViewPager;
  */
 
 public abstract class BaseBottomTabActivity extends AppCompatActivity {
-    HomeViewPager viewPager;
-    BottomTabView bottomTabView;
+    public HomeViewPager viewPager;
+    public BottomTabView bottomTabView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_bottom_tab);
-        final TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
+
+        initView();
+
+        initAdapter();
+
+        initTab();
+        bottomTabView.setUpWithViewPager(viewPager);
+        initOr();
+    }
+
+    protected void initOr() {}
+
+
+    private void initView() {
+        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         viewPager = (HomeViewPager) findViewById(R.id.viewPager);
         bottomTabView = (BottomTabView) findViewById(R.id.bottomTabView);
         viewPager.setNoScroll(true);
+        //设置title
+        setBaseBottomTitle(tvTitle);
+    }
 
+
+    private void initAdapter() {
         HomeViewPagerAdapter adapter = new HomeViewPagerAdapter(getSupportFragmentManager(), getFragments());
         viewPager.setAdapter(adapter);
         //缓存指定个数fragment界面，可根据需求而定
         viewPager.setOffscreenPageLimit(3);
+    }
+
+    private void initTab() {
         //设置tab
-        if (getCenterView() == null){
+        if (getCenterView() == null) {
             bottomTabView.setTabItemViews(getTabViews());
-        }else {
+        } else {
             bottomTabView.setTabItemViews(getTabViews(), getCenterView());
         }
-        tvTitle.setText(getTitleLists().get(0));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    }
+
+    private void setBaseBottomTitle(final TextView tvTitle) {
+        tvTitle.setText(getTitleLists()[0]);
+        bottomTabView.setOnViewPagerListener(new BottomTabView.OnViewPagerListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                tvTitle.setText(getTitleLists().get(position));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onPosition(int position) {
+                tvTitle.setText(getTitleLists()[position]);
             }
         });
-
-
-        bottomTabView.setUpWithViewPager(viewPager);
-
     }
 
     protected abstract List<BottomTabView.TabItemView> getTabViews();
-    protected abstract List<Fragment> getFragments();
-    protected abstract List<String> getTitleLists();
 
-    protected View getCenterView(){
+    protected abstract List<Fragment> getFragments();
+
+    protected abstract String[] getTitleLists();
+
+    protected View getCenterView() {
         return null;
     }
 
