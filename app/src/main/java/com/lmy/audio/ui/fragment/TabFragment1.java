@@ -1,8 +1,5 @@
 package com.lmy.audio.ui.fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,8 +37,6 @@ public class TabFragment1 extends BaseFragment {
     @Override
     protected void initView() {
         LogUtils.e("TabFragment1");
-
-
 
         Observable<BaseHttpResult<List<DataBean.ListBean>>> serviceData = Api.getDefault().getServiceData("f348719c-80da-45d0-a7c6-fbd9e8dc28c0");
         HttpUtil.getInstance()

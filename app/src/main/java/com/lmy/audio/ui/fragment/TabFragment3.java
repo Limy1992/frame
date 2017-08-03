@@ -1,26 +1,30 @@
 package com.lmy.audio.ui.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lmy.audio.R;
 
+import butterknife.BindView;
+import lmy.com.utilslib.base.ui.fragment.BaseFragment;
 
-public class TabFragment3 extends Fragment {
-    @Nullable
+
+public class TabFragment3 extends BaseFragment {
+
+    @BindView(R.id.txt)
+    TextView txt;
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_tab, null);
-        TextView tv = (TextView) inflate.findViewById(R.id.txt);
-        tv.setBackgroundColor(Color.YELLOW);
-        Log.e("tag", "TabFragment3");
-        return inflate;
+    protected int getFragmentView() {
+        return R.layout.fragment_tab;
+    }
+
+    @Override
+    protected void initView() {
+        txt.setBackgroundColor(Color.YELLOW);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }
