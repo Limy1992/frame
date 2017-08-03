@@ -1,11 +1,7 @@
 package lmy.com.conlib;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -15,8 +11,8 @@ import android.widget.TextView;
 import com.github.mzule.activityrouter.annotation.Router;
 
 
-
 import butterknife.BindView;
+import lmy.com.conlib.view.ImageViewAnimator;
 import lmy.com.utilslib.base.ui.activity.BaseActivity;
 import lmy.com.utilslib.utils.LogUtils;
 
@@ -32,10 +28,14 @@ public class ShopCarActivity extends BaseActivity {
     TextView shopTv;
     @BindView(R2.id.image_lv)
     ImageView imageLv;
+    @BindView(R2.id.image_lv2)
+    ImageView image_lv2;
     @BindView(R2.id.fr)
     FrameLayout lv;
     @BindView(R2.id.ll)
     ButtonView ll;
+
+    private ImageViewAnimator animator;
 
     @Override
     protected int getContentView() {
@@ -50,6 +50,7 @@ public class ShopCarActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         shopTv.setText("shop组件");
+
     }
 
     @Override
@@ -64,6 +65,10 @@ public class ShopCarActivity extends BaseActivity {
                 startAni();
             }
         });
+
+        //首次进来,先把盖在下面的图片旋转一下
+        ObjectAnimator animator = ObjectAnimator.ofFloat(image_lv2, "rotationY", 0f, 180f);
+        animator.start();
     }
 
     public void click(View view) {
@@ -71,57 +76,26 @@ public class ShopCarActivity extends BaseActivity {
     }
 
 
-    float startA = 0f;
-    float endA = 180f;
-
     public void startAni() {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(lv, "rotationY", startA, endA);
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(lv, "scaleX", 1.0f, 0.8f, 0.8f, 1.0f);
-        ObjectAnimator animator3 = ObjectAnimator.ofFloat(lv, "scaleY", 1.0f, 0.8f, 0.8f, 1.0f);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setDuration(2000);
-        animatorSet.playTogether(animator, animator2, animator3);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float animatedValue = (float) animation.getAnimatedValue();
-                LogUtils.e("value = " + Math.abs(animatedValue));
-                if (Math.abs(animatedValue) > 90f && Math.abs(animatedValue) < 93f) {
-                    imageLv.setVisibility(View.GONE);
-                }
-            }
+        if (animator != null) {
+            animator.initAnimator(lv);
+            return;
+        }
 
-        });
-        animatorSet.addListener(new Animator.AnimatorListener() {
+        animator = new ImageViewAnimator(lv);
+        animator.setOnAnimationListener(new ImageViewAnimator.OnAnimationListener() {
             @Override
-            public void onAnimationStart(Animator animation) {
-
-                Log.e("tag", "onAnimationStart");
+            public void onOneMiddle() {
+                //控件显示隐藏操作
+                imageLv.setVisibility(View.INVISIBLE);
+                image_lv2.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
-                startA += endA;
-                endA += endA;
-                if (startA > 180) {
-                    startA = 0;
-                }
-                if (endA > 360) {
-                    endA = 180;
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                Log.e("tag", "onAnimationCancel");
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                Log.e("tag", "onAnimationRepeat=");
+            public void onTwoMiddle() {
+                imageLv.setVisibility(View.VISIBLE);
+                image_lv2.setVisibility(View.INVISIBLE);
             }
         });
-        animatorSet.start();
     }
-
 }
