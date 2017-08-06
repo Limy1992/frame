@@ -10,6 +10,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
@@ -40,7 +41,6 @@ public class RxHelper {
                         return activityLifeCycleEvent.equals(event);
                     }
                 });
-                LogUtils.e("取消网络请求="+event);
                 return upstream.takeUntil(lifeCycleEventObservable);
             }
         };
@@ -60,6 +60,7 @@ public class RxHelper {
                         return activityLifeCycleEvent.equals(event);
                     }
                 });
+
                 return upstream.flatMap(new Function<BaseHttpResult<T>, ObservableSource<T>>() {
                     @Override
                     public ObservableSource<T> apply(BaseHttpResult<T> tBaseHttpResult) throws Exception {
@@ -75,13 +76,7 @@ public class RxHelper {
         };
     }
 
-    /**
-     * 创建成功的数据
-     *
-     * @param data
-     * @param <T>
-     * @return
-     */
+    //创建成功的数据
     private static <T> Observable<T> createData(final T data) {
 
         return Observable.create(new ObservableOnSubscribe<T>() {
@@ -89,7 +84,7 @@ public class RxHelper {
             public void subscribe(ObservableEmitter<T> subscriber) throws Exception {
                 try {
                     subscriber.onNext(data);
-                    Log.e("tag", "Observable");
+                    LogUtils.e("创建成功的数据");
                     subscriber.onComplete();
                 } catch (Exception e) {
                     subscriber.onError(e);

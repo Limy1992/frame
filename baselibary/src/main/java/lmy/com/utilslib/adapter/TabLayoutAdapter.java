@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * tabLayout+viewPager
  * Created by lmy on 2017/7/12
  */
 

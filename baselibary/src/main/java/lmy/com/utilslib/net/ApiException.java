@@ -1,16 +1,14 @@
 package lmy.com.utilslib.net;
 
-import lmy.com.utilslib.utils.LogUtils;
 
 /**
  * recode ！= 0 的处理
  * Created by lmy on 2017/7/11
  */
 
-public class ApiException extends RuntimeException {
-    private static final int USER_NOT_EXIST = 100;
-    private static final int WRONG_PASSWORD = 101;
-    private static String message;
+class ApiException extends RuntimeException {
+    private static String messages;
+    static String codes;
 
     ApiException(int resultCode, String message) {
         this(getApiExceptionMessage(resultCode, message));
@@ -20,27 +18,21 @@ public class ApiException extends RuntimeException {
         super(detailMessage);
     }
 
+    //充当后台返回message
     @Override
     public String getMessage() {
-        return message;
+        return messages;
     }
 
+    //充当code
+    @Override
+    public String getLocalizedMessage() {
+        return codes;
+    }
 
     private static String getApiExceptionMessage(int code, String message) {
-        switch (code) {
-            case USER_NOT_EXIST:
-                ApiException.message = "该用户不存在";
-                break;
-            case WRONG_PASSWORD:
-                ApiException.message = "密码错误";
-                break;
-            case 0:
-                ApiException.message = "rcodel";
-                LogUtils.e("message="+message);
-                break;
-            default:
-                ApiException.message = "未知错误";
-        }
-        return ApiException.message;
+        codes = String.valueOf(code);
+        messages = message;
+        return ApiException.messages;
     }
 }

@@ -1,9 +1,11 @@
 package lmy.com.conlib;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 
+
+import com.github.mzule.activityrouter.annotation.Router;
 
 import java.util.List;
 
@@ -31,12 +33,11 @@ import lmy.com.utilslib.utils.NetworkAvailableUtils;
  * Created by lmy on 2017/7/17
  */
 
+@Router("net")
 public class NetActivity extends BaseActivity {
 
     @BindView(R2.id.tv)
     public TextView tv;
-    @BindView(R2.id.lv)
-    public ImageView lv;
 
     @Inject
     PrententBean bean;
@@ -53,9 +54,8 @@ public class NetActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        tv.setText("libary");
         boolean networkAvailable = NetworkAvailableUtils.isNetworkAvailable();
-        LogUtils.e("net="+networkAvailable);
+        LogUtils.e("net=" + networkAvailable);
         DaggerNetComponent.builder()
                 .daBean(new DaBean("123456"))
                 .daTwoBean(new DaTwoBean(13))
@@ -63,8 +63,14 @@ public class NetActivity extends BaseActivity {
                 .inject(this);
 
 
-        LogUtils.e("s="+bean.getS());
-        LogUtils.e("s="+bean.getAge());
+        LogUtils.e("s=" + bean.getS());
+        LogUtils.e("s=" + bean.getAge());
+
+
+        String str = getIntents("str");
+        if (str != null) {
+            tv.setText(str);
+        }
     }
 
     @Override
@@ -84,7 +90,11 @@ public class NetActivity extends BaseActivity {
                         nextErrPager();
                     }
 
-                },"cacheKey", ActivityLifeCycleEvent.DESTROY, lifecycleSubject, true, true);
+                }, "cacheKey", ActivityLifeCycleEvent.DESTROY, lifecycleSubject, false, true);
+    }
+
+    public void netClick(View view) {
+        startNextActivity(ShopCarActivity.class);
     }
 
 }

@@ -22,10 +22,7 @@ public class HttpUtil {
     /**
      * 构造方法私有
      */
-    private HttpUtil() {
-
-
-    }
+    private HttpUtil() {}
 
     /**
      * 在访问HttpMethods时创建单例
