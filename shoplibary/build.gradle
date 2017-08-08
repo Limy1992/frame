@@ -46,11 +46,8 @@ android {
 }
 
 dependencies {
-//    compile rootProject.ext.dependencies["butterknife"]
-//    compile fileTree(include: ['*.jar'], dir: 'libs')
     apt  rootProject.ext.dependencies["activityrouter-compiler"]
     apt  rootProject.ext.dependencies["dagger-compiler"]
-
     apt  rootProject.ext.dependencies["butterknife-compiler"]
     compile project(':baselibary')
 }

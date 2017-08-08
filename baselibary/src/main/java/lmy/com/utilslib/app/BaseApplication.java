@@ -3,8 +3,6 @@ package lmy.com.utilslib.app;
 import android.app.Application;
 import android.util.Log;
 
-import com.orhanobut.hawk.Hawk;
-import com.squareup.leakcanary.LeakCanary;
 import com.tencent.smtt.sdk.QbSdk;
 
 import lmy.com.utilslib.utils.Utils;

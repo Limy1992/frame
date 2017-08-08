@@ -13,7 +13,7 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -29,6 +29,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
@@ -60,7 +62,8 @@ dependencies {
     apt rootProject.ext.dependencies["dagger-compiler"]
     compile rootProject.ext.dependencies["activityrouter"]
     apt rootProject.ext.dependencies["activityrouter-compiler"]
-    compile rootProject.ext.dependencies["leakcanary-android"]
-    compile rootProject.ext.dependencies["leakcanary-android-no-op"]
+    compile rootProject.ext.dependencies["matisse"]
+
+    compile rootProject.ext.dependencies["multidex"]
     compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
 }

@@ -1,7 +1,7 @@
 package lmy.com.utilslib.app;
 
 import com.orhanobut.hawk.Hawk;
-import com.squareup.leakcanary.LeakCanary;
+
 
 import lmy.com.utilslib.utils.Utils;
 
@@ -12,7 +12,7 @@ import lmy.com.utilslib.utils.Utils;
 public class ConfigureApplication extends BaseApplication {
     @Override
     public void configureInitialization() {
-        LeakCanary.install(this);
+
         Utils.init(this);
         Hawk.init(this).build();
     }
