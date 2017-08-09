@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.orhanobut.hawk.Hawk;
+
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -20,7 +22,6 @@ public class StartLogoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_logo);
-
         Observable.timer(3000, TimeUnit.MILLISECONDS)
                 .subscribe(new Consumer<Long>() {
                     @Override
@@ -28,7 +29,6 @@ public class StartLogoActivity extends AppCompatActivity {
                         Intent intent = new Intent(StartLogoActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                        LogUtils.e("aLong="+aLong);
                     }
                 });
 

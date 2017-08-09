@@ -1,9 +1,8 @@
-package lmy.com.utilslib.base.ui.fragment;
+package com.lmy.audio;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -30,6 +29,8 @@ public abstract class BaseBottomTabActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_bottom_tab);
 
+        permissionsPrompt();
+
         initView();
 
         initAdapter();
@@ -39,7 +40,12 @@ public abstract class BaseBottomTabActivity extends AppCompatActivity {
         initOr();
     }
 
-    protected void initOr() {}
+    protected void permissionsPrompt() {
+    }
+
+
+    protected void initOr() {
+    }
 
 
     private void initView() {
@@ -78,12 +84,16 @@ public abstract class BaseBottomTabActivity extends AppCompatActivity {
         });
     }
 
+    //底部button
     protected abstract List<BottomTabView.TabItemView> getTabViews();
 
+    //fragment页面
     protected abstract List<Fragment> getFragments();
 
+    //title
     protected abstract String[] getTitleLists();
 
+    //底部按钮,中间button
     protected View getCenterView() {
         return null;
     }
