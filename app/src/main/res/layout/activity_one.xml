@@ -12,4 +12,12 @@
         android:layout_width="@dimen/x150"
         android:layout_height="@dimen/x60" />
 
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/one_lv"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/x100"
+        android:layout_height="@dimen/x100" />
+
 </LinearLayout>
