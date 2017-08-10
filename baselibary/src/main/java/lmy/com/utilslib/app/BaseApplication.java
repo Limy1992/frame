@@ -1,10 +1,12 @@
 package lmy.com.utilslib.app;
 
 import android.app.Application;
+import android.os.Process;
 import android.util.Log;
 
 import com.tencent.smtt.sdk.QbSdk;
 
+import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
 
 /**
@@ -15,14 +17,20 @@ import lmy.com.utilslib.utils.Utils;
 public class BaseApplication extends Application {
     @Override
     public void onCreate() {
-        super.onCreate();
+        String processName = Utils.getProcessName(Process.myPid());
+        if (processName != null) {
+            if (!processName.equals(getPackageName())) {
+                return;
+            }
+        }
 
         webView();
-
         //配置其他的初始化操作
         configureInitialization();
 
+        super.onCreate();
     }
+
 
     private void webView() {
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
@@ -40,7 +48,7 @@ public class BaseApplication extends Application {
             }
         };
         //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(),  cb);
+        QbSdk.initX5Environment(getApplicationContext(), cb);
     }
 
     public void configureInitialization() {

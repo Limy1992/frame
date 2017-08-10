@@ -1,5 +1,7 @@
 package lmy.com.utilslib.utils;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,16 +12,14 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
- * author: Blankj
- * blog  : http://blankj.com
- * time  : 16/12/08
- * desc  : Utils初始化相关
+ * Utils初始化相关
  */
 public class Utils {
-
-    private static Context context;
+    @SuppressLint("StaticFieldLeak")     //去除黄色警告
+    private static Context context;     //注意使用,不会照成内存泄漏,
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -47,8 +47,8 @@ public class Utils {
     /**
      * @return 手机虚拟键的高度, 适配的时候需要
      */
-    public static int getNavBarHeight(){
-       return getTotalHeight() - getScreenHeight();
+    public static int getNavBarHeight() {
+        return getTotalHeight() - getScreenHeight();
     }
 
     /**
@@ -84,6 +84,27 @@ public class Utils {
         return outMetrics.heightPixels;
     }
 
+    /**
+     * 开启多进程，防止多次调用application
+     *
+     * @param pid 进程id
+     * @return 进程名称
+     */
+
+    public static String getProcessName(int pid) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps == null) {
+            return null;
+        }
+        for (ActivityManager.RunningAppProcessInfo prcInfo : runningApps) {
+            if (prcInfo.pid == pid) {
+                return prcInfo.processName;
+            }
+        }
+        return null;
+    }
+
     //是否开启定位
     public static boolean isOPen() {
         LocationManager locationManager
@@ -97,7 +118,7 @@ public class Utils {
     }
 
     //强制帮用户开启定位
-    public static  void openGPS() {
+    public static void openGPS() {
         Intent GPSIntent = new Intent();
         GPSIntent.setClassName("com.android.settings",
                 "com.android.settings.widget.SettingsAppWidgetProvider");

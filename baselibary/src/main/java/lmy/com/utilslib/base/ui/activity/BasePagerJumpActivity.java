@@ -2,7 +2,10 @@ package lmy.com.utilslib.base.ui.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +25,11 @@ import lmy.com.utilslib.utils.ToastUtils;
 import lmy.com.utilslib.utils.Utils;
 
 /**
- * 其他信息配置和界面跳转
+ * 一些公共方法和界面跳转
  * Created by lmy on 2017/7/5
  */
 
-public abstract class BaseTopActivity extends TopBarBaseActivity {
-    @Override
-    protected void setAdditionConfigure() {
-        //配置其他操作
-    }
+public abstract class BasePagerJumpActivity extends BaseOtherActivity {
 
     //跳转
     public void startNextActivity(Class activity) {
@@ -105,6 +104,8 @@ public abstract class BaseTopActivity extends TopBarBaseActivity {
         });
     }
 
+    protected abstract void initData();
+
     //动态权限管理sd卡操作
     public void startAlbum() {
         final RxPermissions rxPermissions = new RxPermissions(this);
@@ -126,13 +127,14 @@ public abstract class BaseTopActivity extends TopBarBaseActivity {
                 });
     }
 
+    // 开启知乎三方库相册选择器
     public void startAlbumAndCamera() {
         Matisse.from(this)
                 .choose(MimeType.allOf())       //显示类型,
                 .theme(R.style.Matisse_Dracula) //设置主题
                 .countable(true)                //选择照片数字叠加
                 .capture(true)                  //开启带有拍照
-                 //将Uri的生成方式改为由FileProvider提供的临时授权路径 开启相册必须写此方法
+                //将Uri的生成方式改为由FileProvider提供的临时授权路径 开启相册必须写此方法
                 .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))
                 .maxSelectable(9)               //照片可以选择多少个
                 .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))        //显示网格照片,每个网络的大小dp单位
@@ -142,5 +144,17 @@ public abstract class BaseTopActivity extends TopBarBaseActivity {
                 .forResult(CommonManger.REQUEST_CODE_CHOOSE);    // onActivityResult回调返回码
     }
 
-    protected abstract void initData();
+    /**
+     * 获取文件绝对路径
+     *
+     * @param url url
+     * @return 返回文件本地真实路径
+     */
+    public String contentFile(Uri url) {
+        String[] pro = {MediaStore.Images.Media.DATA};
+        Cursor actualisation = managedQuery(url, pro, null, null, null);
+        int actual_image_column_index = actualisation.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        actualisation.moveToFirst();
+        return actualisation.getString(actual_image_column_index);
+    }
 }

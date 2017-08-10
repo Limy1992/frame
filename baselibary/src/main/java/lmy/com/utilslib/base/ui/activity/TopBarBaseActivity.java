@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import butterknife.Unbinder;
 import io.reactivex.subjects.PublishSubject;
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.net.ActivityLifeCycleEvent;
@@ -20,6 +21,7 @@ public class TopBarBaseActivity extends AppCompatActivity {
     public Toolbar toolbar;
     public FrameLayout viewContent;
     public TextView tvTitle;
+    public Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,10 @@ public class TopBarBaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        bind.unbind();
         lifecycleSubject.onNext(ActivityLifeCycleEvent.DESTROY);
     }
+
 }
 
 
