@@ -17,7 +17,7 @@ import lmy.com.utilslib.utils.Utils;
 public class BaseApplication extends Application {
     @Override
     public void onCreate() {
-        String processName = Utils.getProcessName(Process.myPid());
+        String processName = Utils.getProcessName(this, Process.myPid());
         if (processName != null) {
             if (!processName.equals(getPackageName())) {
                 return;

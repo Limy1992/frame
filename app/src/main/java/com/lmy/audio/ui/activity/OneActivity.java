@@ -1,7 +1,6 @@
 package com.lmy.audio.ui.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,14 +8,12 @@ import android.widget.ImageView;
 import com.lmy.audio.R;
 import com.zhihu.matisse.Matisse;
 
-
-import java.util.List;
-
 import butterknife.BindView;
 
 import lmy.com.utilslib.base.ui.activity.BaseActivity;
+import lmy.com.utilslib.utils.BitmapUtils;
 import lmy.com.utilslib.utils.CommonManger;
-
+import lmy.com.utilslib.utils.LogUtils;
 
 
 /**
@@ -63,7 +60,11 @@ public class OneActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommonManger.REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            List<Uri> mSelected = Matisse.obtainResult(data);
+            long startTime = System.currentTimeMillis();
+            String filePath = contentFile(Matisse.obtainResult(data).get(0));
+            oneLv.setImageBitmap(BitmapUtils.bitmapOptions(filePath, 800, 800));
+            long endTime = System.currentTimeMillis() - startTime;
+            LogUtils.e("endTime=" + endTime);
         }
     }
 }

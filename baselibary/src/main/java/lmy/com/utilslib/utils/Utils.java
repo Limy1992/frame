@@ -91,7 +91,7 @@ public class Utils {
      * @return 进程名称
      */
 
-    public static String getProcessName(int pid) {
+    public static String getProcessName(Context context, int pid) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
         if (runningApps == null) {

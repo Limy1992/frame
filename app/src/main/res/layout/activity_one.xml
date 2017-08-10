@@ -16,8 +16,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/one_lv"
+        android:src="@mipmap/ic_merchant_main01"
         android:layout_gravity="center"
-        android:layout_width="@dimen/x100"
-        android:layout_height="@dimen/x100" />
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160" />
 
 </LinearLayout>
