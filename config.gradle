@@ -39,8 +39,6 @@ ext {
             "glide-integration"            : 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar',
             //缓存框架
             "hawk"                         : 'com.orhanobut:hawk:2.0.0-Alpha',
-            //知乎开源图片选择器
-            "matisse"                      : 'com.zhihu.android:matisse:0.4.3',
             //内存测试
             "leakcanary-android"           : 'com.squareup.leakcanary:leakcanary-android:1.3',
             "leakcanary-android-no-op"     : 'com.squareup.leakcanary:leakcanary-android-no-op:1.3',

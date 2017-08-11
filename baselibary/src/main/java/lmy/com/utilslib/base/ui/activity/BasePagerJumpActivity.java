@@ -13,16 +13,18 @@ import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
+
 
 import io.reactivex.functions.Consumer;
 import lmy.com.utilslib.R;
-import lmy.com.utilslib.utils.CommonManger;
 import lmy.com.utilslib.utils.ToastUtils;
 import lmy.com.utilslib.utils.Utils;
+import lmy.com.utilslib.zhihu.Matisse;
+import lmy.com.utilslib.zhihu.MimeType;
+import lmy.com.utilslib.zhihu.engine.impl.GlideEngine;
+import lmy.com.utilslib.zhihu.internal.entity.CaptureStrategy;
+
+import static lmy.com.utilslib.utils.CommonManger.REQUEST_CODE_CHOOSE;
 
 /**
  * 一些公共方法和界面跳转
@@ -130,18 +132,18 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
     // 开启知乎三方库相册选择器
     public void startAlbumAndCamera() {
         Matisse.from(this)
-                .choose(MimeType.allOf())       //显示类型,
-                .theme(R.style.Matisse_Dracula) //设置主题
-                .countable(true)                //选择照片数字叠加
-                .capture(true)                  //开启带有拍照
-                //将Uri的生成方式改为由FileProvider提供的临时授权路径 开启相册必须写此方法
-                .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))
-                .maxSelectable(9)               //照片可以选择多少个
-                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))        //显示网格照片,每个网络的大小dp单位
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .choose(MimeType.ofAll(), false)    //选着类型
+                .theme(R.style.Matisse_Dracula)
+                .countable(true)                    //数字叠加
+                .capture(true)                      //开启相机
+                .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))   //共享路径
+                .maxSelectable(9)                   //最大9张
+//                .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size)) //网络大小
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .thumbnailScale(0.85f)
-                .imageEngine(new GlideEngine())     //设置图片加载框架 Glide
-                .forResult(CommonManger.REQUEST_CODE_CHOOSE);    // onActivityResult回调返回码
+                .imageEngine(new GlideEngine()) //Glide加载
+                .forResult(REQUEST_CODE_CHOOSE);
     }
 
     /**

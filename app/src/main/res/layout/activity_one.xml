@@ -10,7 +10,7 @@
         android:text="知乎开源相册"
         android:onClick="oneClick"
         android:layout_width="@dimen/x150"
-        android:layout_height="@dimen/x60" />
+        android:layout_height="@dimen/y40" />
 
 
 
@@ -20,5 +20,12 @@
         android:layout_gravity="center"
         android:layout_width="@dimen/x160"
         android:layout_height="@dimen/x160" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x60" />
 
 </LinearLayout>

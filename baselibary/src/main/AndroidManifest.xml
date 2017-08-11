@@ -2,6 +2,7 @@
 
     package="lmy.com.utilslib">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -27,10 +28,16 @@
             android:name=".web.TenetWebView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
+        <!--知乎相册选择器-->
+        <activity android:name="lmy.com.utilslib.zhihu.ui.MatisseActivity" />
+        <activity android:name="lmy.com.utilslib.zhihu.internal.ui.AlbumPreviewActivity" />
+        <activity android:name="lmy.com.utilslib.zhihu.internal.ui.SelectedPreviewActivity" />
+
         <meta-data
             android:name="lmy.com.utilslib.glide.MyGlideModule"
             android:value="GlideModule" />
 
+        <!--更改Glide网络库-->
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
@@ -42,7 +49,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths_public"/>
+                android:resource="@xml/file_paths_public" />
         </provider>
     </application>
 
