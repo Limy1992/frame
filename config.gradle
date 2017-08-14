@@ -54,6 +54,7 @@ ext {
             "circleimageview"              : 'de.hdodenhof:circleimageview:2.1.0',
             //知乎图片选择器需要
             "imagezoom"                    : 'it.sephiroth.android.library.imagezoom:library:1.0.4',
+
             //裁剪
             "ucrop"                        : 'com.github.yalantis:ucrop:2.2.1',
             "multidex"                     : 'com.android.support:multidex:1.0.0'
