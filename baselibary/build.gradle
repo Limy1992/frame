@@ -67,6 +67,8 @@ dependencies {
     compile rootProject.ext.dependencies["Android-SpinKit"]
     compile rootProject.ext.dependencies["circleimageview"]
     compile 'it.sephiroth.android.library.imagezoom:library:1.0.4'
+
+    compile 'com.github.yalantis:ucrop:2.2.1'
     compile rootProject.ext.dependencies["multidex"]
     compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
 }

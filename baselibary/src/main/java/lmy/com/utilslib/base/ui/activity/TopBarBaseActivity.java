@@ -28,14 +28,20 @@ public class TopBarBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_top_bar);
         lifecycleSubject.onNext(ActivityLifeCycleEvent.CREATE);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        viewContent = (FrameLayout) findViewById(R.id.viewContent);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
+
+        initView();
+
+        setContentViews(savedInstanceState);
 
         //其他配置
         setAdditionConfigure();
 
-        setContentViews(savedInstanceState);
+    }
+
+    private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        viewContent = (FrameLayout) findViewById(R.id.viewContent);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
     }
 
     protected void setAdditionConfigure() {

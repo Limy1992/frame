@@ -33,6 +33,11 @@
         <activity android:name="lmy.com.utilslib.zhihu.internal.ui.AlbumPreviewActivity" />
         <activity android:name="lmy.com.utilslib.zhihu.internal.ui.SelectedPreviewActivity" />
 
+        <!--头像裁剪-->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="lmy.com.utilslib.glide.MyGlideModule"
             android:value="GlideModule" />

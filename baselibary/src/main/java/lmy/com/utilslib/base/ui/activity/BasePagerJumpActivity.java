@@ -137,7 +137,7 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
                 .countable(true)                    //数字叠加
                 .capture(true)                      //开启相机
                 .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))   //共享路径
-                .maxSelectable(9)                   //最大9张
+                .maxSelectable(1)                   //最大9张
 //                .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size)) //网络大小
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
