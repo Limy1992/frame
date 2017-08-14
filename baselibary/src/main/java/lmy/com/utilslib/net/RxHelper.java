@@ -47,7 +47,7 @@ public class RxHelper {
     }
 
     /**
-     * 判断recode
+     * 数据处理
      */
     public static <T> ObservableTransformer<BaseHttpResult<T>, T> handleResult(final ActivityLifeCycleEvent event, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
         return new ObservableTransformer<BaseHttpResult<T>, T>() {
@@ -56,7 +56,6 @@ public class RxHelper {
                 Observable<ActivityLifeCycleEvent> lifeCycleEventObservable = lifecycleSubject.filter(new Predicate<ActivityLifeCycleEvent>() {
                     @Override
                     public boolean test(ActivityLifeCycleEvent activityLifeCycleEvent) throws Exception {
-                        LogUtils.e("判断recode"+activityLifeCycleEvent.equals(event));
                         return activityLifeCycleEvent.equals(event);
                     }
                 });
