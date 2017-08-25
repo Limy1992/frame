@@ -3,7 +3,7 @@ package com.lmy.audio.ui.activity;
 import android.content.Intent;
 
 
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.lmy.audio.R;
 import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.UCropActivity;
 
 import java.io.File;
 import java.util.List;
@@ -22,7 +23,6 @@ import butterknife.BindView;
 
 import lmy.com.utilslib.base.ui.activity.BaseActivity;
 
-import lmy.com.utilslib.utils.BitmapUtils;
 import lmy.com.utilslib.utils.LogUtils;
 
 import lmy.com.utilslib.utils.Utils;
@@ -90,10 +90,7 @@ public class OneActivity extends BaseActivity {
                 case REQUEST_CODE_CHOOSE:
                     List<Uri> uris = Matisse.obtainResult(data);        //uri
                     List<String> list = Matisse.obtainPathResult(data); //文件绝对路径
-                    UCrop.of(Uri.fromFile(new File(list.get(0))), Uri.fromFile(new File(list.get(0))))
-                            .withAspectRatio(16, 16)
-                            .withMaxResultSize(1000, 1000)
-                            .start(this);
+                    uarOptions(list);
                     break;
                 case UCrop.REQUEST_CROP:
                     Uri resultUri = UCrop.getOutput(data);
@@ -107,5 +104,44 @@ public class OneActivity extends BaseActivity {
         if (resultCode == UCrop.RESULT_ERROR && requestCode == UCrop.REQUEST_CROP) {
             LogUtils.e("resultUri=" + UCrop.getError(data));
         }
+    }
+
+    private void uarOptions(List<String> list) {
+        UCrop.of(Uri.fromFile(new File(list.get(0))), Uri.fromFile(new File(list.get(0))))
+                .withAspectRatio(16, 16)
+                .withMaxResultSize(1000, 1000)
+                .withOptions(options())
+                .start(this);
+    }
+
+    private UCrop.Options options() {
+        UCrop.Options options = new UCrop.Options();
+        //设置titleBar颜色
+        options.setToolbarColor(getResources().getColor(R.color.colorAccent));
+        //设置状态栏颜色
+        options.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+//        //设置裁剪图片可操作的手势
+//        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
+//        //是否隐藏底部容器，默认显示
+//        options.setHideBottomControls(true);
+//        //是否能调整裁剪框
+//        options.setFreeStyleCropEnabled(true);
+//
+//        //设置最大缩放比例
+//        options.setMaxScaleMultiplier(5);
+//        //设置图片在切换比例时的动画
+//        options.setImageToCropBoundsAnimDuration(666);
+//
+//        //设置是否展示矩形裁剪框
+//        options.setShowCropFrame(false);
+//        //设置裁剪框横竖线的宽度
+//        options.setCropGridStrokeWidth(20);
+//        //设置裁剪框横竖线的颜色
+//        options.setCropGridColor(Color.GREEN);
+//        //设置竖线的数量
+//        options.setCropGridColumnCount(2);
+//        //设置横线的数量
+//        options.setCropGridRowCount(1);
+        return options;
     }
 }
