@@ -15,6 +15,7 @@ import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
+import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.utils.ToastUtils;
@@ -27,11 +28,39 @@ import lmy.com.utilslib.zhihu.internal.entity.CaptureStrategy;
 import static lmy.com.utilslib.utils.CommonManger.REQUEST_CODE_CHOOSE;
 
 /**
- * 一些公共方法和界面跳转
+ * 公共方法界面跳转 基本操作初始化
  * Created by lmy on 2017/7/5
  */
 
 public abstract class BasePagerJumpActivity extends BaseOtherActivity {
+
+    @Override
+    public void setContentViews(Bundle savedInstanceState) {
+        //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
+        LayoutInflater.from(this).inflate(getContentView(), viewContent);
+        bind = ButterKnife.bind(this);
+        //初始化设置 Toolbar
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        //设置title
+        setTitleText(setTextTitle());
+        //默认每个页面都显示左上角关闭页面图片
+        setTopLeftButton(R.drawable.ic_return_white_24dp, null);
+        //初始化操作
+        init(savedInstanceState);
+        //网络加载
+        initData();
+    }
+
+    protected abstract int getContentView();
+
+    protected abstract String setTextTitle();
+
+    protected abstract void init(Bundle savedInstanceState);
+
+    protected abstract void initData();
 
     //跳转
     public void startNextActivity(Class activity) {
@@ -106,8 +135,6 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
         });
     }
 
-    protected abstract void initData();
-
     //动态权限管理sd卡操作
     public void startAlbum() {
         final RxPermissions rxPermissions = new RxPermissions(this);
@@ -146,17 +173,4 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 
-    /**
-     * 获取文件绝对路径
-     *
-     * @param url url
-     * @return 返回文件本地真实路径
-     */
-    public String contentFile(Uri url) {
-        String[] pro = {MediaStore.Images.Media.DATA};
-        Cursor actualisation = managedQuery(url, pro, null, null, null);
-        int actual_image_column_index = actualisation.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        actualisation.moveToFirst();
-        return actualisation.getString(actual_image_column_index);
-    }
 }
