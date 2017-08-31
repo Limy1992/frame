@@ -3,7 +3,10 @@ package lmy.com.utilslib.base.ui.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Unbinder;
@@ -28,7 +31,6 @@ public class TopBarBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_top_bar);
         lifecycleSubject.onNext(ActivityLifeCycleEvent.CREATE);
-
         initView();
 
         setContentViews(savedInstanceState);
@@ -44,10 +46,14 @@ public class TopBarBaseActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
     }
 
-    protected void setAdditionConfigure() {
-    }
+    protected void setAdditionConfigure() {}
 
-    protected void setContentViews(Bundle savedInstanceState) {
+    protected void setContentViews(Bundle savedInstanceState) {}
+
+    protected View getViewStub(){
+        ViewStub tl_view_stub = (ViewStub) findViewById(R.id.tl_view_stub);
+        tl_view_stub.inflate();
+        return tl_view_stub;
     }
 
     @Override
