@@ -44,6 +44,5 @@ dependencies {
         compile project(':baselibary')
     } else {
         compile project(':shoplibary')
-        compile project(':videolibary')
     }
 }
