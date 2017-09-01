@@ -34,11 +34,16 @@ android {
 }
 
 dependencies {
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+
     compile rootProject.ext.dependencies["butterknife"]
     apt rootProject.ext.dependencies["butterknife-compiler"]
     if (rootProject.ext.isBuildApp) {
         compile project(':baselibary')
     } else {
         compile project(':shoplibary')
+        compile project(':videolibary')
     }
 }

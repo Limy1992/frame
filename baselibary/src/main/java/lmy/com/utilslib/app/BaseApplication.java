@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.tencent.smtt.sdk.QbSdk;
 
-import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
 
 /**
@@ -28,7 +27,12 @@ public class BaseApplication extends Application {
         //配置其他的初始化操作
         configureInitialization();
 
+        //内存泄漏测试
+        lackMemory();
         super.onCreate();
+    }
+
+    protected void lackMemory() {
     }
 
 

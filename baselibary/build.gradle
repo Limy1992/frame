@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-
 // 应用插件
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -30,6 +29,18 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            if (rootProject.ext.isBuildApp) {
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/release/AndroidManifest.xml'
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
 
 }
 
@@ -71,4 +82,5 @@ dependencies {
 
     compile rootProject.ext.dependencies["multidex"]
     compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
+
 }
