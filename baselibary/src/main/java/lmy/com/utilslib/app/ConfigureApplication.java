@@ -13,8 +13,9 @@ import lmy.com.utilslib.utils.Utils;
 public class ConfigureApplication extends BaseApplication {
     @Override
     public void configureInitialization() {
-
         Utils.init(this);
         Hawk.init(this).build();
+        //设置不随系统的设置字体改变
+        Utils.setToDefaults();
     }
 }

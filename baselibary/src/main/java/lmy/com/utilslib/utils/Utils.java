@@ -5,6 +5,8 @@ import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.util.DisplayMetrics;
@@ -129,6 +131,14 @@ public class Utils {
         } catch (PendingIntent.CanceledException e) {
             e.printStackTrace();
         }
+    }
+
+    // 加载系统默认设置，字体不随用户设置变化
+    public static void setToDefaults(){
+        Resources res = context.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config, res.getDisplayMetrics());
     }
 
 }
