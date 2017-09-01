@@ -138,7 +138,7 @@ public class Utils {
         Resources res = context.getResources();
         Configuration config = new Configuration();
         config.setToDefaults();
-        res.updateConfiguration(config, res.getDisplayMetrics());
+        res.updateConfiguration(config, res.getDisplayMetrics()) ;
     }
 
 }
