@@ -1,7 +1,7 @@
 package lmy.com.utilslib.bean;
 
 /**
- * retrofit网络框架请求，遵循的json格式
+ * retrofit网络框架请求
  * Created by lmy on 2017/7/11
  */
 
