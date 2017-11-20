@@ -54,28 +54,60 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
         initData();
     }
 
+    /**
+     * 获取setContentView
+     *
+     * @return view
+     */
     protected abstract int getContentView();
 
+    /**
+     * title
+     *
+     * @return title
+     */
     protected abstract String setTextTitle();
 
+    /**
+     * 初始化
+     *
+     * @param savedInstanceState 状态保存
+     */
     protected abstract void init(Bundle savedInstanceState);
 
+    /**
+     * 加载数据
+     */
     protected abstract void initData();
 
-    //跳转
+    /**
+     * 跳转
+     *
+     * @param activity activity
+     */
     public void startNextActivity(Class activity) {
         Intent intent = new Intent(Utils.getContext(), activity);
         startActivity(intent);
     }
 
-    //跳转 传值
+    /**
+     * 跳转 传值
+     *
+     * @param bundle   Bundle
+     * @param activity activity
+     */
     public void startNextActivity(Bundle bundle, Class activity) {
         Intent intent = new Intent(Utils.getContext(), activity);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    //跳转返回 回调
+    /**
+     * 跳转返回 回调
+     *
+     * @param activity    activity
+     * @param requestCode 请求码
+     */
     public void startNextActivity(Class activity, int requestCode) {
         Intent intent = new Intent(Utils.getContext(), activity);
         startActivityForResult(intent, requestCode);
@@ -104,29 +136,43 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
         return getIntent().getStringExtra(key);
     }
 
-    //网络错误页面加载
+    /**
+     * 网络错误页面加载
+     */
     public void nextErrPager() {
         View view = LayoutInflater.from(this).inflate(R.layout.activity_next_err_pager, null);
         //事件操作
         againLoadData(view);
     }
 
-    //网络错误页面加载自定义布局
+    /**
+     * 网络错误页面加载自定义布局
+     *
+     * @param layoutRes 布局
+     */
     public void nextErrPager(@LayoutRes int layoutRes) {
         View view = LayoutInflater.from(this).inflate(layoutRes, null);
         againLoadData(view);
     }
 
-    //网络错误页面加载自定义布局
+    /**
+     * 网络错误页面加载自定义布局
+     *
+     * @param view 布局
+     */
     public void nextErrPager(View view) {
         againLoadData(view);
     }
 
-    //点击重新获取
+    /**
+     * 点击重新获取
+     *
+     * @param view 布局
+     */
     private void againLoadData(final View view) {
         viewContent.addView(view);
-        TextView next_err_pager = (TextView) view.findViewById(R.id.next_err_pager);
-        next_err_pager.setOnClickListener(new View.OnClickListener() {
+        TextView nextErrPager = (TextView) view.findViewById(R.id.next_err_pager);
+        nextErrPager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewContent.removeViewInLayout(view);
@@ -135,7 +181,9 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
         });
     }
 
-    //动态权限管理sd卡操作
+    /**
+     * 动态权限管理sd卡操作
+     */
     public void startAlbum() {
         final RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.requestEach(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -156,20 +204,29 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
                 });
     }
 
-    // 开启知乎三方库相册选择器
+    /**
+     * 开启知乎三方库相册选择器
+     */
     public void startAlbumAndCamera() {
         Matisse.from(this)
-                .choose(MimeType.ofAll(), false)    //选着类型
+                //选着类型
+                .choose(MimeType.ofAll(), false)
                 .theme(R.style.Matisse_Dracula)
-                .countable(true)                    //数字叠加
-                .capture(true)                      //开启相机
-                .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))   //共享路径
-                .maxSelectable(1)                   //最大9张
+                //数字叠加
+                .countable(true)
+                //开启相机
+                .capture(true)
+                //共享路径
+                .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))
+                //最大多少张
+                .maxSelectable(1)
 //                .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size)) //网络大小
+                //网络大小
+                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .thumbnailScale(0.85f)
-                .imageEngine(new GlideEngine()) //Glide加载
+                //Glide加载
+                .imageEngine(new GlideEngine())
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 

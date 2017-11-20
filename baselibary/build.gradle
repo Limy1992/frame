@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-// 应用插件
-apply plugin: 'com.neenbedankt.android-apt'
 
 apply plugin: 'com.jakewharton.butterknife'
 android {
@@ -57,7 +55,7 @@ dependencies {
     compile rootProject.ext.dependencies["support-v4"]
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["butterknife"]
-    apt rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor  rootProject.ext.dependencies["butterknife-compiler"]
     compile rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     compile rootProject.ext.dependencies["rxjava2-rxjava"]
     compile rootProject.ext.dependencies["rxjava2-rxandroid"]
@@ -70,10 +68,10 @@ dependencies {
     compile rootProject.ext.dependencies["glide-integration"]
     compile rootProject.ext.dependencies["dagger"]
     compile rootProject.ext.dependencies["javax-annotation"]
-    apt rootProject.ext.dependencies["dagger-compiler"]
+    annotationProcessor  rootProject.ext.dependencies["dagger-compiler"]
     compile rootProject.ext.dependencies["hawk"]
     compile rootProject.ext.dependencies["activityrouter"]
-    apt rootProject.ext.dependencies["activityrouter-compiler"]
+    annotationProcessor  rootProject.ext.dependencies["activityrouter-compiler"]
     compile rootProject.ext.dependencies["rxpermissions"]
     compile rootProject.ext.dependencies["Android-SpinKit"]
     compile rootProject.ext.dependencies["circleimageview"]

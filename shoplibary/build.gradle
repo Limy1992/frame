@@ -3,8 +3,6 @@ if(rootProject.ext.isBuildApp){
 }else{
     apply plugin: 'com.android.library'
 }
-// 应用插件
-apply plugin: 'com.neenbedankt.android-apt'
 
 apply plugin: 'com.jakewharton.butterknife'
 
@@ -46,8 +44,8 @@ android {
 }
 
 dependencies {
-    apt  rootProject.ext.dependencies["activityrouter-compiler"]
-    apt  rootProject.ext.dependencies["dagger-compiler"]
-    apt  rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor   rootProject.ext.dependencies["activityrouter-compiler"]
+    annotationProcessor   rootProject.ext.dependencies["dagger-compiler"]
+    annotationProcessor   rootProject.ext.dependencies["butterknife-compiler"]
     compile project(':baselibary')
 }

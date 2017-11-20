@@ -97,6 +97,8 @@ public class OneActivity extends BaseActivity {
                     LogUtils.e("resultUri=" + resultUri);
                     Glide.with(this).load(resultUri).into(oneLv);
                     break;
+                default:
+                    break;
             }
         }
 
