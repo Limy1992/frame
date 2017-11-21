@@ -41,6 +41,7 @@ android {
         }
     }
     resourcePrefix "shop_"
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {

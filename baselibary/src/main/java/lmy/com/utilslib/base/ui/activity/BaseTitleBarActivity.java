@@ -9,6 +9,7 @@ import lmy.com.utilslib.R;
 /**
  * titleBar标题
  * Created by lmy on 2017/8/10
+ * @author lmy
  */
 
 public class BaseTitleBarActivity extends TopBarBaseActivity {

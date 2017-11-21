@@ -9,6 +9,7 @@ import lmy.com.utilslib.R;
 /**
  * 其他子类activity继承BaseActivity
  * Created by lmy on 2017/7/25
+ * @author lmy
  */
 
 public abstract class BaseActivity extends BasePagerJumpActivity {

@@ -17,6 +17,7 @@ import lmy.com.utilslib.net.ActivityLifeCycleEvent;
 /**
  * Activity基类
  * Created by Matthew_Chen on 2017/4/14.
+ * @author lmy
  */
 
 public class TopBarBaseActivity extends AppCompatActivity {
@@ -41,9 +42,9 @@ public class TopBarBaseActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        viewContent = (FrameLayout) findViewById(R.id.viewContent);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        toolbar = findViewById(R.id.toolbar);
+        viewContent = findViewById(R.id.viewContent);
+        tvTitle =  findViewById(R.id.tvTitle);
     }
 
     protected void setAdditionConfigure() {}
@@ -51,9 +52,9 @@ public class TopBarBaseActivity extends AppCompatActivity {
     protected void setContentViews(Bundle savedInstanceState) {}
 
     protected View getViewStub(){
-        ViewStub tl_view_stub = (ViewStub) findViewById(R.id.tl_view_stub);
-        tl_view_stub.inflate();
-        return tl_view_stub;
+        ViewStub tlViewStub = findViewById(R.id.tl_view_stub);
+        tlViewStub.inflate();
+        return tlViewStub;
     }
 
     @Override

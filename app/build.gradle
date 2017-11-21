@@ -14,7 +14,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,15 +30,14 @@ android {
         }
 
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-
     compile rootProject.ext.dependencies["butterknife"]
-    annotationProcessor  rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     if (rootProject.ext.isBuildApp) {
         compile project(':baselibary')
     } else {

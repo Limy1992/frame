@@ -30,6 +30,7 @@ import static lmy.com.utilslib.utils.CommonManger.REQUEST_CODE_CHOOSE;
 /**
  * 公共方法界面跳转 基本操作初始化
  * Created by lmy on 2017/7/5
+ * @author lmy
  */
 
 public abstract class BasePagerJumpActivity extends BaseOtherActivity {
