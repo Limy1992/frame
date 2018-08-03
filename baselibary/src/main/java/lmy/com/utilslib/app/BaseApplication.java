@@ -1,60 +1,92 @@
 package lmy.com.utilslib.app;
 
 import android.app.Application;
-import android.os.Process;
-import android.util.Log;
+import android.content.Intent;
+import android.content.res.Configuration;
 
-import com.tencent.smtt.sdk.QbSdk;
+import com.orhanobut.hawk.Hawk;
+import java.util.Map;
 
+import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
 
-/**
- * Application 基类
- * Created by lmy on 2017/7/14
- */
+public class BaseApplication extends ConfigureApplication {
 
-public class BaseApplication extends Application {
+    //    private static DaoSession daoSession;
+    public static final boolean APP_DEBUG = true;
+
+    public BaseApplication(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
+    }
+
     @Override
-    public void onCreate() {
-        String processName = Utils.getProcessName(this, Process.myPid());
-        if (processName != null) {
-            if (!processName.equals(getPackageName())) {
-                return;
-            }
-        }
-
-        webView();
-        //配置其他的初始化操作
-        configureInitialization();
-
-        //内存泄漏测试
-        lackMemory();
-        super.onCreate();
+    protected void initApplication() {
     }
 
-    protected void lackMemory() {
-    }
-
-
-    private void webView() {
-        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-
-        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
-
-            @Override
-            public void onViewInitFinished(boolean arg0) {
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.d("app", " onViewInitFinished is " + arg0);
-            }
-
-            @Override
-            public void onCoreInitFinished() {
-            }
-        };
-        //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(), cb);
-    }
-
+    @Override
     public void configureInitialization() {
+
+        Utils.init(getApplication());
+        Hawk.init(getApplication()).build();
+
+        //Glide加载轮播图需要，在ids.xml也要写东西
+//        ViewTarget.setTagId(R.id.tag_glide);
+        //配置数据库
+        setupDatabase();
+        //设置不随系统的设置字体改变
+        Utils.setToDefaults();
+        initFrame();
+    }
+
+
+    protected void initFrame() {
+
+    }
+
+    /**
+     * 配置数据库
+     */
+    private void setupDatabase() {
+//        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(getApplication(), "audio.db", null);
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        Database db = helper.getEncryptedWritableDb("dancer_b");
+//        DaoMaster daoMaster = new DaoMaster(db);
+//        daoSession = daoMaster.newSession();
+
+//        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "audio.db", null);
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        DaoMaster daoMaster = new DaoMaster(db);
+//        daoSession = daoMaster.newSession();
+    }
+
+//    public static DaoSession getDaoInstant() {
+//        return daoSession;
+//    }
+
+    @Override
+    public void onTerminate() {
+        // 程序终止的时候执行
+        LogUtils.d("onTerminate");
+        super.onTerminate();
+    }
+
+    @Override
+    public void onLowMemory() {
+        // 低内存的时候执行
+        LogUtils.d("onLowMemory");
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        // 程序在内存清理的时候执行
+        LogUtils.d("onTrimMemory");
+        super.onTrimMemory(level);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        LogUtils.d("onConfigurationChanged");
+        super.onConfigurationChanged(newConfig);
     }
 }

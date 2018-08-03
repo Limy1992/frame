@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
+ * 自定首页控件类
  * Created by lmy on 2017/7/6
  */
 

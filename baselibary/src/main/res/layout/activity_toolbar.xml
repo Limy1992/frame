@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
+   >
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@android:color/white" />
-
-    <!--如果某个页面title中间不是文本,其他布局,使用ViewStub-->
-    <ViewStub
-        android:id="@+id/tl_view_stub"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
+        android:background="@color/v3_app_new">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="200dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black" />
+
+        <!--如果某个页面title中间不是文本,其他布局,使用ViewStub-->
+        <ViewStub
+            android:layout_marginRight="20dp"
+            android:id="@+id/tl_view_stub"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+    </android.support.v7.widget.Toolbar>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/v3_view"
         />
 
-</android.support.v7.widget.Toolbar>
+
+</LinearLayout>

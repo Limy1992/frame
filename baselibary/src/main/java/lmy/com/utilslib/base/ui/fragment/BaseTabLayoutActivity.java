@@ -3,6 +3,7 @@ package lmy.com.utilslib.base.ui.fragment;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 
 import java.util.List;
@@ -12,7 +13,7 @@ import lmy.com.utilslib.R;
 import lmy.com.utilslib.R2;
 import lmy.com.utilslib.adapter.TabLayoutAdapter;
 
-import lmy.com.utilslib.base.ui.activity.BaseActivity;
+import lmy.com.utilslib.base.ui.activity.BaseTitleActivity;
 import lmy.com.utilslib.bean.TabLayoutBean;
 
 /**
@@ -20,7 +21,7 @@ import lmy.com.utilslib.bean.TabLayoutBean;
  * Created by lmy on 2017/7/12
  */
 
-public abstract class BaseTabLayoutActivity extends BaseActivity {
+public abstract class BaseTabLayoutActivity extends BaseTitleActivity {
 
     @BindView(R2.id.base_tab_layout)
     TabLayout baseTabLayout;
@@ -47,6 +48,10 @@ public abstract class BaseTabLayoutActivity extends BaseActivity {
         baseTabLayout.setupWithViewPager(baseViewPager);
     }
 
+//    public void setBarColor(){
+//        StatusBarColorUtil.setActivityTranslucent(this);
+//        toolbar.setVisibility(View.GONE);
+//    }
     private List<TabLayoutBean> addFragmentAndTitle() {
         return getTabLayouts();
     }

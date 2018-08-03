@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -30,17 +29,11 @@ android {
         }
 
     }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    compile rootProject.ext.dependencies["butterknife"]
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-    if (rootProject.ext.isBuildApp) {
-        compile project(':baselibary')
-    } else {
-        compile project(':shoplibary')
-    }
+    compile project(':baselibary')
 }

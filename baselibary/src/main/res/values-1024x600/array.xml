@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<declare-styleable name="CircleImageView">-->
+        <!--<attr name="border_width" format="dimension" />-->
+        <!--<attr name="border_color" format="color" />-->
+    <!--</declare-styleable>-->
+
+
+    <!--&lt;!&ndash;s三级联动&ndash;&gt;-->
+    <!--<declare-styleable name="NumberPicker">-->
+        <!--<attr name="normalTextColor" format="color" />-->
+        <!--<attr name="normalTextSize" format="dimension" />-->
+        <!--<attr name="selecredTextColor" format="color" />-->
+        <!--<attr name="selecredTextSize" format="dimension" />-->
+        <!--<attr name="unitHight" format="dimension" />-->
+        <!--<attr name="itemNumber" format="integer" />-->
+        <!--<attr name="lineColor" format="color" />-->
+        <!--<attr name="maskHight" format="dimension" />-->
+        <!--<attr name="noEmpty" format="boolean" />-->
+        <!--<attr name="isEnable" format="boolean" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="ActionBar">-->
+        <!--<attr name="title" format="string" localization="suggested" />-->
+    <!--</declare-styleable>-->
+    <!--<declare-styleable name="board_column">-->
+        <!--<attr name="column" format="integer" localization="suggested" />-->
+    <!--</declare-styleable>-->
+
+
+    <!--<declare-styleable name="MainNavigateTabBar">-->
+        <!--<attr name="navigateTabTextColor" format="color|reference" />-->
+        <!--<attr name="navigateTabSelectedTextColor" format="color|reference" />-->
+        <!--<attr name="containerId" format="integer|reference" />-->
+        <!--<attr name="navigateTabTextSize" format="dimension|reference" />-->
+    <!--</declare-styleable>-->
+
+    <!--&lt;!&ndash;flow布局自定义属性&ndash;&gt;-->
+    <!--<declare-styleable name="TagFlowLayout">-->
+        <!--<attr name="auto_select_effect" format="boolean" />-->
+        <!--<attr name="max_select" format="integer" />-->
+        <!--<attr name="gravity">-->
+            <!--<enum name="left" value="-1" />-->
+            <!--<enum name="center" value="0" />-->
+            <!--<enum name="right" value="1" />-->
+        <!--</attr>-->
+    <!--</declare-styleable>-->
+    <!--&lt;!&ndash;仿淘宝抢购动画&ndash;&gt;-->
+    <!--<declare-styleable name="SaleProgressView">-->
+        <!--<attr name="sideColor" format="color" />-->
+        <!--<attr name="textColor" format="color" />-->
+        <!--<attr name="sideWidth" format="dimension" />-->
+        <!--<attr name="overText" format="string" />-->
+        <!--<attr name="nearOverText" format="string" />-->
+        <!--<attr name="textsize" format="dimension" />-->
+        <!--<attr name="isNeedAnim" format="boolean" />-->
+    <!--</declare-styleable>-->
+
+    <!--&lt;!&ndash;倒计时&ndash;&gt;-->
+    <!--<declare-styleable name="EasyCountDownTextureView">-->
+        <!--<attr name="easyCountRectWidth" format="dimension" />-->
+        <!--<attr name="easyCountRectHeight" format="dimension" />-->
+        <!--<attr name="easyCountRectRadius" format="dimension" />-->
+        <!--<attr name="easyCountRectBorderSize" format="dimension" />-->
+        <!--<attr name="easyCountRectBorderColor" format="color" />-->
+        <!--<attr name="easyCountRectBorderStroke" format="dimension" />-->
+        <!--<attr name="easyCountRectSpacing" format="dimension" />-->
+        <!--<attr name="easyCountTimeColor" format="color" />-->
+        <!--<attr name="easyCountTimeSize" format="dimension" />-->
+        <!--<attr name="easyCountTimeStroke" format="dimension" />-->
+        <!--<attr name="easyCountColonColor" format="color" />-->
+        <!--<attr name="easyCountColonSize" format="dimension" />-->
+        <!--<attr name="easyCountColonStroke" format="dimension" />-->
+        <!--<attr name="easyCountBackgroundColor" format="color" />-->
+        <!--<attr name="easyCountHour" format="integer" />-->
+        <!--<attr name="easyCountMinute" format="integer" />-->
+        <!--<attr name="easyCountSecond" format="integer" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="pickerview">-->
+        <!--<attr name="pickerview_gravity">-->
+            <!--<enum name="center" value="17"/>-->
+            <!--<enum name="left" value="3"/>-->
+            <!--<enum name="right" value="5"/>-->
+        <!--</attr>-->
+        <!--<attr name="pickerview_textSize" format="dimension"/>-->
+        <!--<attr name="pickerview_textColorOut" format="color"/>-->
+        <!--<attr name="pickerview_textColorCenter" format="color"/>-->
+        <!--<attr name="pickerview_dividerColor" format="color"/>-->
+        <!--<attr name="pickerview_lineSpacingMultiplier" format="float"/>-->
+        <!--<attr name="pickerview_isLoop" format="boolean"/>-->
+        <!--<attr name="pickerview_initPosition" format="integer"/>-->
+        <!--<attr name="pickerview_visibleItemCount" format="integer"/>-->
+    <!--</declare-styleable>-->
+
+</resources>

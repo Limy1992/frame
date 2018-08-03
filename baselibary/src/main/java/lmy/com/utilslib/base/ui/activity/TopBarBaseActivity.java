@@ -1,71 +1,87 @@
 package lmy.com.utilslib.base.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.Unbinder;
 import io.reactivex.subjects.PublishSubject;
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.net.ActivityLifeCycleEvent;
+import lmy.com.utilslib.utils.LogUtils;
 
 /**
  * Activity基类
  * Created by Matthew_Chen on 2017/4/14.
+ *
  * @author lmy
  */
 
-public class TopBarBaseActivity extends AppCompatActivity {
-    public final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject = PublishSubject.create();
+public class TopBarBaseActivity extends RxAppCompatActivity {
     public Toolbar toolbar;
     public FrameLayout viewContent;
     public TextView tvTitle;
     public Unbinder bind;
+    public Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setNotTitle();
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(R.layout.activity_base_top_bar);
-        lifecycleSubject.onNext(ActivityLifeCycleEvent.CREATE);
+        //loadViewStub
+        initViewStub();
         initView();
-
         setContentViews(savedInstanceState);
-
         //其他配置
         setAdditionConfigure();
 
     }
 
-    private void initView() {
-        toolbar = findViewById(R.id.toolbar);
-        viewContent = findViewById(R.id.viewContent);
-        tvTitle =  findViewById(R.id.tvTitle);
+    protected void setNotTitle() {
+
     }
 
-    protected void setAdditionConfigure() {}
+    protected void initViewStub() {
+    }
 
-    protected void setContentViews(Bundle savedInstanceState) {}
+    private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        viewContent = (FrameLayout) findViewById(R.id.viewContent);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+    }
 
-    protected View getViewStub(){
-        ViewStub tlViewStub = findViewById(R.id.tl_view_stub);
-        tlViewStub.inflate();
-        return tlViewStub;
+    protected void setAdditionConfigure() {
+    }
+
+    protected void setContentViews(Bundle savedInstanceState) {
+    }
+
+    protected ViewStub getViewStub() {
+        return (ViewStub) findViewById(R.id.tl_view_stub);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
-        lifecycleSubject.onNext(ActivityLifeCycleEvent.PAUSE);
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        lifecycleSubject.onNext(ActivityLifeCycleEvent.STOP);
         super.onStop();
     }
 
@@ -73,9 +89,18 @@ public class TopBarBaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();
-        lifecycleSubject.onNext(ActivityLifeCycleEvent.DESTROY);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    /**分享或者登陆回调*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
 
 

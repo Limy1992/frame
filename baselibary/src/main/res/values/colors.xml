@@ -1,10 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF4081</color>
-    <color name="colorPrimaryDark">#FF4081</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--<color name="basePrimary">#28B3B3</color>-->
+    <!--<color name="basePrimaryDark">#28B3B3</color>-->
+    <!--<color name="baseAccent">#28B3B3</color>-->
+    <color name="colorAccent">#FF5250</color>
+    <color name="app_them_color">#FF5250</color>
+
+    <color name="layout_bg_gray">#f4f4f4</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_bcbcbc">#BCBCBC</color>
+    <color name="color_c2cee0">#C2CEE0</color>
+    <color name="color_fff1f1">#FFF1F1</color>
+    <color name="color_a5a5a5">#A5A5A5</color>
+    <color name="color_f9f9f9">#F9F9F9</color>
+    <color name="color_66C270">#66C270</color>
+    <color name="color_f3f3f3">#F3F3F3</color>
+
+
+
+
+    <color name="book_normal_text_color">#fff1f1f1</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="trip_detail_fee_jisuangongshi">#f6f6f6</color>
+    <color name="whats_on_separator">#4d000000</color>
+    <color name="awesome_gray">#434155</color>
+
+
+
+
+    <color name="v3_app_new">#ffffff</color>
 
     <color name="preview_bottom_toolbar_bg">#CC000000</color>
     <color name="preview_bottom_size">#61FFFFFF</color>
 
+    <color name="rea">#ff00</color>
+
+    <!--v3版-->
+    <color name="v3_app">#28B3B3</color>
+    <color name="v3_transparent">#00000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="v3_white">#ffffff</color>
+    <color name="v3_music_name_item">#151515</color>
+    <color name="v3_black">#333333</color>
+    <color name="v3_music_name">#12FFFD</color>
+    <color name="v3_search_text">#00003B</color>
+
+    <color name="v3_title">#028d8c</color>
+    <color name="v3_hui">#999999</color>
+    <color name="v3_hui_96">#96999999</color>
+    <color name="v3_et_hint">#80D1D0</color>
+    <color name="v3_login_kuang">#FF5250</color>
+
+    <color name="v3_music_home">#148A89</color>
+    <color name="v3_country_search">#FFF3F3F3</color>
+    <color name="v3_long">#00A6A4</color>
+    <color name="v3_pl_kuang_color">#FF028E8D</color>
+    <color name="v3_pl_back_1">#FF999999</color>
+
+    <color name="v3_view">#DDDDDD</color>
+    <color name="v3_view_f7">#f7f7f7</color>
+
+
+
+    <color name="v3_pl_tab">#146362</color>
+    <color name="v3_back4">#FF666666</color>
+    <color name="v3_f3">#F3F3F2</color>
+    
+    
+    
+    
+    
+    
+    
+    
+    <color name="color_4E8CEE">#4E8CEE</color>
+    
+    
+    
+    
+    
+    
 </resources>

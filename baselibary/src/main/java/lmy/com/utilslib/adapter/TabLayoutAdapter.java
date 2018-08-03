@@ -29,7 +29,7 @@ public class TabLayoutAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return listFragment.size() == 0 ? 0 : listFragment.size();
+        return listFragment.size();
     }
 
     @Override

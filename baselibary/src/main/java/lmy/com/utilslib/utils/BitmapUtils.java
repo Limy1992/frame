@@ -3,6 +3,8 @@ package lmy.com.utilslib.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * 图片采样压缩
  * Created by LMY on 2017/8/6.
@@ -40,5 +42,15 @@ public class BitmapUtils {
         }
         return inSampleSize;
 
+    }
+
+    /**
+     * bitMap转字节
+     * @param bitmap 图片
+     */
+    public static byte[] bitMapToByte(Bitmap bitmap){
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bo);
+        return bo.toByteArray();
     }
 }

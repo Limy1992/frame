@@ -1,6 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.jakewharton.butterknife'
+
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -13,12 +18,18 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        //5.0下支持svg
+        vectorDrawables.useSupportLibrary = true
+
         ndk {
             //设置支持的SO库架构
-            abiFilters "armeabi", "armeabi-v7a", 'arm64-v8a' , 'x86',
-                    'armeabi-v8a'
+            abiFilters "armeabi", "armeabi-v7a"
+//            'x86'
+//                        "rm64-v8a"
+//                    'armeabi-v8a'
         }
 
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -40,46 +51,69 @@ android {
         }
     }
 
-    buildToolsVersion '26.0.2'
+    //greendao配置
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+    }
 }
 
 dependencies {
-
-    compile 'com.android.support.test:runner:0.5'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //rxLifecycle
+    api "com.trello.rxlifecycle2:rxlifecycle:$rxlifecycle2_version"
+    api "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle2_version"
+    //liveData
+    api "android.arch.lifecycle:extensions:$liveData_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$liveData_version"
+    //知乎图片选择器
+    api "com.zhihu.android:matisse:$zhiHu_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.android.support.test:runner:1.0.2'
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile rootProject.ext.dependencies["constraint-layout"]
-    compile rootProject.ext.dependencies["support-design"]
-    compile rootProject.ext.dependencies["support-v4"]
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["butterknife"]
-    annotationProcessor  rootProject.ext.dependencies["butterknife-compiler"]
-    compile rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
-    compile rootProject.ext.dependencies["rxjava2-rxjava"]
-    compile rootProject.ext.dependencies["rxjava2-rxandroid"]
-    compile rootProject.ext.dependencies["retrofit2-retrofit"]
-    compile rootProject.ext.dependencies["retrofit2-converter-gson"]
-    compile rootProject.ext.dependencies["retrofit2-rxjava2-adapter"]
-    compile rootProject.ext.dependencies["retrofit2-rxjava2-adapter"]
-    compile rootProject.ext.dependencies["okhttp3-okhttp"]
-    compile rootProject.ext.dependencies["glide"]
-    compile rootProject.ext.dependencies["glide-integration"]
-    compile rootProject.ext.dependencies["dagger"]
-    compile rootProject.ext.dependencies["javax-annotation"]
-    annotationProcessor  rootProject.ext.dependencies["dagger-compiler"]
-    compile rootProject.ext.dependencies["hawk"]
-    compile rootProject.ext.dependencies["activityrouter"]
-    annotationProcessor  rootProject.ext.dependencies["activityrouter-compiler"]
-    compile rootProject.ext.dependencies["rxpermissions"]
-    compile rootProject.ext.dependencies["Android-SpinKit"]
-    compile rootProject.ext.dependencies["circleimageview"]
-    compile rootProject.ext.dependencies["imagezoom"]
-    compile rootProject.ext.dependencies["ucrop"]
-
-    compile rootProject.ext.dependencies["multidex"]
-    compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
-
+    testImplementation 'junit:junit:4.12'
+    api 'com.google.code.gson:gson:2.8.1'
+    //ORM数据库
+    api 'org.greenrobot:greendao:3.2.0'
+    api rootProject.ext.dependencies["GreenDaoUpgradeHelper"]
+    api 'com.youth.banner:banner:1.4.10'
+    api rootProject.ext.dependencies["constraint-layout"]
+    api rootProject.ext.dependencies["support-design"]
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["cardview"]
+    api rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    api rootProject.ext.dependencies["rxjava2-rxjava"]
+    api rootProject.ext.dependencies["rxjava2-rxandroid"]
+    api rootProject.ext.dependencies["retrofit2-retrofit"]
+    api rootProject.ext.dependencies["retrofit2-converter-gson"]
+    api rootProject.ext.dependencies["retrofit2-rxjava2-adapter"]
+    api rootProject.ext.dependencies["retrofit2-rxjava2-adapter"]
+    api rootProject.ext.dependencies["okhttp3-okhttp"]
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["glide-integration"]
+    //    compile rootProject.ext.dependencies["dagger"]
+    //    compile rootProject.ext.dependencies["javax-annotation"]
+    //    annotationProcessor  rootProject.ext.dependencies["dagger-compiler"]
+    api rootProject.ext.dependencies["hawk"]
+    api rootProject.ext.dependencies["activityrouter"]
+    annotationProcessor rootProject.ext.dependencies["activityrouter-compiler"]
+    api rootProject.ext.dependencies["rxpermissions"]
+    api rootProject.ext.dependencies["Android-SpinKit"]
+    api rootProject.ext.dependencies["circleimageview"]
+    api rootProject.ext.dependencies["imagezoom"]
+    api rootProject.ext.dependencies["ucrop"]
+    api rootProject.ext.dependencies["multidex"]
+    //tinker热修复------------------------------------
+    api 'com.tencent.bugly:crashreport_upgrade:1.3.4'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+    api 'com.tencent.bugly:nativecrashreport:latest.release'
+    //facebook android程序调试
+    api 'com.facebook.stetho:stetho:1.5.0'
+    api 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    api files('lib/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
 }

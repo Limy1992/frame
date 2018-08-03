@@ -1,12 +1,14 @@
 package lmy.com.utilslib.bean;
 
 /**
- * retrofit网络框架请求
+ * retrofit网络框架请求 java后端返回的固定json格式
  * Created by lmy on 2017/7/11
+ *
+ * @author lmy
  */
 
 public class BaseHttpResult<T> {
-    public String message;
-    public int rcode;
-    public T list;              //T 任意类型，对象或者集合
+    public String msg;
+    public int code;
+    public T content;
 }

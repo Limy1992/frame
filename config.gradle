@@ -1,18 +1,18 @@
 ext {
-    isBuildApp = false;//false:作为Lib组件存在， true:作为application存在
+    isBuildApp = false//false:作为Lib组件存在， true:作为application存在
     android = [
-            compileSdkVersion: 26,
-            buildToolsVersion: '26.0.2',
-            applicationId    : "com.lmy.audio",
-            minSdkVersion    : 15,
+            compileSdkVersion: 27,
+            buildToolsVersion: '26.0.3',
+            applicationId    : "com.bluedancer.bluedancer",
+            minSdkVersion    : 17,
             targetSdkVersion : 26,
             versionCode      : 1,
-            versionName      : "1.0"
+            versionName      : "1.0.0"
 
     ]
 
     dependVersion = [
-            support                      : "27.0.0",
+            support                      : "27.1.1",
             constraint                   : "1.0.2",
             butterknife                  : "8.5.1",
             BaseRecyclerViewAdapterHelper: "2.9.22",
@@ -28,6 +28,7 @@ ext {
             "appcompat-v7"                 : "com.android.support:appcompat-v7:${dependVersion.support}",
             "support-design"               : "com.android.support:design:${dependVersion.support}",
             "constraint-layout"            : "com.android.support.constraint:constraint-layout:${dependVersion.constraint}",
+            "cardview"                     : "com.android.support:cardview-v7:${dependVersion.support}",
 
             //黄油刀注解
             "butterknife"                  : "com.jakewharton:butterknife:${dependVersion.butterknife}",
@@ -66,6 +67,11 @@ ext {
             "circleimageview"              : "de.hdodenhof:circleimageview:2.1.0",
             //知乎图片选择器需要
             "imagezoom"                    : "it.sephiroth.android.library.imagezoom:library:1.0.4",
+
+            //数据库升级辅助类
+            "GreenDaoUpgradeHelper"        : "com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.0.0",
+
+
 
             //裁剪
             "ucrop"                        : "com.github.yalantis:ucrop:2.2.1",

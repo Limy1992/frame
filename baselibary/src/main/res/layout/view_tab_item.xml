@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/viewTabView"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="?android:selectableItemBackground"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/ivIcon"
-        android:layout_weight="1"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_weight="1"
-        android:gravity="center"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="首页"/>
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="2dp"
+            android:id="@+id/button_red"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/a_r_rea_bg" />
+    </FrameLayout>
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="首页"
+        android:textSize="12sp" />
 
 </LinearLayout>

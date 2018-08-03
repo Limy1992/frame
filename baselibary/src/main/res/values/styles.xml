@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--App主题-->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">]
+    </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:textAllCaps">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+    </style>
+
+    <!--pop从上往下弹窗动画-->
+    <style name="AnimDown" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/push_scale_out</item>
     </style>
 
     <!-- loading 样式 -->
@@ -18,70 +36,127 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <!--知乎-->
-    <style name="Matisse.Zhihu" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/zhihu_primary</item>
-        <item name="colorPrimaryDark">@color/zhihu_primary_dark</item>
-        <item name="toolbar">@style/Toolbar.Zhihu</item>
-        <item name="album.dropdown.title.color">@color/zhihu_album_dropdown_title_text</item>
-        <item name="album.dropdown.count.color">@color/zhihu_album_dropdown_count_text</item>
-        <item name="album.element.color">@android:color/white</item>
-        <item name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder</item>
-        <item name="album.emptyView">@drawable/ic_empty_zhihu</item>
-        <item name="album.emptyView.textColor">@color/zhihu_album_empty_view</item>
-        <item name="item.placeholder">@color/zhihu_item_placeholder</item>
-        <item name="item.checkCircle.backgroundColor">@color/zhihu_item_checkCircle_backgroundColor</item>
-        <item name="item.checkCircle.borderColor">@color/zhihu_item_checkCircle_borderColor</item>
-        <item name="page.bg">@color/zhihu_page_bg</item>
-        <item name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</item>
-        <item name="bottomToolbar.preview.textColor">@color/zhihu_bottom_toolbar_preview</item>
-        <item name="bottomToolbar.apply.textColor">@color/zhihu_bottom_toolbar_apply</item>
-        <item name="preview.bottomToolbar.back.textColor">@color/zhihu_preview_bottom_toolbar_back_text</item>
-        <item name="preview.bottomToolbar.apply.textColor">@color/zhihu_preview_bottom_toolbar_apply</item>
-        <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
-        <item name="capture.textColor">@color/zhihu_capture</item>
+    <!-- 下载进度条样式 -->
+    <style name="InitProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <!-- 最大高度50dp，最小高度10dp，进度值确定，Drawable样式文件引用 -->
+        <item name="android:maxHeight">50dp</item>
+        <item name="android:minHeight">3dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/seek_bar_progress_music_style</item>
     </style>
 
-    <style name="Toolbar.Zhihu" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-
+    <!--登录的tablayout中的textview-->
+    <style name="LoginTabLayoutTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">1dp</item>
     </style>
 
-    <style name="Popup.Zhihu" parent="Widget.AppCompat.Light.ListPopupWindow">
-        <item name="android:popupBackground">@color/zhihu_album_popup_bg</item>
+    <!--dialog-->
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
     </style>
 
-    //===================================== Theme Dracula ==========================================
-
-    <style name="Matisse.Dracula" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/dracula_primary</item>
-        <item name="colorPrimaryDark">@color/dracula_primary_dark</item>
-        <item name="toolbar">@style/Toolbar.Dracula</item>
-        <item name="album.dropdown.title.color">@color/dracula_album_dropdown_title_text</item>
-        <item name="album.dropdown.count.color">@color/dracula_album_dropdown_count_text</item>
-        <item name="album.element.color">@android:color/white</item>
-        <item name="album.thumbnail.placeholder">@color/dracula_album_dropdown_thumbnail_placeholder</item>
-        <item name="album.emptyView">@drawable/ic_empty_dracula</item>
-        <item name="album.emptyView.textColor">@color/dracula_album_empty_view</item>
-        <item name="item.placeholder">@color/dracula_item_placeholder</item>
-        <item name="item.checkCircle.backgroundColor">@color/dracula_item_checkCircle_backgroundColor</item>
-        <item name="item.checkCircle.borderColor">@color/dracula_item_checkCircle_borderColor</item>
-        <item name="page.bg">@color/dracula_page_bg</item>
-        <item name="bottomToolbar.bg">@color/dracula_bottom_toolbar_bg</item>
-        <item name="bottomToolbar.preview.textColor">@color/dracula_bottom_toolbar_preview</item>
-        <item name="bottomToolbar.apply.textColor">@color/dracula_bottom_toolbar_apply</item>
-        <item name="preview.bottomToolbar.back.textColor">@color/dracula_preview_bottom_toolbar_back_text</item>
-        <item name="preview.bottomToolbar.apply.textColor">@color/dracula_preview_bottom_toolbar_apply</item>
-        <item name="android:listPopupWindowStyle">@style/Popup.Dracula</item>
-        <item name="listPopupWindowStyle">@style/Popup.Dracula</item>
-        <item name="capture.textColor">@color/dracula_capture</item>
+    <!--dialogBigImage-->
+    <style name="DialogBigImage" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
     </style>
 
-    <style name="Toolbar.Dracula" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-
+    <!--View下划线-->
+    <style name="AppViewLine">
+        <item name="android:background">#f5f5f5</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="Popup.Dracula" parent="Widget.AppCompat.ListPopupWindow">
-        <item name="android:popupBackground">@color/dracula_album_popup_bg</item>
+    <!--加载webView进度条-->
+    <style name="web_progress_bar_style">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/web_progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:minHeight">2dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:mirrorForRtl">true</item>
     </style>
+
+
+    <!-- 底部进出动画对话框 -->
+    <style name="ActionSheetDialogStyle" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
+
+
+    <!--dialog-->
+    <style name="DialogShape" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@style/ShapeDialogAnimation</item>
+    </style>
+
+    <!-- 底部进出动画 -->
+    <style name="ActionSheetDialogAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <!-- 顶部进出动画 -->
+    <style name="ActionTopDialogAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_top</item>
+    </style>
+
+    <!-- 透明动画 -->
+    <style name="ShapeDialogAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_anim_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_anim_exit</item>
+    </style>
+
+    <!--时间选择器设置-->
+    <style name="date_dialog" parent="android:Theme.Holo.Light">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!-- 地址选择对话框 -->
+    <style name="transparentWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- 地址选择对话框动画 -->
+    <style name="windowAnimationStyle" parent="android:Animation">
+        <!-- 进入时的动画 -->
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <!-- 退出时的动画 -->
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <!--小星星样式-->
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bg</item>
+        <item name="android:minHeight">11dp</item>
+        <item name="android:maxHeight">11dp</item>
+    </style>
+
 
 </resources>

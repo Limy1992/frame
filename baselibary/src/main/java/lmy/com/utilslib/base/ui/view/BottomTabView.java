@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import lmy.com.utilslib.R;
+import lmy.com.utilslib.utils.LogUtils;
 
 
 /**
@@ -23,6 +24,11 @@ import lmy.com.utilslib.R;
  */
 
 public class BottomTabView extends LinearLayout {
+
+    /**
+     * 默认选中位置
+     */
+    public static final int SELECT_POSITION = 2;
 
     /**
      * 记录最新的选择位置
@@ -35,14 +41,14 @@ public class BottomTabView extends LinearLayout {
     private List<TabItemView> tabItemViews;
     private OnViewPagerListener mOnViewPagerListener;
     private OnTabItemSelectListener onTabItemSelectListener;
-    private OnSecondSelectListener onSecondSelectListener;
+//    private OnSecondSelectListener onSecondSelectListener;
 
     public BottomTabView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public BottomTabView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
 
@@ -64,7 +70,10 @@ public class BottomTabView extends LinearLayout {
 
             @Override
             public void onPageSelected(int position) {
-                mOnViewPagerListener.onPosition(position);
+                LogUtils.d("bottomView Pager");
+                if (mOnViewPagerListener != null) {
+                    mOnViewPagerListener.onPosition(position);
+                }
                 updatePosition(position);
             }
 
@@ -118,20 +127,13 @@ public class BottomTabView extends LinearLayout {
             tabItemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     if (finalI == lastPosition) {
                         // 第二次点击
-                        if (onSecondSelectListener != null) {
-                            onSecondSelectListener.onSecondSelect(finalI);
-                        }
                         return;
                     }
 
+                    //更新选中状态
                     updatePosition(finalI);
-
-                    if (onTabItemSelectListener != null) {
-                        onTabItemSelectListener.onTabItemSelect(finalI);
-                    }
                 }
             });
         }
@@ -146,7 +148,7 @@ public class BottomTabView extends LinearLayout {
         /**
          * 默认状态选择第一个
          */
-        updatePosition(0);
+        updatePosition(SELECT_POSITION);
     }
 
     /**
@@ -154,11 +156,16 @@ public class BottomTabView extends LinearLayout {
      * 恢复上一个 Tab Item 的状态
      */
     public void updatePosition(int position) {
+
         if (lastPosition != position) {
             if (tabItemViews != null && tabItemViews.size() != 0) {
                 tabItemViews.get(position).setStatus(TabItemView.PRESS);
                 if (lastPosition != -1) {
                     tabItemViews.get(lastPosition).setStatus(TabItemView.DEFAULT);
+                }
+                if (onTabItemSelectListener != null) {
+                    //切换页面
+                    onTabItemSelectListener.onTabItemSelect(position);
                 }
                 lastPosition = position;
             } else {
@@ -167,15 +174,39 @@ public class BottomTabView extends LinearLayout {
         }
     }
 
+    /**
+     * 是否显示小红点
+     *
+     * @param isFlag true显示
+     */
+    public void isShowRed(boolean isFlag) {
+        //获取第几个icon显示小红点
+        tabItemViews.get(0).setRedIsShow(isFlag);
+    }
+
+    /**
+     * 根据要求动态改变首页的icon
+     */
+    public void setChangeImage(int pagerPosition,int imageNo, int imageSe) {
+        TabItemView tabItemView = tabItemViews.get(pagerPosition);
+        tabItemView.changeImage(imageNo, imageSe);
+        if (lastPosition == pagerPosition) {
+            //当前页面选中
+            tabItemView.setStatus(TabItemView.PRESS);
+        }else {
+            tabItemView.setStatus(TabItemView.DEFAULT);
+        }
+    }
+
 
     public void setOnTabItemSelectListener(OnTabItemSelectListener onTabItemSelectListener) {
         this.onTabItemSelectListener = onTabItemSelectListener;
     }
 
-    public void setOnSecondSelectListener(OnSecondSelectListener onSecondSelectListener) {
-        this.onSecondSelectListener = onSecondSelectListener;
-    }
 
+    /**
+     * viewPager滑动监听
+     */
     public void setOnViewPagerListener(OnViewPagerListener onViewPagerListener) {
         this.mOnViewPagerListener = onViewPagerListener;
     }
@@ -228,6 +259,7 @@ public class BottomTabView extends LinearLayout {
         public int iconResPress;
 
         public TextView tvTitle;
+        public TextView buttonRed;
         public ImageView ivIcon;
 
         public TabItemView(Context context, String title, int colorDef, int colorPress,
@@ -247,6 +279,7 @@ public class BottomTabView extends LinearLayout {
         public void init() {
             View view = LayoutInflater.from(super.getContext()).inflate(R.layout.view_tab_item, this);
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            buttonRed = (TextView) view.findViewById(R.id.button_red);
             ivIcon = (ImageView) view.findViewById(R.id.ivIcon);
 
             LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -263,6 +296,25 @@ public class BottomTabView extends LinearLayout {
         public void setStatus(int status) {
             tvTitle.setTextColor(ContextCompat.getColor(super.getContext(), status == PRESS ? colorPress : colorDef));
             ivIcon.setImageResource(status == PRESS ? iconResPress : iconResDef);
+        }
+
+        /**
+         * 小红点是否显示
+         */
+        public void setRedIsShow(boolean isShow) {
+            if (isShow) {
+                buttonRed.setVisibility(VISIBLE);
+            } else {
+                buttonRed.setVisibility(GONE);
+            }
+        }
+
+        /**
+         * 动态改变图片
+         */
+        public void changeImage(int imageNo, int imageSe) {
+            iconResDef = imageNo;
+            iconResPress = imageSe;
         }
     }
 }

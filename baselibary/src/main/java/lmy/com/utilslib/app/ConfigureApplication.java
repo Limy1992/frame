@@ -1,21 +1,15 @@
 package lmy.com.utilslib.app;
 
-import com.orhanobut.hawk.Hawk;
-
-
-import lmy.com.utilslib.utils.Utils;
+import android.app.Application;
+import android.content.Intent;
 
 /**
  * 初始化三方操作
  * Created by lmy on 2017/7/14
  */
 
-public class ConfigureApplication extends BaseApplication {
-    @Override
-    public void configureInitialization() {
-        Utils.init(this);
-        Hawk.init(this).build();
-        //设置不随系统的设置字体改变
-        Utils.setToDefaults();
+public class ConfigureApplication extends SampleApplicationLike {
+    public ConfigureApplication(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime, long applicationStartMillisTime, Intent tinkerResultIntent) {
+        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
     }
 }

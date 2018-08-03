@@ -15,18 +15,16 @@ import io.reactivex.schedulers.Schedulers;
  * Created by lmy on 2017/7/11
  */
 
- class RetrofitCache {
+class RetrofitCache {
     /**
-     * @param cacheKey 缓存的Key
+     * @param cacheKey     缓存的Key
      * @param fromNetwork
-     * @param isSave       是否缓存
      * @param forceRefresh 是否强制刷新
-
      */
     static <T> Observable<T> load(final String cacheKey,
-                                         Observable<T> fromNetwork,
-                                         boolean isSave, boolean forceRefresh) {
-      Observable<T> fromCache = Observable.create(new ObservableOnSubscribe<T>() {
+                                  Observable<T> fromNetwork,
+                                  boolean forceRefresh) {
+        Observable<T> fromCache = Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> subscriber) throws Exception {
                 T cache = Hawk.get(cacheKey);
@@ -38,17 +36,17 @@ import io.reactivex.schedulers.Schedulers;
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 
-        //是否缓存
-        if (isSave) {
-            fromNetwork =  fromNetwork.map(new Function<T, T>() {
+        //缓存cacheKey 如果不为null，就缓存数据
+        if (cacheKey != null) {
+            fromNetwork = fromNetwork.map(new Function<T, T>() {
                 @Override
                 public T apply(T result) throws Exception {
                     Hawk.put(cacheKey, result);
                     return result;
                 }
             });
-
         }
+
         //强制刷新
         if (forceRefresh) {
             return fromNetwork;
@@ -56,7 +54,7 @@ import io.reactivex.schedulers.Schedulers;
             return Observable.concat(fromCache, fromNetwork).filter(new Predicate<T>() {
                 @Override
                 public boolean test(T t) throws Exception {
-                    return t!=null;
+                    return t != null;
                 }
             });
         }

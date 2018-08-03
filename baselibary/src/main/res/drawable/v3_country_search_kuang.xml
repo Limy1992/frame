@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 登录按钮选中状态 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/v3_country_search" />
+
+    <stroke
+        android:width="5dip"
+        android:color="@color/v3_country_search" />
+    <corners android:radius="5dp" />
+
+    <!--<item android:drawable="@drawable/tab_selected" android:state_selected="true" />-->
+    <!--<item android:drawable="@drawable/tab_unselected"  android:state_selected="false"/>-->
+
+
+</shape>

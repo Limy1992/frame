@@ -16,17 +16,16 @@ import java.lang.ref.WeakReference;
 
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.net.ProgressCancelListener;
+import lmy.com.utilslib.utils.LogUtils;
+import lmy.com.utilslib.utils.Utils;
 
 
 /**
- *
+ * 网络加载lod
  */
-public class SimpleLoadDialog extends Handler {
+public class SimpleLoadDialog {
 
-    private Dialog load = null;
-
-    public static final int SHOW_PROGRESS_DIALOG = 1;
-    public static final int DISMISS_PROGRESS_DIALOG = 2;
+    private Dialog load;
 
     private Context context;
     private boolean cancelable;
@@ -39,57 +38,59 @@ public class SimpleLoadDialog extends Handler {
         this.reference = new WeakReference<Context>(context);
         this.mProgressCancelListener = mProgressCancelListener;
         this.cancelable = cancelable;
+        createDialog();
     }
 
-    private void create(){
-        if (load == null) {
-            context  = reference.get();
+    public SimpleLoadDialog(Context context,
+                            boolean cancelable) {
+        super();
+        this.reference = new WeakReference<Context>(context);
+        this.cancelable = cancelable;
+        createDialog();
+    }
 
-            load = new Dialog(context, R.style.loadstyle);
-            View dialogView = LayoutInflater.from(context).inflate(
-                    R.layout.custom_sload_layout, null);
-            load.setCanceledOnTouchOutside(false);
-            load.setCancelable(cancelable);
-            load.setContentView(dialogView);
-            load.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    if(mProgressCancelListener!=null)
-                        mProgressCancelListener.onCancelProgress();
-                }
-            });
-            Window dialogWindow = load.getWindow();
-            dialogWindow.setGravity(Gravity.CENTER_VERTICAL
-                    | Gravity.CENTER_HORIZONTAL);
+    public void createDialog(){
+        context = reference.get();
+        load = new Dialog(context, R.style.loadstyle);
+        View dialogView = LayoutInflater.from(context).inflate(
+                R.layout.custom_sload_layout, null);
+
+        load.setCanceledOnTouchOutside(false);
+        load.setCancelable(cancelable);
+        load.setContentView(dialogView);
+        load.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (mProgressCancelListener != null)
+                    mProgressCancelListener.onCancelProgress();
+            }
+        });
+        Window dialogWindow = load.getWindow();
+        if (dialogWindow != null) {
+            dialogWindow.setGravity(Gravity.CENTER);
+            dialogWindow.setLayout(Utils.dip2px(60), Utils.dip2px(40));
         }
-        if (!load.isShowing()&&context!=null) {
+    }
+
+    public void showDialog() {
+        if (load != null && !((Activity)context).isFinishing()) {
             load.show();
         }
     }
 
-    public void show(){
-        create();
-    }
-
-
-    public  void dismiss() {
-        context  = reference.get();
-        if (load != null&&load.isShowing()&&!((Activity) context).isFinishing()) {
-            String name = Thread.currentThread().getName();
-            load.dismiss();
-            load = null;
-        }
-    }
-
-    @Override
-    public void handleMessage(Message msg) {
-        switch (msg.what) {
-            case SHOW_PROGRESS_DIALOG:
-                create();
-                break;
-            case DISMISS_PROGRESS_DIALOG:
-                dismiss();
-                break;
+    public void dismiss() {
+        try {
+            if (load != null && load.isShowing() && !((Activity) context).isFinishing()) {
+                if (mProgressCancelListener != null) {
+                    mProgressCancelListener = null;
+                }
+                reference.clear();
+                load.cancel();
+                load = null;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            LogUtils.e("关闭弹窗异常："+e.toString());
         }
     }
 }

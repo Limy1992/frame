@@ -5,4 +5,7 @@
     <dimen name="media_grid_spacing">4dp</dimen>
 
     <dimen name="album_item_height">72dp</dimen>
+    <dimen name="statusbar_view_height">0dp</dimen>
+
+    <dimen name="camera_focus_area_size">96dp</dimen>
 </resources>
