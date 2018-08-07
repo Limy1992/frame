@@ -3,7 +3,6 @@ package lmy.com.utilslib.base.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
@@ -13,10 +12,7 @@ import android.widget.TextView;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.Unbinder;
-import io.reactivex.subjects.PublishSubject;
 import lmy.com.utilslib.R;
-import lmy.com.utilslib.net.ActivityLifeCycleEvent;
-import lmy.com.utilslib.utils.LogUtils;
 
 /**
  * Activity基类

@@ -1,11 +1,10 @@
-package com.lmy.audio;
+package com.lmy.audio.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 
 import java.util.List;
@@ -20,7 +19,7 @@ import lmy.com.utilslib.base.ui.view.HomeViewPager;
  * Created by lmy on 2017/7/4
  */
 
-public abstract class BaseBottomTabActivity extends AppCompatActivity {
+public abstract class MainCompatActivity extends AppCompatActivity {
     public HomeViewPager viewPager;
     public BottomTabView bottomTabView;
 
@@ -49,12 +48,9 @@ public abstract class BaseBottomTabActivity extends AppCompatActivity {
 
 
     private void initView() {
-        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
         viewPager = (HomeViewPager) findViewById(R.id.viewPager);
         bottomTabView = (BottomTabView) findViewById(R.id.bottomTabView);
         viewPager.setNoScroll(true);
-        //设置title
-        setBaseBottomTitle(tvTitle);
     }
 
 
@@ -74,24 +70,11 @@ public abstract class BaseBottomTabActivity extends AppCompatActivity {
         }
     }
 
-    private void setBaseBottomTitle(final TextView tvTitle) {
-        tvTitle.setText(getTitleLists()[0]);
-        bottomTabView.setOnViewPagerListener(new BottomTabView.OnViewPagerListener() {
-            @Override
-            public void onPosition(int position) {
-                tvTitle.setText(getTitleLists()[position]);
-            }
-        });
-    }
-
     //底部button
     protected abstract List<BottomTabView.TabItemView> getTabViews();
 
     //fragment页面
     protected abstract List<Fragment> getFragments();
-
-    //title
-    protected abstract String[] getTitleLists();
 
     //底部按钮,中间button
     protected View getCenterView() {

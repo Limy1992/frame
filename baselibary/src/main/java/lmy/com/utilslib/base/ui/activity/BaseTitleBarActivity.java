@@ -119,7 +119,7 @@ public class BaseTitleBarActivity extends TopBarBaseActivity {
         return true;
     }
 
-    //动态修改内容。后边菜单
+    //动态修改内容。右边菜单
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         rightMenu = menu;

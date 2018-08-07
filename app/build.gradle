@@ -1,7 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+//tinker
+apply from: 'tinker-support.gradle'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+//    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -9,8 +12,9 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -27,7 +31,13 @@ android {
         flatDir{
             dirs 'libs'
         }
+    }
 
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -35,5 +45,9 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-    compile project(':baselibary')
+    if(rootProject.ext.isBuildApp){
+        implementation project(':baselibary')
+    }else {
+        implementation project(':baselibary')
+    }
 }

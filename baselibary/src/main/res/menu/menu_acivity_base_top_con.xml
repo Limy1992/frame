@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_2"
-
+        android:id="@+id/menu"
         android:title="123"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_1"
+        android:icon="@drawable/lib_message"
+        android:title=""
         app:showAsAction="always" />
 
 </menu>

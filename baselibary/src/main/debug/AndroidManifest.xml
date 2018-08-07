@@ -77,13 +77,6 @@
             android:name=".web.ui.AppWebView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
-
-
-        <!--知乎相册选择器-->
-        <activity android:name="lmy.com.utilslib.zhihu.ui.MatisseActivity" />
-        <activity android:name="lmy.com.utilslib.zhihu.internal.ui.AlbumPreviewActivity" />
-        <activity android:name="lmy.com.utilslib.zhihu.internal.ui.SelectedPreviewActivity" />
-
         <!--头像裁剪-->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -103,30 +96,6 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-
-        <!--<provider-->
-        <!--android:name="android.support.v4.content.FileProvider"-->
-        <!--android:authorities="com.bluedancer.bluedancer.fileProvider"-->
-        <!--android:exported="false"-->
-        <!--android:grantUriPermissions="true">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-        <!--android:resource="@xml/file_paths_public" />-->
-        <!--</provider>-->
-
-        <!--<provider-->
-        <!--android:name="lmy.com.utilslib.utils.BuglyFileProvider"-->
-        <!--android:authorities="com.bluedancer.bluedancer.fileProvider"-->
-        <!--android:exported="false"-->
-        <!--android:grantUriPermissions="true"-->
-        <!--tools:replace="name,authorities,exported,grantUriPermissions">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-        <!--android:resource="@xml/provider_paths"-->
-        <!--tools:replace="name,resource" />-->
-
-        <!--</provider>-->
-
     </application>
 
 </manifest>

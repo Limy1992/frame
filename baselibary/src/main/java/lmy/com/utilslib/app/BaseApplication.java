@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 
 import com.orhanobut.hawk.Hawk;
-import java.util.Map;
 
 import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
@@ -25,12 +24,8 @@ public class BaseApplication extends ConfigureApplication {
 
     @Override
     public void configureInitialization() {
-
         Utils.init(getApplication());
-        Hawk.init(getApplication()).build();
-
-        //Glide加载轮播图需要，在ids.xml也要写东西
-//        ViewTarget.setTagId(R.id.tag_glide);
+        Hawk.init(Utils.getContext()).build();
         //配置数据库
         setupDatabase();
         //设置不随系统的设置字体改变
@@ -38,9 +33,7 @@ public class BaseApplication extends ConfigureApplication {
         initFrame();
     }
 
-
     protected void initFrame() {
-
     }
 
     /**

@@ -157,32 +157,6 @@ public class Utils {
         return null;
     }
 
-    //是否开启定位
-    public static boolean isOPen() {
-        LocationManager locationManager
-                = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        // 通过GPS卫星定位，定位级别可以精确到街（通过24颗卫星定位，在室外和空旷的地方定位准确、速度快）
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        // 通过WiFI或移动网络(3G/2G)确定的位置（也称作GPS，辅助GPS定位。主要用于在室内或遮盖物（建筑群或茂密的深林等）密集的地方定位）
-        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        return gps || network;
-
-    }
-
-    //强制帮用户开启定位
-    public static void openGPS() {
-        Intent GPSIntent = new Intent();
-        GPSIntent.setClassName("com.android.settings",
-                "com.android.settings.widget.SettingsAppWidgetProvider");
-        GPSIntent.addCategory("android.intent.category.ALTERNATIVE");
-        GPSIntent.setData(Uri.parse("custom:3"));
-        try {
-            PendingIntent.getBroadcast(context, 0, GPSIntent, 0).send();
-        } catch (PendingIntent.CanceledException e) {
-            e.printStackTrace();
-        }
-    }
-
     // 加载系统默认设置，字体不随用户设置变化
     public static void setToDefaults() {
         Resources res = context.getResources();
@@ -190,7 +164,6 @@ public class Utils {
         config.setToDefaults();
         res.updateConfiguration(config, res.getDisplayMetrics());
     }
-
 
     /**
      * dp转换
@@ -345,40 +318,6 @@ public class Utils {
             ex.printStackTrace();
         }
         return pathUrl;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static boolean isNotificationEnabled() {
-        Class appOpsClass = null;
-        /* Context.APP_OPS_MANAGER */
-        try {
-            String CHECK_OP_NO_THROW = "checkOpNoThrow";
-            String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
-
-            AppOpsManager mAppOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-            ApplicationInfo appInfo = context.getApplicationInfo();
-            String pkg = context.getApplicationContext().getPackageName();
-            int uid = appInfo.uid;
-            appOpsClass = Class.forName(AppOpsManager.class.getName());
-            Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE,
-                    String.class);
-            Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);
-
-            int value = (Integer) opPostNotificationValue.get(Integer.class);
-            return ((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED);
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     /**

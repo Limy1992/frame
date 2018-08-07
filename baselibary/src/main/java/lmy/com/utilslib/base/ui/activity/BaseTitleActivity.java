@@ -2,13 +2,10 @@ package lmy.com.utilslib.base.ui.activity;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewStub;
 
 import lmy.com.utilslib.R;
-import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.StatusBarUtil;
-import lmy.com.utilslib.utils.ToastUtils;
 
 /**
  * 带有titleBar的activity

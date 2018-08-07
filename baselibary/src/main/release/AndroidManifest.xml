@@ -22,7 +22,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -52,20 +51,13 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/base_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label">
+        >
 
         <activity
             android:name=".web.ui.AppWebView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-
-
-        <!--知乎相册选择器-->
-        <!--<activity android:name="lmy.com.utilslib.zhihu.ui.MatisseActivity" />-->
-        <!--<activity android:name="lmy.com.utilslib.zhihu.internal.ui.AlbumPreviewActivity" />-->
-        <!--<activity android:name="lmy.com.utilslib.zhihu.internal.ui.SelectedPreviewActivity" />-->
 
         <!--头像裁剪-->
         <activity
@@ -83,7 +75,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.nbd_audio_tools.fileProvider"
+            android:authorities="com.lmy.audio.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -93,7 +85,7 @@
 
         <provider
             android:name="lmy.com.utilslib.utils.BuglyFileProvider"
-            android:authorities="com.nbd_audio_tools.fileProvider"
+            android:authorities="com.lmy.audio.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="name,authorities,exported,grantUriPermissions">

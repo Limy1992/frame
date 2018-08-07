@@ -19,13 +19,13 @@ public class ApiException extends RuntimeException {
         super(detailMessage);
     }
 
-    //充当后台返回message
+    //设置后台返回message
     @Override
     public String getMessage() {
         return messages;
     }
 
-    //充当code
+    //设置code
     @Override
     public String getLocalizedMessage() {
         return codes;

@@ -1,7 +1,6 @@
-package com.lmy.audio;
+package com.lmy.audio.main;
 
 
-import com.github.mzule.activityrouter.annotation.Router;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -11,8 +10,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 提示权限操作, 和其他操作
  */
-@Router("mainActivity")
-public class MainActivity extends BaseMainActivity {
+public class MainActivity extends MainTabActivity {
     @Override
     protected void permissionsPrompt() {
         final RxPermissions rxPermissions = new RxPermissions(this);

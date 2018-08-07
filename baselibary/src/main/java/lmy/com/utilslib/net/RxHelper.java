@@ -23,26 +23,26 @@ import lmy.com.utilslib.net.api.ApiException;
 
 public class RxHelper {
 
-    /**
-     * 利用Observable.takeUntil()停止网络请求
-     */
-    @NonNull
-    public static <T> ObservableTransformer<T, T> bindUntilEvent(@NonNull final ActivityLifeCycleEvent event, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
-
-        return new ObservableTransformer<T, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-
-                Observable<ActivityLifeCycleEvent> lifeCycleEventObservable = lifecycleSubject.filter(new Predicate<ActivityLifeCycleEvent>() {
-                    @Override
-                    public boolean test(ActivityLifeCycleEvent activityLifeCycleEvent) throws Exception {
-                        return activityLifeCycleEvent.equals(event);
-                    }
-                });
-                return upstream.takeUntil(lifeCycleEventObservable);
-            }
-        };
-    }
+//    /**
+//     * 利用Observable.takeUntil()停止网络请求
+//     */
+//    @NonNull
+//    public static <T> ObservableTransformer<T, T> bindUntilEvent(@NonNull final ActivityLifeCycleEvent event, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
+//
+//        return new ObservableTransformer<T, T>() {
+//            @Override
+//            public ObservableSource<T> apply(Observable<T> upstream) {
+//
+//                Observable<ActivityLifeCycleEvent> lifeCycleEventObservable = lifecycleSubject.filter(new Predicate<ActivityLifeCycleEvent>() {
+//                    @Override
+//                    public boolean test(ActivityLifeCycleEvent activityLifeCycleEvent) throws Exception {
+//                        return activityLifeCycleEvent.equals(event);
+//                    }
+//                });
+//                return upstream.takeUntil(lifeCycleEventObservable);
+//            }
+//        };
+//    }
 
     /**
      * 数据处理

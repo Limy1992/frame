@@ -1,7 +1,5 @@
 package lmy.com.utilslib.utils;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -134,25 +132,6 @@ public class SpanUtils {
             spannableString.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-//                    if (title.contains("@")) {
-//                        //跳转主页
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("model://personalPagerActivity"));
-//                        String replaceTitle = title.replace("@", "").trim();
-//                        if (!replaceTitle.equals(SPUtils.getUserName(Utils.getContext()))) {
-//                            intent.putExtra("selectClick", CommonManger.MY_OTHER);
-//                        }else {
-//                            intent.putExtra("selectClick", CommonManger.MY_CLICK);
-//                        }
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        intent.putExtra("userName", replaceTitle);
-//                        Utils.getContext().startActivity(intent);
-//                    } else {
-//                        //跳转搜索
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("model://searchActivity"));
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        intent.putExtra("searchTag", title.replace("#", ""));
-//                        Utils.getContext().startActivity(intent);
-//                    }
                 }
 
                 @Override

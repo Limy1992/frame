@@ -3,7 +3,6 @@ package lmy.com.utilslib.base.ui.fragment;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 
 import java.util.List;

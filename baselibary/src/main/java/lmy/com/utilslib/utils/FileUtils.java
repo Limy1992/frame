@@ -85,11 +85,6 @@ public class FileUtils {
     }
 
     /**
-     * 隐藏文件， 存放db
-     */
-    public static final String DANCER_MUSIC_FILE = SD_PATH + "/.dancer";
-
-    /**
      * 获取手机内部空间总大小
      *
      * @return 大小，字节为单位

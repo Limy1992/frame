@@ -8,7 +8,7 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+//    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -59,6 +59,12 @@ android {
 }
 
 dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+    //----------------------------------------------------------------------------
     //rxLifecycle
     api "com.trello.rxlifecycle2:rxlifecycle:$rxlifecycle2_version"
     api "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle2_version"
@@ -69,11 +75,6 @@ dependencies {
     api "com.zhihu.android:matisse:$zhiHu_version"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'com.android.support.test:runner:1.0.2'
-    api fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
     api 'com.google.code.gson:gson:2.8.1'
     //ORM数据库
     api 'org.greenrobot:greendao:3.2.0'
@@ -100,8 +101,6 @@ dependencies {
     //    compile rootProject.ext.dependencies["javax-annotation"]
     //    annotationProcessor  rootProject.ext.dependencies["dagger-compiler"]
     api rootProject.ext.dependencies["hawk"]
-    api rootProject.ext.dependencies["activityrouter"]
-    annotationProcessor rootProject.ext.dependencies["activityrouter-compiler"]
     api rootProject.ext.dependencies["rxpermissions"]
     api rootProject.ext.dependencies["Android-SpinKit"]
     api rootProject.ext.dependencies["circleimageview"]
@@ -116,4 +115,8 @@ dependencies {
     api 'com.facebook.stetho:stetho:1.5.0'
     api 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     api files('lib/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
+
+
+
+    api project(':base_src')
 }

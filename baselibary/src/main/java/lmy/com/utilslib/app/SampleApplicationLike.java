@@ -8,12 +8,10 @@ import android.os.Build;
 import android.os.Process;
 import android.support.multidex.MultiDex;
 
-import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 
-import butterknife.ButterKnife;
 import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
 
@@ -24,27 +22,15 @@ import lmy.com.utilslib.utils.Utils;
  */
 
 public class SampleApplicationLike extends DefaultApplicationLike {
-
-    public static final String TAG = "Tinker.SampleApplicationLike";
-
-
-    public SampleApplicationLike(Application application, int tinkerFlags,
+     SampleApplicationLike(Application application, int tinkerFlags,
                                  boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime,
                                  long applicationStartMillisTime, Intent tinkerResultIntent) {
         super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime, applicationStartMillisTime, tinkerResultIntent);
     }
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-
-    }
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    @Override
-    public void onBaseContextAttached(Context base) {
-        super.onBaseContextAttached(base);
         String processName = Utils.getProcessName(getApplication(), Process.myPid());
         if (processName != null) {
             if (!processName.equals(getApplication().getPackageName())) {
@@ -67,9 +53,12 @@ public class SampleApplicationLike extends DefaultApplicationLike {
                 LogUtils.d("X5内核="+b);
             }
         });
+    }
 
-        //初始化apk升级检查
-        initUpDataApk();
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    public void onBaseContextAttached(Context base) {
+        super.onBaseContextAttached(base);
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
 //        Bugly.init(getApplication(), "858cc242dc", false);
@@ -83,10 +72,6 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
         getApplication().registerActivityLifecycleCallbacks(callbacks);
-    }
-
-    protected void initUpDataApk() {
-
     }
 
     protected void initApplication() {

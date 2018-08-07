@@ -254,7 +254,7 @@ public abstract class BasePagerJumpActivity extends BaseOtherActivity {
                 //开启相机
                 .capture(isCapture)
                 //共享路径
-                .captureStrategy(new CaptureStrategy(true, "com.nbd_audio_tools.fileProvider"))
+                .captureStrategy(new CaptureStrategy(true, "com.lmy.audio.fileProvider"))
                 //最大多少张
                 .maxSelectable(maxNum)
 //                .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))

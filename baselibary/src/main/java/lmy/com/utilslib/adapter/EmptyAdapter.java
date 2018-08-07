@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 /**
+ * 空列表
  * Created by on 2018/5/25.
  *
  * @author lmy

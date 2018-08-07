@@ -1,13 +1,10 @@
 package lmy.com.utilslib.base.ui.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import lmy.com.utilslib.mvp.base.presenter.BasePresenter;
 import lmy.com.utilslib.utils.LogUtils;
-import lmy.com.utilslib.utils.Utils;
 
 /**
  * Created by on 2017/12/9.
