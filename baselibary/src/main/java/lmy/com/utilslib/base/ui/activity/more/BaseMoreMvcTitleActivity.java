@@ -1,24 +1,37 @@
-package lmy.com.utilslib.base.ui.activity;
+package lmy.com.utilslib.base.ui.activity.more;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ViewStub;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+
 import lmy.com.utilslib.R;
+import lmy.com.utilslib.mvp.base.view.IBaseMvpView;
 import lmy.com.utilslib.utils.StatusBarUtil;
 
 /**
- * 带有titleBar的activity
+ * 1、加载更多和刷刷新， 带有title  mvc
+ * Created by on 2018/8/8.
  *
  * @author lmy
- *         Created by 2017/12/7
  */
+public abstract class BaseMoreMvcTitleActivity extends SuperMoreActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener
+        , IBaseMvpView {
 
-public abstract class BaseTitleActivity extends SuperInitActivity {
+    @Override
+    public void setContentViews(Bundle savedInstanceState) {
+        super.setContentViews(savedInstanceState);
+    }
+
+    /**
+     * 加载title控件
+     */
     @Override
     protected void initViewStub() {
         try {
-            ViewStub titleViewStub = (ViewStub) findViewById(R.id.title_view_stub);
+            ViewStub titleViewStub = findViewById(R.id.title_view_stub);
             titleViewStub.inflate();
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -40,15 +53,13 @@ public abstract class BaseTitleActivity extends SuperInitActivity {
     }
 
     @Override
-    public void setContentViews(Bundle savedInstanceState) {
-        super.setContentViews(savedInstanceState);
-    }
-
-    @Override
     protected void initOther() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.v3_app_new));
     }
 
+    /**
+     * 获取标题的高度
+     */
     public int getTitleHight() {
         int height = toolbar.getHeight();
         Rect rectangle = new Rect();
@@ -56,4 +67,5 @@ public abstract class BaseTitleActivity extends SuperInitActivity {
         return height + rectangle.top;
 
     }
+
 }

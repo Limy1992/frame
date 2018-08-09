@@ -6,7 +6,7 @@ package lmy.com.utilslib.base.ui.activity;
  * @author lmy
  */
 
-public class BaseOtherActivity extends BaseTitleBarActivity {
+public class SuperOtherActivity extends SuperToolbarActivity {
     @Override
     protected void setAdditionConfigure() {
         //配置其他操作

@@ -1,9 +1,15 @@
 package lmy.com.utilslib.net.api;
 
 
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
+import lmy.com.utilslib.bean.BaseHttpResult;
+import lmy.com.utilslib.bean.ModelBean;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -21,4 +27,6 @@ public interface ApiService {
     Observable<ResponseBody> downFile(@Url String url);
 
 
+    @GET("competition/getCompetitions")
+    Observable<BaseHttpResult<List<ModelBean>>> getCompetitions(@QueryMap() Map<String, String> map);
 }

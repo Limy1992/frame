@@ -24,7 +24,7 @@ public class Api extends ApiHttpClient {
                     .addConverterFactory(CustomGsonConverterFactory.create())
 //                    .addConverterFactory(GsonConverterFactory.create())
 //                    .baseUrl("http://101.132.120.121/")
-                    .baseUrl("https://www.ymcaijing.com/")
+                    .baseUrl("https://api.ios.lanwuzhe.com/")
                     .build()
                     .create(ApiService.class);
         }

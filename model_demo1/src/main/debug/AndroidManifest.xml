@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.lmy.audio">
+    package="audio_tools.com.model_demo1">
 
+    <!--忽略掉allowBackup警告-->
     <application
-        android:name="lmy.com.utilslib.app.SampleApplication"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        tools:replace="android:label,android:icon,android:name">
-        <activity android:name=".StartLogoActivity">
+        tools:replace="android:label"
+        >
+        <activity
+            android:name=".ModelDemoActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity" />
 
     </application>
 

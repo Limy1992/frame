@@ -65,6 +65,7 @@ public class SimpleLoadDialog {
         });
         Window dialogWindow = load.getWindow();
         if (dialogWindow != null) {
+            dialogWindow.setDimAmount(0.1f);
             dialogWindow.setGravity(Gravity.CENTER);
             dialogWindow.setLayout(Utils.dip2px(60), Utils.dip2px(40));
         }

@@ -11,7 +11,7 @@ import lmy.com.utilslib.mvp.base.presenter.BasePresenter;
  * @author lmy
  */
 
-public abstract class BaseTitleMvpActivity<V, T extends BasePresenter<V>> extends BaseTitleActivity {
+public abstract class BaseMvpTitleActivity<V, T extends BasePresenter<V>> extends BaseTitleActivity {
     protected T mPresent;
 
     @Override

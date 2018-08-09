@@ -8,5 +8,5 @@ package lmy.com.utilslib.utils;
 public class CommonManger {
     public static final String IS_FLAG = "isFlag";
     public static final int REQUEST_CODE_CHOOSE = 23;      //相册和拍照返回码
-
+    public static final int LOAD_SIZE = 15;
 }

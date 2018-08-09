@@ -9,7 +9,7 @@ import android.os.Bundle;
  * @author lmy
  */
 
-public abstract class BaseActivity extends BasePagerJumpActivity {
+public abstract class BaseActivity extends SuperInitActivity {
     @Override
     public void setContentViews(Bundle savedInstanceState) {
         super.setContentViews(savedInstanceState);

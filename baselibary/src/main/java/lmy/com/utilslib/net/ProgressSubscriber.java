@@ -31,12 +31,15 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
     private Disposable mDisposable;
     private WeakReference<Context> weakReference;
 
-    protected ProgressSubscriber(Context context) {
-        weakReference = new WeakReference<>(context);
-        dialogHandler = new SimpleLoadDialog(weakReference.get(), this, false);
+//    protected ProgressSubscriber(Context context) {
+//
+//    }
+    protected ProgressSubscriber() {
     }
 
-    protected ProgressSubscriber() {
+    public void context(Context context){
+        weakReference = new WeakReference<>(context);
+        dialogHandler = new SimpleLoadDialog(weakReference.get(), this, false);
     }
 
     //显示Dialog

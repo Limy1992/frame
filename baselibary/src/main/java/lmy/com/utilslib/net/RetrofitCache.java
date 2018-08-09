@@ -34,7 +34,8 @@ class RetrofitCache {
                     subscriber.onComplete();
                 }
             }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
 
         //缓存cacheKey 如果不为null，就缓存数据
         if (cacheKey != null) {

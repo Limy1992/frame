@@ -1,17 +1,22 @@
-package lmy.com.utilslib.base.ui.activity;
+package lmy.com.utilslib.base.ui.activity.more;
 
 import android.os.Bundle;
 
 import lmy.com.utilslib.mvp.base.presenter.BasePresenter;
 
 /**
- * 使用MVP activity继承此类
- * Created by on 2017/12/9.
+ * 加载更多和刷，如果刷新的界面， 没有title
+ * Created by on 2018/8/8.
  *
  * @author lmy
  */
+public abstract class BaseMoreMvpActivity<V, T extends BasePresenter<V>> extends SuperMoreActivity {
 
-public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends SuperInitActivity {
+    @Override
+    public void setContentViews(Bundle savedInstanceState) {
+        super.setContentViews(savedInstanceState);
+    }
+
     protected T mPresent;
 
     @Override
@@ -20,10 +25,6 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Sup
         mPresent.attachView((V) this);
     }
 
-    @Override
-    public void setContentViews(Bundle savedInstanceState) {
-        super.setContentViews(savedInstanceState);
-    }
 
     protected abstract T createPresent();
 
@@ -35,6 +36,9 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Sup
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mPresent != null) {
+            mPresent.detach();
+        }
     }
 
     @Override
@@ -42,4 +46,8 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Sup
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void superRequestData() {
+        mPresent.requestData();
+    }
 }

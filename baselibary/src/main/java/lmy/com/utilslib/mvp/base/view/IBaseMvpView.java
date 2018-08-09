@@ -16,5 +16,5 @@ public interface IBaseMvpView {
 
     LifecycleTransformer bindLifecycle();
 
-    void onError();
+    void onLoadError();
 }

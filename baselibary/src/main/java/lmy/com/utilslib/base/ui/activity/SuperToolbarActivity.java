@@ -14,7 +14,7 @@ import lmy.com.utilslib.R;
  * @author lmy
  */
 
-public class BaseTitleBarActivity extends TopBarBaseActivity {
+public class SuperToolbarActivity extends SuperTopBarBaseActivity {
     private OnClickListener onClickListenerTopLeft;
     private OnClickListener onClickListenerTopRight;
     private int menuResId;

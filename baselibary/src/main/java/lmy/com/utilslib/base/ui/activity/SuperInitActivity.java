@@ -33,11 +33,11 @@ import static lmy.com.utilslib.utils.CommonManger.REQUEST_CODE_CHOOSE;
  * @author lmy
  */
 
-public abstract class BasePagerJumpActivity extends BaseOtherActivity {
+public abstract class SuperInitActivity extends SuperOtherActivity {
 
     @Override
     public void setContentViews(Bundle savedInstanceState) {
-        //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
+        //将继承  的布局解析到 FrameLayout 里面
         LayoutInflater.from(this).inflate(getContentView(), viewContent);
         bind = ButterKnife.bind(this);
 

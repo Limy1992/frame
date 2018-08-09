@@ -21,7 +21,7 @@ import lmy.com.utilslib.R;
  * @author lmy
  */
 
-public class TopBarBaseActivity extends RxAppCompatActivity {
+public class SuperTopBarBaseActivity extends RxAppCompatActivity {
     public Toolbar toolbar;
     public FrameLayout viewContent;
     public TextView tvTitle;
