@@ -29,7 +29,6 @@ android {
 //                    'armeabi-v8a'
         }
 
-        multiDexEnabled true
     }
     buildTypes {
         release {

@@ -8,7 +8,6 @@ import android.view.ViewStub;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import lmy.com.utilslib.R;
-import lmy.com.utilslib.mvp.base.view.IBaseMvpView;
 import lmy.com.utilslib.utils.StatusBarUtil;
 
 /**
@@ -17,8 +16,7 @@ import lmy.com.utilslib.utils.StatusBarUtil;
  *
  * @author lmy
  */
-public abstract class BaseMoreMvcTitleActivity extends SuperMoreActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener
-        , IBaseMvpView {
+public abstract class BaseMoreMvcTitleActivity extends SuperMoreActivity implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @Override
     public void setContentViews(Bundle savedInstanceState) {

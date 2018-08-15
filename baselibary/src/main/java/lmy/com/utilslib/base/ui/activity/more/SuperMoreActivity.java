@@ -80,14 +80,15 @@ public abstract class SuperMoreActivity extends SuperInitActivity
                 refreshLayout().setEnabled(false);
             }
             pagerNum += 1;
-            superRequestData();
         }
+        superRequestData();
     }
 
     /**
      * load数据
      */
     public void superRequestData() {
+        //子类不重写superRequestData()方法，就会执行这里
         initData();
     }
 
@@ -157,7 +158,7 @@ public abstract class SuperMoreActivity extends SuperInitActivity
     }
 
     @Override
-    public Context getContexts() {
+    public Context onContext() {
         return mContext;
     }
 

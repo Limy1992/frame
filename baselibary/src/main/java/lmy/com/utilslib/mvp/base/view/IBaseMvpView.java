@@ -12,7 +12,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
  */
 
 public interface IBaseMvpView {
-    Context getContexts();
+    Context onContext();
 
     LifecycleTransformer bindLifecycle();
 
