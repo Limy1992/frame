@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
  * Created by lmy on 2017/7/6
  */
 
-public abstract class BaseFragment extends BaseJumpFragment {
+public abstract class BaseFragment extends BaseCommonFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

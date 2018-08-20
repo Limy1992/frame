@@ -12,7 +12,7 @@ import android.view.View;
  *
  * @author lmy
  */
-public abstract class BaseItemFragment extends BaseJumpFragment {
+public abstract class BaseItemFragment extends BaseCommonFragment {
 
     private boolean isFragmentVisible;
     private boolean isReuseView;

@@ -13,7 +13,7 @@ import lmy.com.utilslib.utils.LogUtils;
  */
 
 public abstract class BaseMvpFragment<V, T extends BasePresenter<V>>
-        extends BaseJumpFragment {
+        extends BaseCommonFragment {
     protected T mPresent;
 
     @Override
