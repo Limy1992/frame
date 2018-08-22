@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import lmy.com.utilslib.app.BaseApplication;
 import lmy.com.utilslib.net.LoggingInterceptor;
 import lmy.com.utilslib.net.down.normal.ProgressInterceptor;
+import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.SPUtils;
 import lmy.com.utilslib.utils.Utils;
 import okhttp3.HttpUrl;
@@ -42,6 +43,7 @@ class ApiHttpClient {
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS);
         clientBuilder(httpClientBuilder);
+
         return httpClientBuilder;
     }
 

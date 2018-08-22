@@ -41,11 +41,11 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
 
-        <meta-data
-            android:name="lmy.com.utilslib.glide.MyGlideModule"
-            android:value="GlideModule" />
+        <!--<meta-data-->
+            <!--android:name="lmy.com.utilslib.glide.MyGlideModule"-->
+            <!--android:value="AppGlideModule" />-->
 
-        <!--&lt;!&ndash;更改Glide网络库&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;更改Glide网络库&ndash;&gt;&ndash;&gt;-->
         <!--<meta-data-->
             <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
             <!--android:value="GlideModule" />-->

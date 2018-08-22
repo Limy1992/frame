@@ -1,5 +1,6 @@
 package lmy.com.utilslib.app;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 

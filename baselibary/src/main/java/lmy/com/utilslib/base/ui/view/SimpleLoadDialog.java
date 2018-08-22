@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.net.ProgressCancelListener;
+import lmy.com.utilslib.net.loding.PPTVLoading;
 import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
 
@@ -52,13 +53,14 @@ public class SimpleLoadDialog {
         load = new Dialog(context, R.style.loadstyle);
         View dialogView = LayoutInflater.from(context).inflate(
                 R.layout.custom_sload_layout, null);
-
+        final PPTVLoading ppLoading = dialogView.findViewById(R.id.pp_loading);
         load.setCanceledOnTouchOutside(false);
         load.setCancelable(cancelable);
         load.setContentView(dialogView);
         load.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
+                ppLoading.clear();
                 if (mProgressCancelListener != null)
                     mProgressCancelListener.onCancelProgress();
             }

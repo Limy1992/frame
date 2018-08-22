@@ -95,6 +95,7 @@ dependencies {
     api rootProject.ext.dependencies["retrofit2-rxjava2-adapter"]
     api rootProject.ext.dependencies["okhttp3-okhttp"]
     api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glideCompiler"]
     api rootProject.ext.dependencies["glide-integration"]
     //    compile rootProject.ext.dependencies["dagger"]
     //    compile rootProject.ext.dependencies["javax-annotation"]
@@ -116,6 +117,8 @@ dependencies {
     api files('lib/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
 
 
-
     api project(':base_src')
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

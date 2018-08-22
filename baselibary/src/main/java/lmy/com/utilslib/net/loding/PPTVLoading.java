@@ -31,13 +31,9 @@ import android.view.animation.LinearInterpolator;
 public class PPTVLoading extends View {
     private Paint paint1;
     private Paint paint2;
-    //default color
-    private int color1 = Color.parseColor("#ff0099cc");
-    private int color2 = Color.parseColor("#ff669900");
 
     private boolean init = false;
     private ValueAnimator valueAnimator;
-    private float numb = 0;
 
     private boolean stop = false;
 
@@ -47,7 +43,9 @@ public class PPTVLoading extends View {
         super(context, attrs);
         paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        int color1 = Color.parseColor("#ff0099cc");
         paint1.setColor(color1);
+        int color2 = Color.parseColor("#ff669900");
         paint2.setColor(color2);
 
     }
@@ -60,7 +58,7 @@ public class PPTVLoading extends View {
             R = getWidth() / 8;
             start();
         }
-        numb = (float) valueAnimator.getAnimatedValue();
+        float numb = (float) valueAnimator.getAnimatedValue();
         if (numb < 0) {
             canvas.drawCircle((getWidth() - 2 * R) * (1 - Math.abs(numb)) + R, getHeight() / 2, R - 5, paint2);
             canvas.drawCircle((getWidth() - 2 * R) * Math.abs(numb) + R, getHeight() / 2, R - 5 * (float) Math.abs(Math.abs(numb) - 0.8), paint1);
@@ -79,14 +77,8 @@ public class PPTVLoading extends View {
         } else {
             valueAnimator.start();
         }
-        if (stop == false) {
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    start();
-                    invalidate();
-                }
-            }, valueAnimator.getDuration());
+        if (!stop) {
+            postDelayed(runnable, valueAnimator.getDuration());
         }
     }
 
@@ -101,5 +93,25 @@ public class PPTVLoading extends View {
         valueAnimator.start();
         return valueAnimator;
     }
+
+    public void clear(){
+        if (valueAnimator != null) {
+            valueAnimator.cancel();
+            valueAnimator.removeAllUpdateListeners();
+            valueAnimator = null;
+        }
+        if (runnable != null) {
+            removeCallbacks(runnable);
+            runnable = null;
+        }
+    }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            start();
+            invalidate();
+        }
+    };
 
 }

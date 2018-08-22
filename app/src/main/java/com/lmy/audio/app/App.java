@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.squareup.leakcanary.LeakCanary;
 
 import lmy.com.utilslib.app.InitApplication;
+import lmy.com.utilslib.utils.LogUtils;
 
 /**
  * Created by on 2018/8/3.
@@ -20,6 +21,6 @@ public class App extends InitApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(getApplication());
+        LogUtils.d("App");
     }
 }
