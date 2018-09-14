@@ -60,6 +60,11 @@ public class DialogHint {
         }
     }
 
+    public DialogHint setOnText(String onText){
+        dialogHintOk.setText(onText);
+        return this;
+    }
+
     public void setCanable(boolean isFlag) {
         dialog.setCancelable(isFlag);
     }
@@ -133,13 +138,13 @@ public class DialogHint {
     /**
      * 取消
      */
-    public DialogHint setCancle(final OnDialogHitCancelListener listener) {
+    public DialogHint setCancel(final OnDialogHitCancelListener listener) {
         this.mOnDialogHitCancelListener = listener;
         dialogHintClear.setVisibility(View.VISIBLE);
         return this;
     }
 
-    public void setCancle() {
+    public void setCancel() {
         dialogHintClear.setVisibility(View.VISIBLE);
     }
 
