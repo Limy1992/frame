@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_margin="10dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="3dp"
-    android:layout_gravity="center"
     app:contentPadding="10dp">
 
 
@@ -23,16 +23,25 @@
             android:textColor="@color/v3_black"
             android:textSize="15sp" />
 
-        <TextView
-            android:lineSpacingExtra="1.5dp"
+        <me.codeboy.android.aligntextview.AlignTextView
             android:id="@+id/dialog_hint_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp"
-            android:text=""
+            android:lineSpacingExtra="2.5dp"
             android:textColor="@color/v3_black"
             android:textSize="15sp" />
+
+
+        <RadioButton
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/dialog_hint_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:padding="5dp"
+            android:text="不在提示" />
 
 
         <LinearLayout
@@ -41,7 +50,6 @@
             android:layout_marginTop="10dp">
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/dialog_hint_clear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -51,7 +59,8 @@
                 android:padding="10dp"
                 android:text="取消"
                 android:textColor="@color/v3_hui"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/dialog_hint_ok"

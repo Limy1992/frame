@@ -2,22 +2,29 @@ package lmy.com.utilslib.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.SpannableStringBuilder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
+
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lmy.com.utilslib.R;
 import lmy.com.utilslib.R2;
+import lmy.com.utilslib.utils.CommonManger;
 import lmy.com.utilslib.utils.Utils;
+import me.codeboy.android.aligntextview.AlignTextView;
 
 /**
- * 通用dialog
+ * dialog提示
  * Created by on 2018/1/13.
  *
  * @author lmy
@@ -26,14 +33,17 @@ import lmy.com.utilslib.utils.Utils;
 public class DialogHint {
     private final Context mContext;
     @BindView(R2.id.dialog_hint_content)
-    TextView dialogHintContent;
+    AlignTextView dialogHintContent;
     @BindView(R2.id.dialog_hint_ok)
     TextView dialogHintOk;
     @BindView(R2.id.dialog_hint_clear)
     TextView dialogHintClear;
+    @BindView(R2.id.dialog_hint_check)
+    RadioButton dialogHintCheck;
     private final Dialog dialog;
     private OnDialogHitCancelListener mOnDialogHitCancelListener;
     private OnDialogHitOkListener mOnDialogHitOkListener;
+    private boolean checkChecked;
 
 
     public DialogHint(Context context) {
@@ -50,15 +60,53 @@ public class DialogHint {
         }
     }
 
-    public void setCancelable(boolean isFlag){
+    public void setCanable(boolean isFlag) {
         dialog.setCancelable(isFlag);
     }
+
+    /**
+     * 显示提醒不在提示选项
+     */
+    public DialogHint showCheckSelect(final String saveKey) {
+        if (!Hawk.get(saveKey, false)) {
+            dialogHintCheck.setVisibility(View.VISIBLE);
+            dialogHintCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (checkChecked) {
+                        dialogHintCheck.setChecked(false);
+                    } else {
+                        dialogHintCheck.setChecked(true);
+                    }
+                    checkChecked = dialogHintCheck.isChecked();
+                    Hawk.put(saveKey, checkChecked);
+                }
+            });
+        }
+        return this;
+    }
+
 
     /**
      * 设置内容
      */
     public DialogHint setContent(String contentText) {
-        dialogHintContent.setText(contentText);
+        dialogHintContent.setText(String.format(mContext.getResources().getString(R.string.space), contentText));
+        if (contentText.length() < 20) {
+            dialogHintContent.setAlign(AlignTextView.Align.ALIGN_CENTER);
+        }
+        return this;
+    }
+
+    /**
+     * 设置内容
+     */
+    public DialogHint setContent(SpannableStringBuilder contentText) {
+        dialogHintContent.setText(String.format(mContext.getResources().getString(R.string.space), contentText));
+        if (contentText.length() < 20) {
+            dialogHintContent.setAlign(AlignTextView.Align.ALIGN_CENTER);
+        }
+
         return this;
     }
 
@@ -66,7 +114,11 @@ public class DialogHint {
      * 设置内容
      */
     public DialogHint setContent(int contentText) {
-        dialogHintContent.setText(contentText);
+        String content = mContext.getResources().getString(contentText);
+        dialogHintContent.setText(String.format(mContext.getResources().getString(R.string.space), content));
+        if (content.length() < 20) {
+            dialogHintContent.setAlign(AlignTextView.Align.ALIGN_CENTER);
+        }
         return this;
     }
 
@@ -81,47 +133,26 @@ public class DialogHint {
     /**
      * 取消
      */
-    public DialogHint setCancel(final OnDialogHitCancelListener listener) {
+    public DialogHint setCancle(final OnDialogHitCancelListener listener) {
         this.mOnDialogHitCancelListener = listener;
         dialogHintClear.setVisibility(View.VISIBLE);
         return this;
     }
 
-    /**
-     * 显示取消
-     */
-    public void setCancel(){
+    public void setCancle() {
         dialogHintClear.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * 设置取消文本
-     * @param cacText 更改取消文本
-     */
-    public DialogHint setCancelText(String cacText){
-        dialogHintClear.setText(cacText);
-        return this;
-    }
-
-    /**
-     * 设置确定文本
-     * @param cacText 更改确定文本
-     */
-    public DialogHint setOnText(String cacText){
-        dialogHintOk.setText(cacText);
-        return this;
-    }
-
-//    @SuppressLint("InvalidR2Usage")
+    //    @SuppressLint("InvalidR2Usage")
     @OnClick({R2.id.dialog_hint_ok, R2.id.dialog_hint_clear})
     public void onViewClicked(View view) {
         int id = view.getId();
         if (id == R.id.dialog_hint_ok) {
-            dialog.dismiss();
             if (mOnDialogHitOkListener != null) {
+                dialog.dismiss();
                 mOnDialogHitOkListener.onOk();
             }
-        }else if (id == R.id.dialog_hint_clear){
+        } else if (id == R.id.dialog_hint_clear) {
             dialog.dismiss();
             if (mOnDialogHitCancelListener != null) {
                 mOnDialogHitCancelListener.onCancel();

@@ -9,7 +9,6 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
         if(rootProject.ext.isBuildApp){
             applicationId "com.model_demo1"
@@ -42,9 +41,14 @@ android {
         }
     }
     resourcePrefix "model_"
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    annotationProcessor rootProject.ext.dependencies["glideCompiler"]
     annotationProcessor   rootProject.ext.dependencies["butterknife-compiler"]
-    compile project(':baselibary')
+    api project(':baselibary')
 }
