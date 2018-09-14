@@ -96,6 +96,7 @@ public class PPTVLoading extends View {
 
     public void clear(){
         if (valueAnimator != null) {
+            clearAnimation();
             valueAnimator.cancel();
             valueAnimator.removeAllUpdateListeners();
             valueAnimator = null;

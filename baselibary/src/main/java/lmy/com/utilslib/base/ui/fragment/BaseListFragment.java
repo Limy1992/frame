@@ -1,31 +1,21 @@
 package lmy.com.utilslib.base.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 /**
- * 多个相同的fragment
+ * fragmentActivity或fragment + fragment, 添加的fragment碎片继承此方法
  * Created by on 2018/5/9.
  *
  * @author lmy
  */
-public abstract class BaseItemFragment extends BaseCommonFragment {
+public abstract class BaseListFragment extends BaseCommonFragment {
 
     private boolean isFragmentVisible;
     private boolean isReuseView;
     private boolean isFirstVisible;
     private View rootView;
-    public FragmentActivity fActivity;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        fActivity = getActivity();
-    }
-
     //setUserVisibleHint()在Fragment创建时会先被调用一次，传入isVisibleToUser = false
     //如果当前Fragment可见，那么setUserVisibleHint()会再次被调用一次，传入isVisibleToUser = true
     //如果Fragment从可见->不可见，那么setUserVisibleHint()也会被调用，传入isVisibleToUser = false
@@ -81,11 +71,6 @@ public abstract class BaseItemFragment extends BaseCommonFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
         initVariable();
     }
 
@@ -111,14 +96,13 @@ public abstract class BaseItemFragment extends BaseCommonFragment {
     /**
      * 去除setUserVisibleHint()多余的回调场景，保证只有当fragment可见状态发生变化时才回调
      * 回调时机在view创建完后，所以支持ui操作，解决在setUserVisibleHint()里进行ui操作有可能报null异常的问题
-     *
+     * <p>
      * 可在该回调方法里进行一些ui显示与隐藏，比如加载框的显示和隐藏
      *
      * @param isVisible true  不可见 -> 可见
      *                  false 可见  -> 不可见
      */
     protected void onFragmentVisibleChange(boolean isVisible) {
-
     }
 
     /**

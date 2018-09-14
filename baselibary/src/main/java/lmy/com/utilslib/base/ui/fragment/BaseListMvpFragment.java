@@ -1,7 +1,6 @@
 package lmy.com.utilslib.base.ui.fragment;
 
 import lmy.com.utilslib.mvp.base.presenter.BasePresenter;
-import lmy.com.utilslib.utils.LogUtils;
 
 /**
  * 多个相同的fragment
@@ -9,14 +8,13 @@ import lmy.com.utilslib.utils.LogUtils;
  *
  * @author lmy
  */
-public abstract class BaseItemMvpFragment<V, T extends BasePresenter<V>>
-        extends BaseItemFragment {
+public abstract class BaseListMvpFragment<V, T extends BasePresenter<V>>
+        extends BaseListFragment {
 
     protected T mPresent;
 
     @Override
     protected void onFragmentFirstVisible() {
-        LogUtils.d("onFragmentFirstVisible");
         mPresent = createPresent();
         mPresent.attachView((V) this);
         initView();

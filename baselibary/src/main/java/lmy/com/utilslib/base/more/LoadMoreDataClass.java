@@ -1,115 +1,109 @@
-package lmy.com.utilslib.base.ui.activity.more;
+package lmy.com.utilslib.base.more;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import lmy.com.utilslib.R;
-import lmy.com.utilslib.base.ui.activity.SuperInitActivity;
-import lmy.com.utilslib.mvp.base.view.IBaseMvpView;
 import lmy.com.utilslib.utils.CommonManger;
 import lmy.com.utilslib.utils.ToastUtils;
 
 /**
- * 加载更多和刷新
- * Created by on 2018/8/9.
+ * 加载更多 下拉刷新
+ * Created by on 2018/9/11.
  *
  * @author lmy
  */
-public abstract class SuperMoreActivity extends SuperInitActivity
-        implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener
-        , IBaseMvpView {
-    /**
-     * 是否加载更多
-     */
-    protected boolean isLoadMore;
-    /**
-     * 是否刷新
-     */
-    protected boolean isRefresh;
-    /**
-     * 是否加载错误
-     */
-    protected boolean isLoadErr;
-    /**
-     * 当前加载页数 默认1
-     */
-    protected int pagerNum = 1;
-    /**
-     * 数据请求成功后，首次数据加载、刷新、加载更多判断
-     */
-    private OnLoadMoreListener mOnLoadMoreListener;
+public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+    private final Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private LoadMoreDateListener mOnLoadMoreListener;
 
-    @Override
-    public void setContentViews(Bundle savedInstanceState) {
-        super.setContentViews(savedInstanceState);
+    public LoadMoreDataClass(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public LoadMoreDataClass(Context mContext, SwipeRefreshLayout swipeRefreshLayout) {
+        this.mContext = mContext;
+        this.swipeRefreshLayout = swipeRefreshLayout;
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     /**
-     * 刷新
+     * 是否加载更多
      */
+    private boolean isLoadMore;
+    /**
+     * 是否刷新
+     */
+    private boolean isRefresh;
+    /**
+     * 是否加载错误
+     */
+    private boolean isLoadErr;
+    /**
+     * 当前加载页数 默认1
+     */
+    private int pagerNum = 1;
+
     @Override
     public void onRefresh() {
+        if (mOnLoadMoreListener == null) {
+            swipeRefreshLayout.setRefreshing(false);
+            return;
+        }
         if (!isLoadErr) {
-            if (baseQuickAdapter() == null) {
+            if (mOnLoadMoreListener.baseQuickAdapter() == null) {
                 throw new NullPointerException("baseQuickAdapter() is null");
             }
             pagerNum = 1;
             isRefresh = true;
-            baseQuickAdapter().setEnableLoadMore(false);
+            mOnLoadMoreListener.baseQuickAdapter().setEnableLoadMore(false);
         } else {
             isLoadMore = false;
         }
-        superRequestData();
+        mOnLoadMoreListener.superRequestData();
     }
 
-    /**
-     * 加载更多
-     */
     @Override
     public void onLoadMoreRequested() {
+        if (mOnLoadMoreListener == null) {
+            swipeRefreshLayout.setRefreshing(false);
+            return;
+        }
         if (!isLoadErr) {
             //加载错误不执行
-            if (refreshLayout() != null) {
-                refreshLayout().setEnabled(false);
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setEnabled(false);
             }
             pagerNum += 1;
         }
-        superRequestData();
-    }
-
-    /**
-     * load数据
-     */
-    public void superRequestData() {
-        //子类不重写superRequestData()方法，就会执行这里
-        initData();
+        mOnLoadMoreListener.superRequestData();
     }
 
     /**
      * 加载错误
      */
-    @Override
     public void onLoadError() {
         isLoadErr = true;
+        if (mOnLoadMoreListener == null) {
+            return;
+        }
         if (isRefresh) {
             ToastUtils.showShortToast("刷新错误");
         } else {
             if (isLoadMore) {
                 //加载更多错
-                BaseQuickAdapter baseQuickAdapter = baseQuickAdapter();
+                BaseQuickAdapter baseQuickAdapter = mOnLoadMoreListener.baseQuickAdapter();
                 if (baseQuickAdapter == null) {
                     throw new NullPointerException("baseQuickAdapter() is null");
                 }
                 baseQuickAdapter.loadMoreFail();
             } else {
-                nextErrPager();
+                mOnLoadMoreListener.nextErrPager();
             }
         }
     }
@@ -117,9 +111,9 @@ public abstract class SuperMoreActivity extends SuperInitActivity
     /**
      * 处理首次添加数据、刷新、加载更多。在网络请求的回调中使用。
      */
-    protected void onLoadSuccess(OnLoadMoreListener onLoadMoreListener) {
+    public void onLoadSuccess(LoadMoreDateListener onLoadMoreListener) {
         this.mOnLoadMoreListener = onLoadMoreListener;
-        BaseQuickAdapter baseQuickAdapter = baseQuickAdapter();
+        BaseQuickAdapter baseQuickAdapter = mOnLoadMoreListener.baseQuickAdapter();
         if (baseQuickAdapter == null) {
             throw new NullPointerException("baseQuickAdapter() is null");
         }
@@ -153,78 +147,39 @@ public abstract class SuperMoreActivity extends SuperInitActivity
                 }
             }
         }
-        refreshLayout().setEnabled(true);
-        refreshLayout().setRefreshing(false);
-    }
 
-    @Override
-    public Context onContext() {
-        return mContext;
-    }
-
-    @Override
-    public LifecycleTransformer bindLifecycle() {
-        return bindToLifecycle();
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setEnabled(true);
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     /**
      * 当前页面没有数据
      */
-    protected void onEmptyView(int dataSize) {
+    private void onEmptyView(int dataSize) {
         if (dataSize == 0) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.empty_view, null);
-            BaseQuickAdapter baseQuickAdapter = baseQuickAdapter();
+            BaseQuickAdapter baseQuickAdapter = mOnLoadMoreListener.baseQuickAdapter();
             if (baseQuickAdapter != null) {
                 baseQuickAdapter.setEmptyView(view);
             }
         }
     }
 
-    /**
-     * 获取刷新控件
-     */
-    protected abstract SwipeRefreshLayout refreshLayout();
-
-    /**
-     * 获取列表填充adapter
-     */
-    protected abstract BaseQuickAdapter baseQuickAdapter();
-
-//    /**
-//     * 设置数据load回调
-//     */
-//    public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
-//        this.mOnLoadMoreListener = onLoadMoreListener;
-//    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mOnLoadMoreListener != null) {
-            mOnLoadMoreListener = null;
-        }
+    public boolean isLoadMore() {
+        return isLoadMore;
     }
 
-    /**
-     * 处理首次加载、刷新、加载更多、回调
-     */
-    public interface OnLoadMoreListener {
-        RecyclerView onRecycleView();
+    public boolean isRefresh() {
+        return isRefresh;
+    }
 
-        /**
-         * 设置新数据
-         */
-        void onNewData();
+    public boolean isLoadErr() {
+        return isLoadErr;
+    }
 
-        /**
-         * 添加数据
-         */
-        void onAddData();
-
-        /**
-         * 当前页面的数据大小, 用于判断是否加载完毕
-         */
-        int dataSize();
+    public int getPagerNum() {
+        return pagerNum;
     }
 }
