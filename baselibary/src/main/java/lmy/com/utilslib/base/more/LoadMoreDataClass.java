@@ -87,11 +87,9 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
     /**
      * 加载错误
      */
-    public void onLoadError() {
+    public void onLoadError(LoadErrListenerAdapter loadErrListenerAdapter) {
+        mOnLoadMoreListener = loadErrListenerAdapter;
         isLoadErr = true;
-        if (mOnLoadMoreListener == null) {
-            return;
-        }
         if (isRefresh) {
             ToastUtils.showShortToast("刷新错误");
         } else {
@@ -105,6 +103,10 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
             } else {
                 mOnLoadMoreListener.nextErrPager();
             }
+        }
+
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -143,7 +145,7 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
                     baseQuickAdapter.loadMoreComplete();
                 } else {
                     //没有更多数据
-                    baseQuickAdapter.loadMoreEnd(false);
+                    baseQuickAdapter.loadMoreEnd(true);
                 }
             }
         }
