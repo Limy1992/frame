@@ -55,15 +55,13 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
             swipeRefreshLayout.setRefreshing(false);
             return;
         }
-        if (!isLoadErr) {
+        if (!isLoadErr || isLoadMore) {
             if (mOnLoadMoreListener.baseQuickAdapter() == null) {
                 throw new NullPointerException("baseQuickAdapter() is null");
             }
             pagerNum = 1;
             isRefresh = true;
             mOnLoadMoreListener.baseQuickAdapter().setEnableLoadMore(false);
-        } else {
-            isLoadMore = false;
         }
         mOnLoadMoreListener.superRequestData();
     }
@@ -119,9 +117,9 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
         if (baseQuickAdapter == null) {
             throw new NullPointerException("baseQuickAdapter() is null");
         }
+        isLoadErr = false;
         if (!isLoadMore) {
             //首次加载
-            isLoadErr = false;
             isLoadMore = true;
             //设置新的数据
             mOnLoadMoreListener.onNewData();
