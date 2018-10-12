@@ -5,12 +5,20 @@
 
 
     <TextView
-        android:gravity="center"
+        android:id="@+id/empty_text"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:textSize="17sp"
         android:textColor="@color/v3_black"
         android:text="无数据"
+        android:gravity="center"
         />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/empty_loading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

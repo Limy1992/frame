@@ -2,8 +2,11 @@ package lmy.com.utilslib.base.more;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -19,18 +22,33 @@ import lmy.com.utilslib.utils.ToastUtils;
  */
 public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     private final Context mContext;
+    private final BaseQuickAdapter baseQuickAdapter;
+    private final RecyclerView recycleView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreDateListener mOnLoadMoreListener;
 
-    public LoadMoreDataClass(Context mContext) {
+    public LoadMoreDataClass(Context mContext
+            , BaseQuickAdapter baseQuickAdapter
+            , RecyclerView recyclerView) {
         this.mContext = mContext;
+        this.baseQuickAdapter = baseQuickAdapter;
+        this.recycleView = recyclerView;
     }
 
-    public LoadMoreDataClass(Context mContext, SwipeRefreshLayout swipeRefreshLayout) {
+    public LoadMoreDataClass(Context mContext
+            , BaseQuickAdapter baseQuickAdapter
+            , RecyclerView recyclerView
+            , SwipeRefreshLayout swipeRefreshLayout) {
         this.mContext = mContext;
+        this.baseQuickAdapter = baseQuickAdapter;
+        this.recycleView = recyclerView;
         this.swipeRefreshLayout = swipeRefreshLayout;
         swipeRefreshLayout.setOnRefreshListener(this);
     }
+
+    /**
+     * load数据，
+     */
 
     /**
      * 是否加载更多
@@ -56,12 +74,9 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
             return;
         }
         if (!isLoadErr || isLoadMore) {
-            if (mOnLoadMoreListener.baseQuickAdapter() == null) {
-                throw new NullPointerException("baseQuickAdapter() is null");
-            }
             pagerNum = 1;
             isRefresh = true;
-            mOnLoadMoreListener.baseQuickAdapter().setEnableLoadMore(false);
+            baseQuickAdapter.setEnableLoadMore(false);
         }
         mOnLoadMoreListener.superRequestData();
     }
@@ -93,10 +108,6 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
         } else {
             if (isLoadMore) {
                 //加载更多错
-                BaseQuickAdapter baseQuickAdapter = mOnLoadMoreListener.baseQuickAdapter();
-                if (baseQuickAdapter == null) {
-                    throw new NullPointerException("baseQuickAdapter() is null");
-                }
                 baseQuickAdapter.loadMoreFail();
             } else {
                 mOnLoadMoreListener.nextErrPager();
@@ -113,10 +124,6 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
      */
     public void onLoadSuccess(LoadMoreDateListener onLoadMoreListener) {
         this.mOnLoadMoreListener = onLoadMoreListener;
-        BaseQuickAdapter baseQuickAdapter = mOnLoadMoreListener.baseQuickAdapter();
-        if (baseQuickAdapter == null) {
-            throw new NullPointerException("baseQuickAdapter() is null");
-        }
         isLoadErr = false;
         if (!isLoadMore) {
             //首次加载
@@ -125,7 +132,7 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
             mOnLoadMoreListener.onNewData();
             if (mOnLoadMoreListener.dataSize() > CommonManger.LOAD_SIZE) {
                 //符号条件设置可以加载更多
-                baseQuickAdapter.setOnLoadMoreListener(this, mOnLoadMoreListener.onRecycleView());
+                baseQuickAdapter.setOnLoadMoreListener(this, recycleView);
             }
             onEmptyView(mOnLoadMoreListener.dataSize());
         } else {
@@ -160,15 +167,39 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
     private void onEmptyView(int dataSize) {
         if (dataSize == 0) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.empty_view, null);
-            BaseQuickAdapter baseQuickAdapter = mOnLoadMoreListener.baseQuickAdapter();
             if (baseQuickAdapter != null) {
                 baseQuickAdapter.setEmptyView(view);
             }
         }
     }
 
+    /**
+     * 设置错误的页面view
+     */
+    public void setErrPagerView() {
+        if (baseQuickAdapter != null) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.empty_view, null);
+            final TextView emptyText = view.findViewById(R.id.empty_text);
+            final ProgressBar emptyLoading = view.findViewById(R.id.empty_loading);
+            emptyText.setText("加载失败,点击重试");
+            emptyText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    emptyLoading.setVisibility(View.VISIBLE);
+                    emptyText.setVisibility(View.GONE);
+                    onLoadMoreRequested();
+                }
+            });
+            baseQuickAdapter.setEmptyView(view);
+        }
+    }
+
     public boolean isLoadMore() {
         return isLoadMore;
+    }
+
+    public void setLoadMore(boolean loadMore) {
+        isLoadMore = loadMore;
     }
 
     public boolean isRefresh() {
@@ -181,5 +212,9 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
 
     public int getPagerNum() {
         return pagerNum;
+    }
+
+    public void setPagerNum(int pagerNum) {
+        this.pagerNum = pagerNum;
     }
 }
