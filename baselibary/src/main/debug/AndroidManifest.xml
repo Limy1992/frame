@@ -29,9 +29,13 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<meta-data-->
-            <!--android:name="com.baidu.lbsapi.API_KEY"-->
-            <!--android:value="gVv4QHmo8WWZ8MZ2b14FCgxN1ZAoGnOH" />-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360"/>
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640"/>
+
         <activity
             android:name=".web.ui.AppWebView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
@@ -41,14 +45,6 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
 
-        <!--<meta-data-->
-            <!--android:name="lmy.com.utilslib.glide.MyGlideModule"-->
-            <!--android:value="AppGlideModule" />-->
-
-        <!--&lt;!&ndash;&lt;!&ndash;更改Glide网络库&ndash;&gt;&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
-            <!--android:value="GlideModule" />-->
 
         <!--apk升级配置-->
         <activity

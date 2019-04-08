@@ -3,10 +3,6 @@ apply plugin: 'kotlin-android'
 //tinker
 apply from: 'tinker-support.gradle'
 android {
-
-    dataBinding {
-        enabled = true
-    }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 //    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
@@ -25,29 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets.main {
-        jni.srcDirs = []
-        jniLibs.srcDir "libs"
-    }
-
-    repositories{
-        flatDir{
-            dirs 'libs'
-        }
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
 }
 
 dependencies {
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     if(rootProject.ext.isBuildApp){
         implementation project(':baselibary')

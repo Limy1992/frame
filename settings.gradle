@@ -1,1 +1,1 @@
-include ':app', ':baselibary', ':base_src', ':model_demo1','X5WebDemo'
+include ':app', ':baselibary', ':base_src', ':model_demo1', 'X5WebDemo', ':base_dao'

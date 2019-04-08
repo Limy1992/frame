@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-kapt'
 
@@ -49,12 +48,6 @@ android {
             }
         }
     }
-
-    //greendao配置
-    greendao {
-        //版本号，升级时可配置
-        schemaVersion 1
-    }
 }
 
 dependencies {
@@ -74,9 +67,7 @@ dependencies {
     api "com.zhihu.android:matisse:$zhiHu_version"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'com.android.support.test:runner:1.0.2'
-    api 'com.google.code.gson:gson:2.8.1'
-    //ORM数据库
-    api 'org.greenrobot:greendao:3.2.2'
+    api 'com.google.code.gson:gson:2.8.5'
     api rootProject.ext.dependencies["GreenDaoUpgradeHelper"]
     api 'com.youth.banner:banner:1.4.10'
     api rootProject.ext.dependencies["constraint-layout"]
@@ -117,10 +108,12 @@ dependencies {
     api 'com.facebook.stetho:stetho:1.5.0'
     api 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     api files('lib/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
-
-
     api project(':base_src')
+    //今日头条适配方案
+    api 'me.jessyan:autosize:1.1.2'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    if (rootProject.ext.isBuildApp) {
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+        releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    }
 }

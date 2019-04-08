@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
 
+import com.facebook.stetho.Stetho;
 import com.orhanobut.hawk.Hawk;
 
 import lmy.com.utilslib.utils.LogUtils;
@@ -20,41 +21,20 @@ public class BaseApplication extends ConfigureApplication {
 
     @Override
     protected void initApplication() {
+        Utils.init(getApplication());
+        Hawk.init(Utils.getContext()).build();
+        //设置不随系统的设置字体改变
+        Utils.setToDefaults();
     }
 
     @Override
     public void configureInitialization() {
-        Utils.init(getApplication());
-        Hawk.init(Utils.getContext()).build();
-        //配置数据库
-        setupDatabase();
-        //设置不随系统的设置字体改变
-        Utils.setToDefaults();
-        initFrame();
+        if (APP_DEBUG) {
+            //调试
+            Stetho.initializeWithDefaults(getApplication());
+        }
     }
 
-    protected void initFrame() {
-    }
-
-    /**
-     * 配置数据库
-     */
-    private void setupDatabase() {
-//        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(getApplication(), "audio.db", null);
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//        Database db = helper.getEncryptedWritableDb("dancer_b");
-//        DaoMaster daoMaster = new DaoMaster(db);
-//        daoSession = daoMaster.newSession();
-
-//        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "audio.db", null);
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//        DaoMaster daoMaster = new DaoMaster(db);
-//        daoSession = daoMaster.newSession();
-    }
-
-//    public static DaoSession getDaoInstant() {
-//        return daoSession;
-//    }
 
     @Override
     public void onTerminate() {

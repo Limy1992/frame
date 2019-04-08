@@ -37,15 +37,12 @@ public class SampleApplicationLike extends DefaultApplicationLike {
                 return;
             }
         }
-
         initApplication();
-
         //配置其他的初始化操作
         configureInitialization();
         QbSdk.initX5Environment(getApplication().getApplicationContext(), new QbSdk.PreInitCallback() {
             @Override
             public void onCoreInitFinished() {
-                LogUtils.d("onCoreInitFinished");
             }
 
             @Override
@@ -53,6 +50,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
                 LogUtils.d("X5内核="+b);
             }
         });
+
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)

@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.io.InputStream;
 
+import lmy.com.utilslib.R;
 import lmy.com.utilslib.glide.config.GlideCatchConfig;
 
 /**
@@ -25,17 +26,17 @@ import lmy.com.utilslib.glide.config.GlideCatchConfig;
 @GlideModule
 public class MyGlideModule extends AppGlideModule {
     @Override
-    public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
+    public void applyOptions(Context context, GlideBuilder builder) {
+        RequestOptions requestOptions = new RequestOptions()
+                .timeout(10000)
+                .placeholder(R.drawable.bg_zan)
+                .error(R.drawable.bg_zan);
         //自定义缓存目录
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context,
                 GlideCatchConfig.GLIDE_CARCH_DIR,
-                GlideCatchConfig.GLIDE_CATCH_SIZE));
-        //图片格式
-        builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565));
-        //通用占位图
-        builder.setDefaultRequestOptions(new RequestOptions()
-                .placeholder(com.base_src.R.drawable.bg_zan)
-                .error(com.base_src.R.drawable.bg_zan));
+                GlideCatchConfig.GLIDE_CATCH_SIZE))
+                .setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565))
+                .setDefaultRequestOptions(requestOptions);
     }
 
     @Override

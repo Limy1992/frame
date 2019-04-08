@@ -1,6 +1,5 @@
 package lmy.com.utilslib.app;
 
-import com.squareup.leakcanary.LeakCanary;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
@@ -13,7 +12,7 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 public class DebugApplication extends TinkerApplication {
     public DebugApplication() {
-        super(ShareConstants.TINKER_ENABLE_ALL, "lmy.com.utilslib.app.InitApplication",
+        super(ShareConstants.TINKER_ENABLE_ALL, "lmy.com.utilslib.app.BaseApplication",
                 "com.tencent.tinker.loader.TinkerLoader", false);
     }
 }

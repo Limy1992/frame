@@ -22,6 +22,7 @@ import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import lmy.com.utilslib.R;
+import lmy.com.utilslib.glide.GlideMatisseEngine;
 import lmy.com.utilslib.utils.FileUtils;
 import lmy.com.utilslib.utils.Utils;
 
@@ -37,59 +38,6 @@ public class SuperOtherActivity extends SuperToolbarActivity {
     @Override
     protected void setAdditionConfigure() {
         //配置其他操作
-    }
-
-    /***
-     * 改变tabLayout的下划线宽度
-     * @param tabLayout tablayout
-     */
-    public void reflex(final TabLayout tabLayout) {
-        //了解源码得知 线的宽度是根据 tabView的宽度来设置的
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //拿到tabLayout的mTabStrip属性
-                    LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
-
-                    int dp10 = Utils.dip2px(10);
-
-                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                        View tabView = mTabStrip.getChildAt(i);
-
-                        //拿到tabView的mTextView属性  tab的字数不固定一定用反射取mTextView
-                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
-                        mTextViewField.setAccessible(true);
-
-                        TextView mTextView = (TextView) mTextViewField.get(tabView);
-
-                        tabView.setPadding(0, 0, 0, 0);
-
-                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
-                        int width = 0;
-                        width = mTextView.getWidth();
-                        if (width == 0) {
-                            mTextView.measure(0, 0);
-                            width = mTextView.getMeasuredWidth();
-                        }
-
-                        //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                        params.width = width;
-                        params.leftMargin = dp10;
-                        params.rightMargin = dp10;
-                        tabView.setLayoutParams(params);
-
-                        tabView.invalidate();
-                    }
-
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     /**
@@ -147,7 +95,7 @@ public class SuperOtherActivity extends SuperToolbarActivity {
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .thumbnailScale(0.85f)
                 //Glide加载
-                .imageEngine(new GlideEngine())
+                .imageEngine(new GlideMatisseEngine())
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 

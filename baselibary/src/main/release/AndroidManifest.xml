@@ -12,17 +12,15 @@
         android:name="android.max_aspect"
         android:value="2.1" />
 
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="false"
-        android:resizeable="true"
-        android:smallScreens="true" />
 
-    <application
-        android:allowBackup="false"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+    <application>
+        <!--今日头条适配方案-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360"/>
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640"/>
 
         <activity
             android:name=".web.ui.AppWebView"
@@ -32,15 +30,6 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
-
-        <!--<meta-data-->
-            <!--android:name="lmy.com.utilslib.glide.MyGlideModule"-->
-            <!--android:value="AppGlideModule" />-->
-
-        <!--&lt;!&ndash;&lt;!&ndash;更改Glide网络库&ndash;&gt;&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
-            <!--android:value="GlideModule" />-->
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -36,14 +36,14 @@ public abstract class MainCompatActivity extends AppCompatActivity {
 
         initTab();
         bottomTabView.setUpWithViewPager(viewPager);
-        initOr();
+        initOther();
     }
 
     protected void permissionsPrompt() {
     }
 
 
-    protected void initOr() {
+    protected void initOther() {
     }
 
 

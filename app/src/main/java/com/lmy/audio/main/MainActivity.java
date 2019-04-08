@@ -25,7 +25,7 @@ public class MainActivity extends MainTabActivity {
     }
 
     @Override
-    protected void initOr() {
+    protected void initOther() {
        //其他操作
     }
 
