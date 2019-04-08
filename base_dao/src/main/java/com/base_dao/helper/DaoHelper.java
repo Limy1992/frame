@@ -20,7 +20,7 @@ public class DaoHelper {
      * 配置数据库
      */
     public static void instantDatabase(Context applicationContext) {
-        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(applicationContext, "audio.db", null);
+        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(applicationContext, "project.db", null);
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         daoSession = daoMaster.newSession();
