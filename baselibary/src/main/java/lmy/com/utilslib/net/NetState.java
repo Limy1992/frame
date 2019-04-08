@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 import lmy.com.utilslib.utils.ToastUtils;
+import lmy.com.utilslib.utils.Utils;
 
 /**
  * Created by mingquan on 2017/5/4.
@@ -45,10 +46,10 @@ public class NetState {
      * 判断是否有网络
      */
     @SuppressWarnings("deprecation")
-    public static boolean IfNet(Context context) {
-        switch (NetState.checkState(context)) {
+    public static boolean IfNet() {
+        switch (NetState.checkState(Utils.getContext())) {
             case NetState.CONNECTION_NO:
-                Toast.makeText(context, "网络断了哦,检查一下您的网络吧", Toast.LENGTH_LONG).show();
+                ToastUtils.showShortToast("网络断了哦,检查一下您的网络吧");
                 return true;
             default:
                 break;

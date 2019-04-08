@@ -28,7 +28,7 @@ public abstract class CallRequest<T> {
         if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
             ToastUtils.showLongToast("连接超时,请重试");
         } else if (e instanceof SocketException || e instanceof HttpException) {
-            if (!NetState.IfNet(Utils.getContext())) {
+            if (!NetState.IfNet()) {
                 ToastUtils.showLongToast("后台连接异常");
             }
         } else if (e instanceof JsonSyntaxException){

@@ -1,5 +1,7 @@
-package lmy.com.utilslib.net;
+package lmy.com.utilslib.net.http;
 
+
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -18,28 +20,6 @@ import lmy.com.utilslib.net.api.ApiException;
  */
 
 public class RxHelper {
-
-//    /**
-//     * 利用Observable.takeUntil()停止网络请求
-//     */
-//    @NonNull
-//    public static <T> ObservableTransformer<T, T> bindUntilEvent(@NonNull final ActivityLifeCycleEvent event, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
-//
-//        return new ObservableTransformer<T, T>() {
-//            @Override
-//            public ObservableSource<T> apply(Observable<T> upstream) {
-//
-//                Observable<ActivityLifeCycleEvent> lifeCycleEventObservable = lifecycleSubject.filter(new Predicate<ActivityLifeCycleEvent>() {
-//                    @Override
-//                    public boolean test(ActivityLifeCycleEvent activityLifeCycleEvent) throws Exception {
-//                        return activityLifeCycleEvent.equals(event);
-//                    }
-//                });
-//                return upstream.takeUntil(lifeCycleEventObservable);
-//            }
-//        };
-//    }
-
     /**
      * 数据处理
      */
@@ -51,7 +31,7 @@ public class RxHelper {
                     @Override
                     public ObservableSource<T> apply(BaseHttpResult<T> tBaseHttpResult) throws Exception {
                         if (tBaseHttpResult.code == 1) {
-                            return createData(tBaseHttpResult.content);
+                            return createData(tBaseHttpResult.content == null ? (T)"" : tBaseHttpResult.content);
                         } else {
                             return Observable.error(new ApiException(tBaseHttpResult.code, tBaseHttpResult.msg));
                         }
@@ -65,6 +45,30 @@ public class RxHelper {
             }
         };
     }
+
+    public static <T> ObservableTransformer<BaseHttpResult<T>, T> handleResult(final long delayTime) {
+        return new ObservableTransformer<BaseHttpResult<T>, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<BaseHttpResult<T>> upstream) {
+                return upstream.flatMap(new Function<BaseHttpResult<T>, ObservableSource<T>>() {
+                    @Override
+                    public ObservableSource<T> apply(BaseHttpResult<T> tBaseHttpResult) throws Exception {
+                        if (tBaseHttpResult.code == 1) {
+                            return createData(tBaseHttpResult.content == null ? (T)"" : tBaseHttpResult.content);
+                        } else {
+                            return Observable.error(new ApiException(tBaseHttpResult.code, tBaseHttpResult.msg));
+                        }
+                    }
+                })      .delay(delayTime, TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+
 
     /**
      * rcode == 1 发送数据

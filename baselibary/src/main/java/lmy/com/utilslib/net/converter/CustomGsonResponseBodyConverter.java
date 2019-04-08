@@ -12,7 +12,7 @@ import retrofit2.Converter;
 
 
 /**
- * 解析返回数据 主要控制后台返回格式不同一
+ * 解析返回数据
  * Created by LMY on 2018/3/25.
  */
 
@@ -30,14 +30,22 @@ final class CustomGsonResponseBodyConverter<T> implements Converter<ResponseBody
         String response = value.string();
         BaseHttpResult httpStatus = gson.fromJson(response, BaseHttpResult.class);
         if (httpStatus.code != 1) {
+            //更具项目做修改
             value.close();
             throw new ApiException(httpStatus.code, httpStatus.msg);
-        }
-
-        try {
-            return adapter.fromJson(response);
-        } finally {
-            value.close();
+        }else {
+            if (httpStatus.content == null) {
+                BaseHttpResult baseHttpResult = new BaseHttpResult();
+                baseHttpResult.content = new Object();
+                baseHttpResult.code = httpStatus.code;
+                baseHttpResult.msg = httpStatus.msg;
+                response = gson.toJson(baseHttpResult);
+            }
+            try {
+                return adapter.fromJson(response);
+            } finally {
+                value.close();
+            }
         }
     }
 }

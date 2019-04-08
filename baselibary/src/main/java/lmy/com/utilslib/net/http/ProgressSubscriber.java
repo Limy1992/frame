@@ -1,11 +1,11 @@
-package lmy.com.utilslib.net;
+package lmy.com.utilslib.net.http;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.JsonSyntaxException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
-import java.lang.ref.WeakReference;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -13,9 +13,11 @@ import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import lmy.com.utilslib.base.ui.view.SimpleLoadDialog;
+import lmy.com.utilslib.net.NetState;
+import lmy.com.utilslib.net.ProgressCancelListener;
 import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.ToastUtils;
-import lmy.com.utilslib.base.ui.view.SimpleLoadDialog;
 
 /**
  * 显示dialog和数据回调
@@ -24,22 +26,23 @@ import lmy.com.utilslib.base.ui.view.SimpleLoadDialog;
 
 public abstract class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T> {
     /**
+     * 强制更新 3.1.1版本才开始增加
+     */
+    public static final String REQUEST_CODE = "100100";
+    /**
      * 弹窗对象
      */
     private SimpleLoadDialog dialogHandler;
     /***/
     private Disposable mDisposable;
-    private WeakReference<Context> weakReference;
+    private Context mContext;
 
-//    protected ProgressSubscriber(Context context) {
-//
-//    }
     protected ProgressSubscriber() {
     }
 
-    public void context(Context context){
-        weakReference = new WeakReference<>(context);
-        dialogHandler = new SimpleLoadDialog(weakReference.get(), this, false);
+    public void context(Context context) {
+        this.mContext = context;
+        dialogHandler = new SimpleLoadDialog(context, this, false);
     }
 
     //显示Dialog
@@ -76,11 +79,13 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
             if (dialogHandler != null) {
                 dialogHandler.dismiss();
                 dialogHandler = null;
-                if (weakReference != null) {
-                    weakReference.clear();
-                    weakReference = null;
-                }
             }
+
+            if (mDisposable != null) {
+                mDisposable.dispose();
+                mDisposable = null;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,12 +136,8 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
      * 手机无网络状态提示
      */
     private void netErr() {
-        if (weakReference != null) {
-            if (!NetState.IfNet(weakReference.get())) {
-                ToastUtils.showLongToast("连接后台异常");
-            }
-        } else {
-            ToastUtils.showLongToast("连接后台异常");
+        if (!NetState.IfNet()) {
+            ToastUtils.showLongToast("网络异常，请检查网络");
         }
     }
 
@@ -152,15 +153,13 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
                     ToastUtils.showShortToast(messageImport);
                 }
                 break;
-            case "3":
-                break;
-            case "4":
-                break;
             default:
                 exceptionInit(e);
                 break;
         }
+
         dismissProgressDialog();
+
     }
 
     @Override
@@ -173,6 +172,7 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, O
         if (mDisposable != null) {
             dismissProgressDialog();
             mDisposable.dispose();
+            mDisposable = null;
         }
     }
 

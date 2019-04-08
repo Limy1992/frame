@@ -1,14 +1,16 @@
-package lmy.com.utilslib.net;
+package lmy.com.utilslib.net.http;
 
 import com.orhanobut.hawk.Hawk;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import lmy.com.utilslib.utils.LogUtils;
 
 /**
  * 缓存数据
@@ -29,24 +31,22 @@ class RetrofitCache {
             public void subscribe(ObservableEmitter<T> subscriber) throws Exception {
                 T cache = Hawk.get(cacheKey);
                 if (cache != null) {
-                    subscriber.onNext(cache);
+                    if (cache instanceof List) {
+                        if (((List) cache).size() == 0) {
+                            subscriber.onError(new Throwable("缓存数据错误"));
+                        }else {
+                            subscriber.onNext(cache);
+                        }
+                    }else {
+                        subscriber.onNext(cache);
+                    }
                 } else {
-                    subscriber.onComplete();
+                    subscriber.onError(new Throwable("缓存数据错误"));
+//                    subscriber.onComplete();
                 }
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-
-        //缓存cacheKey 如果不为null，就缓存数据
-        if (cacheKey != null) {
-            fromNetwork = fromNetwork.map(new Function<T, T>() {
-                @Override
-                public T apply(T result) throws Exception {
-                    Hawk.put(cacheKey, result);
-                    return result;
-                }
-            });
-        }
 
         //强制刷新
         if (forceRefresh) {

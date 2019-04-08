@@ -1,8 +1,10 @@
-package lmy.com.utilslib.net;
+package lmy.com.utilslib.net.http;
 
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.orhanobut.hawk.Hawk;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import io.reactivex.Observable;
@@ -57,6 +59,9 @@ public class HttpUtil {
         private boolean isRefreshData;
         private LifecycleTransformer bindLifecycle;
         private Context mContext;
+        private long delayTime;
+        private boolean isBackPressed;
+        private long delayRefreshData;
 
 
         public Builder() {
@@ -100,9 +105,32 @@ public class HttpUtil {
             return this;
         }
 
+        /**
+         * 延迟加载
+         * @param delayTime 延迟时间 毫秒
+         */
+        public Builder delayTime(long delayTime){
+            this.delayTime = delayTime;
+            return this;
+        }
+
+        /**
+         * 点击返回键，取消网络请求操作
+         * @param isBackPressed
+         */
+        public Builder setIsBackPressed(boolean isBackPressed){
+            this.isBackPressed = isBackPressed;
+            return this;
+        }
+
         public void subscriber(final ProgressSubscriber subscriber) {
-            ObservableTransformer<BaseHttpResult<Object>, Object> transformer = RxHelper.handleResult();
-            Observable onComplete = observable.compose(transformer)
+            ObservableTransformer<BaseHttpResult<Object>, Object> transformer;
+            if (delayTime == 0) {
+                transformer = RxHelper.handleResult();
+            }else {
+                transformer = RxHelper.handleResult(delayTime);
+            }
+            final Observable onComplete = observable.compose(transformer)
                     .compose(bindLifecycle == null ? RxSchedulersHelper.ioMain() : bindLifecycle)
                     .doOnSubscribe(new Consumer<Disposable>() {
                         @Override
@@ -114,44 +142,52 @@ public class HttpUtil {
                             }
                         }
                     });
-            if (cacheKey != null) {
-                //缓存处理 分开写了，如果没有缓存key，没必要进load方法。
-                RetrofitCache.load(cacheKey, onComplete, isRefreshData)
+            onComplete.subscribe(new Consumer() {
+                @Override
+                public void accept(Object o) throws Exception {
+                    subscriber.onNext(o);
+                    if (!TextUtils.isEmpty(cacheKey)) {
+                        Hawk.put(cacheKey, o);
+                    }
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    if (!TextUtils.isEmpty(cacheKey)) {
+                        cacheGetData(subscriber, onComplete);
+                    }else {
+                        subscriber.onError(throwable);
+                    }
+
+                    subscriber.dismissProgressDialog();
+                }
+            }, new Action() {
+                @Override
+                public void run() throws Exception {
+                    subscriber.onComplete();
+                }
+            });
+        }
+
+        public void cacheGetData(final ProgressSubscriber subscriber, Observable onComplete){
+            RetrofitCache.load(cacheKey, onComplete, isRefreshData)
                     .subscribe(new Consumer() {
-                    @Override
-                    public void accept(Object o) throws Exception {
-                        subscriber.onNext(o);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        subscriber.onError(throwable);
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        subscriber.onComplete();
-                    }
-                });
-            }else {
-                onComplete.subscribe(new Consumer() {
-                    @Override
-                    public void accept(Object o) throws Exception {
-                        LogUtils.d("处理完成");
-                        subscriber.onNext(o);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        subscriber.onError(throwable);
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        subscriber.onComplete();
-                    }
-                });
-            }
+                        @Override
+                        public void accept(Object o) throws Exception {
+                            subscriber.onNext(o);
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            subscriber.onError(throwable);
+                            subscriber.dismissProgressDialog();
+                        }
+                    }, new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            subscriber.onComplete();
+                        }
+                    });
         }
     }
 
