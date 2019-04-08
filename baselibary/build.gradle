@@ -107,13 +107,13 @@ dependencies {
     //facebook android程序调试
     api 'com.facebook.stetho:stetho:1.5.0'
     api 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    api files('lib/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
     api project(':base_src')
     //今日头条适配方案
     api 'me.jessyan:autosize:1.1.2'
-
     if (rootProject.ext.isBuildApp) {
         debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
         releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     }
+    //
+    implementation files('lib/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
 }
