@@ -3,8 +3,11 @@ package lmy.com.utilslib.base.more;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,7 +28,14 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
     private final BaseQuickAdapter baseQuickAdapter;
     private final RecyclerView recycleView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private LoadMoreDateListener mOnLoadMoreListener;
+    /**加载回调监听*/
+    private OnLoadMoreDateListener mOnLoadMoreListener;
+    /**空视图view*/
+    private View emptyView;
+    /**是否隐藏数据加载完毕，显示无更多数据的文本， 默认隐藏*/
+    private boolean isLoadMoreEnd = true;
+    /**数据加载回调，不包含加载更多*/
+//    private OnLoadDateListener mOnLoadDateListener;
 
     public LoadMoreDataClass(Context mContext
             , BaseQuickAdapter baseQuickAdapter
@@ -44,14 +54,12 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
         this.recycleView = recyclerView;
         this.swipeRefreshLayout = swipeRefreshLayout;
         swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.v3_music_home
+                , R.color.rea, R.color.app_them_color);
     }
 
     /**
-     * load数据，
-     */
-
-    /**
-     * 是否加载更多
+     * 是否已加载数据
      */
     private boolean isLoadMore;
     /**
@@ -67,6 +75,9 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
      */
     private int pagerNum = 1;
 
+    /**
+     * 刷新
+     */
     @Override
     public void onRefresh() {
         if (mOnLoadMoreListener == null) {
@@ -81,6 +92,9 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
         mOnLoadMoreListener.superRequestData();
     }
 
+    /**
+     * load more
+     */
     @Override
     public void onLoadMoreRequested() {
         if (mOnLoadMoreListener == null) {
@@ -100,7 +114,7 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
     /**
      * 加载错误
      */
-    public void onLoadError(LoadErrListenerAdapter loadErrListenerAdapter) {
+    public void setOnLoadMoreErrorListener(OnLoadErrListenerAdapter loadErrListenerAdapter) {
         mOnLoadMoreListener = loadErrListenerAdapter;
         isLoadErr = true;
         if (isRefresh) {
@@ -122,7 +136,10 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
     /**
      * 处理首次添加数据、刷新、加载更多。在网络请求的回调中使用。
      */
-    public void onLoadSuccess(LoadMoreDateListener onLoadMoreListener) {
+    public void setOnLoadMoreSuccessListener(OnLoadMoreDateListener onLoadMoreListener) {
+        if (mOnLoadMoreListener != null) {
+            mOnLoadMoreListener = null;
+        }
         this.mOnLoadMoreListener = onLoadMoreListener;
         isLoadErr = false;
         if (!isLoadMore) {
@@ -150,7 +167,7 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
                     baseQuickAdapter.loadMoreComplete();
                 } else {
                     //没有更多数据
-                    baseQuickAdapter.loadMoreEnd(true);
+                    baseQuickAdapter.loadMoreEnd(isLoadMoreEnd);
                 }
             }
         }
@@ -162,22 +179,86 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
     }
 
     /**
+     * 数据加载，不包含加载更多
+     */
+    public void setOnLoadSuccess(OnLoadDateListener onLoadDateListener){
+        if (mOnLoadMoreListener != null) {
+            mOnLoadMoreListener = null;
+        }
+        this.mOnLoadMoreListener = onLoadDateListener;
+        isLoadErr = false;
+        //数据数量， 默认=-1（如果不需要设置空数据的view，就不需要重写dataSize（）方法）
+        if (mOnLoadMoreListener.dataSize() == 0) {
+            onEmptyView(0);
+        }else {
+            //数量只要不为0，就设置新数据
+            mOnLoadMoreListener.onNewData();
+            FrameLayout emptyView = (FrameLayout) baseQuickAdapter.getEmptyView();
+            if (emptyView != null) {
+                emptyView.removeAllViews();
+            }
+        }
+
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    /**
      * 当前页面没有数据
      */
     private void onEmptyView(int dataSize) {
         if (dataSize == 0) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.empty_view, null);
-            if (baseQuickAdapter != null) {
-                baseQuickAdapter.setEmptyView(view);
+            if (!mOnLoadMoreListener.isRewSetEmptyView()) {
+                View view;
+                if (emptyView == null) {
+                    view = LayoutInflater.from(mContext).inflate(R.layout.empty_view, null);
+                }else {
+                    view = emptyView;
+                }
+                if (baseQuickAdapter != null) {
+                    baseQuickAdapter.setEmptyView(view);
+                }
             }
         }
+    }
+
+
+    /**
+     * 设置空数据视图
+     * @param emptyView 空数据展示的view
+     */
+    public LoadMoreDataClass setEmptyView(View emptyView){
+        this.emptyView = emptyView;
+        return this;
+    }
+
+    /**
+     * 空数据视图
+     */
+    public LoadMoreDataClass setEmptyView(String text){
+        TextView textView = new TextView(mContext);
+        textView.setText(text);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,17);
+        textView.setTextColor(mContext.getResources().getColor(R.color.v3_black));
+        textView.setGravity(Gravity.CENTER);
+        emptyView = textView;
+        return this;
+    }
+
+    /**
+     * 是否隐藏loadMoreEnd
+     */
+    public LoadMoreDataClass isLoadMoreEnd(boolean isLoadMoreEnd){
+        this.isLoadMoreEnd = isLoadMoreEnd;
+        return this;
     }
 
     /**
      * 设置错误的页面view
      */
     public void setErrPagerView() {
-        if (baseQuickAdapter != null) {
+        if (baseQuickAdapter != null && baseQuickAdapter.getData().size() == 0) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.empty_view, null);
             final TextView emptyText = view.findViewById(R.id.empty_text);
             final ProgressBar emptyLoading = view.findViewById(R.id.empty_loading);
@@ -204,6 +285,10 @@ public class LoadMoreDataClass implements SwipeRefreshLayout.OnRefreshListener, 
 
     public boolean isRefresh() {
         return isRefresh;
+    }
+
+    public void setRefresh(boolean refresh) {
+        isRefresh = refresh;
     }
 
     public boolean isLoadErr() {
