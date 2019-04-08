@@ -1,0 +1,23 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 28
+
+    //greendao配置
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+
+    //ORM数据库
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation rootProject.ext.dependencies["GreenDaoUpgradeHelper"]
+}
