@@ -50,21 +50,21 @@ public class SimpleLoadDialog {
 
     public void createDialog(){
         context = reference.get();
-        load = new Dialog(context, R.style.loadstyle);
+        load = new Dialog(context, R.style.Dialog);
         View dialogView = LayoutInflater.from(context).inflate(
                 R.layout.custom_sload_layout, null);
         final PPTVLoading ppLoading = dialogView.findViewById(R.id.pp_loading);
         load.setCanceledOnTouchOutside(false);
         load.setCancelable(cancelable);
         load.setContentView(dialogView);
-        load.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                ppLoading.clear();
-                if (mProgressCancelListener != null)
-                    mProgressCancelListener.onCancelProgress();
-            }
-        });
+//        load.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                ppLoading.clear();
+//                if (mProgressCancelListener != null)
+//                    mProgressCancelListener.onCancelProgress();
+//            }
+//        });
         Window dialogWindow = load.getWindow();
         if (dialogWindow != null) {
             dialogWindow.setDimAmount(0.1f);

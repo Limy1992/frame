@@ -7,13 +7,10 @@ package lmy.com.utilslib.utils;
  * @author lmy
  */
 public class ModelJumpCommon {
+    /**web Key*/
+    public static final String KEY_WEB = "keyWebUrl";
 
-    private static final String PAG_NAME = Utils.getPackgeName();
 
-    /**
-     * 登录
-     */
-    public static final String MODEL_LOGIN = "";
-
+    public static final String WEB_VIEW_PROJECT = "/web/view";
 
 }

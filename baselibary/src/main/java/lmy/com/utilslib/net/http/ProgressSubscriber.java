@@ -26,10 +26,6 @@ import lmy.com.utilslib.utils.ToastUtils;
 
 public abstract class ProgressSubscriber<T> implements ProgressCancelListener, Observer<T> {
     /**
-     * 强制更新 3.1.1版本才开始增加
-     */
-    public static final String REQUEST_CODE = "100100";
-    /**
      * 弹窗对象
      */
     private SimpleLoadDialog dialogHandler;

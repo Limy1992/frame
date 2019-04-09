@@ -4,9 +4,12 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
 
+import com.base_dao.helper.DaoHelper;
 import com.facebook.stetho.Stetho;
+import com.lmy.base_x5.X5WebInitUtil;
 import com.orhanobut.hawk.Hawk;
 
+import lmy.com.utilslib.BuildConfig;
 import lmy.com.utilslib.utils.LogUtils;
 import lmy.com.utilslib.utils.Utils;
 
@@ -25,6 +28,8 @@ public class BaseApplication extends ConfigureApplication {
         Hawk.init(Utils.getContext()).build();
         //设置不随系统的设置字体改变
         Utils.setToDefaults();
+        DaoHelper.getInstant(Utils.getContext());
+        X5WebInitUtil.getInstance(Utils.getContext());
     }
 
     @Override

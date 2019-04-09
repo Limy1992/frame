@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.lmy.model.web">
+
+    <application>
+        <activity android:name=".ui.ProjectWebActivity"
+            android:screenOrientation="portrait"/>
+
+    </application>
+
+</manifest>

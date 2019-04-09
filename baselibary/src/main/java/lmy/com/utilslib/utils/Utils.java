@@ -77,13 +77,7 @@ public class Utils {
      * 是否登录，如果没有登录跳转登录
      */
     public static boolean isLogin(){
-        if (SPUtils.getIsLogin(context).equals("1")) {
-            return true;
-        }
-        ToastUtils.showShortToast("请先登录");
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ModelJumpCommon.MODEL_LOGIN));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+
         return false;
     }
 

@@ -3,13 +3,15 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 28
-
+    defaultConfig{
+        buildConfigField "String","DB_NAME",rootProject.ext.dbNameProject.dbNameProject
+//        buildConfigField "String","DB_NAME","${dbName}"
+    }
     //greendao配置
     greendao {
         //版本号，升级时可配置
         schemaVersion 1
     }
-
 }
 
 dependencies {

@@ -13,7 +13,7 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 public class SampleApplication extends TinkerApplication {
     public SampleApplication() {
-        super(ShareConstants.TINKER_ENABLE_ALL, "com.lmy.audio.app.App",
+        super(ShareConstants.TINKER_ENABLE_ALL, "lmy.com.utilslib.app.BaseApplication",
                 "com.tencent.tinker.loader.TinkerLoader", false);
     }
 }

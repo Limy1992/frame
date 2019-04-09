@@ -9,7 +9,6 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.tencent.bugly.beta.Beta;
-import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 
 import lmy.com.utilslib.utils.LogUtils;
@@ -40,16 +39,6 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         initApplication();
         //配置其他的初始化操作
         configureInitialization();
-        QbSdk.initX5Environment(getApplication().getApplicationContext(), new QbSdk.PreInitCallback() {
-            @Override
-            public void onCoreInitFinished() {
-            }
-
-            @Override
-            public void onViewInitFinished(boolean b) {
-                LogUtils.d("X5内核="+b);
-            }
-        });
 
     }
 

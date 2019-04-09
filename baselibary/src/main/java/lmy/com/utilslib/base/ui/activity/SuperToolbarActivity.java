@@ -1,8 +1,6 @@
 package lmy.com.utilslib.base.ui.activity;
 
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,10 +17,7 @@ public class SuperToolbarActivity extends SuperTopBarBaseActivity {
     private OnClickListener onClickListenerTopRight;
     private int menuResId;
     private String menuStr;
-    public Menu rightMenu;
-    /**改变右标题颜色*/
-    private int rightColor;
-
+    public MenuItem menuRightItem;
     /**
      * 设置中间title
      *
@@ -68,15 +63,8 @@ public class SuperToolbarActivity extends SuperTopBarBaseActivity {
         this.onClickListenerTopLeft = onClickListener;
     }
 
-    /**
-     * title右边内容
-     *
-     * @param menuStr         内容
-     * @param onClickListener 点击监听
-     */
-    protected void setTopRightButton(String menuStr, OnClickListener onClickListener) {
-        this.onClickListenerTopRight = onClickListener;
-        this.menuStr = menuStr;
+    protected void setTopLeftButton(OnClickListener onClickListener) {
+        this.onClickListenerTopLeft = onClickListener;
     }
 
     /**
@@ -85,9 +73,8 @@ public class SuperToolbarActivity extends SuperTopBarBaseActivity {
      * @param menuStr         内容
      * @param onClickListener 点击监听
      */
-    protected void setTopRightButton(String menuStr, OnClickListener onClickListener, int rightColor) {
+    protected void setTopRightButton(String menuStr, OnClickListener onClickListener) {
         this.onClickListenerTopRight = onClickListener;
-        this.rightColor = rightColor;
         this.menuStr = menuStr;
     }
 
@@ -119,20 +106,16 @@ public class SuperToolbarActivity extends SuperTopBarBaseActivity {
         return true;
     }
 
-    //动态修改内容。右边菜单
+    //动态修改内容。后边菜单
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        rightMenu = menu;
         if (menuResId != 0) {
-            menu.findItem(R.id.menu_1).setIcon(menuResId);
+            menuRightItem = menu.findItem(R.id.menu_1).setIcon(menuResId);
         }
         if (!TextUtils.isEmpty(menuStr)) {
-            menu.findItem(R.id.menu_1).setTitle(menuStr);
-
-            if (rightColor != 0) {
-                setMenuTitleColor();
-            }
+            menuRightItem = menu.findItem(R.id.menu_1).setTitle(menuStr);
         }
+        modifyRightMenu();
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -151,18 +134,10 @@ public class SuperToolbarActivity extends SuperTopBarBaseActivity {
         return true; // true 告诉系统我们自己处理了点击事件
     }
 
-    /**
-     * 改变右标题颜色
-     */
-    public void setMenuTitleColor(){
-        MenuItem rItem = rightMenu.findItem(R.id.menu_1);
-        CharSequence rightTitle = rItem.getTitle();
-        SpannableString spannableString = new SpannableString(rightTitle);
-        spannableString.setSpan(new ForegroundColorSpan(rightColor), 0, spannableString.length(), 0);
-        rItem.setTitle(spannableString);
+    protected void modifyRightMenu(){
     }
 
-   public interface OnClickListener {
+    public interface OnClickListener {
         void onClick();
     }
 

@@ -69,7 +69,7 @@ class ApiHttpClient {
                         .addQueryParameter("platform", PLATFORM)
                         .addQueryParameter("system", SYSTEM)
                         .addQueryParameter("software", Utils.getVersionName())
-                        .addQueryParameter("dataAccountId", SPUtils.getAccountId(Utils.getContext()));
+                        .addQueryParameter("dataAccountId", "");
 
                 Request newRequest = request.newBuilder()
                         //对所有请求添加请求头

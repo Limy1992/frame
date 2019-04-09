@@ -10,14 +10,13 @@
         android:theme="@style/AppTheme"
         android:roundIcon="@mipmap/ic_launcher_round"
         tools:replace="android:label,android:icon,android:name">
-        <activity android:name=".StartLogoActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity" />
 
     </application>
 
