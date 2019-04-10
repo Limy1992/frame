@@ -25,6 +25,7 @@ public class SuperToolbarActivity extends SuperTopBarBaseActivity {
      */
     protected void setTitleText(String title) {
         if (!TextUtils.isEmpty(title)) {
+//            toolbar.setTitle(title);
             tvTitle.setText(title);
         }
     }

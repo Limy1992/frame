@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.Unbinder;
@@ -27,6 +28,7 @@ public class SuperTopBarBaseActivity extends RxAppCompatActivity {
     public TextView tvTitle;
     public Unbinder bind;
     public Context mContext;
+    private ImmersionBar immersionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,8 @@ public class SuperTopBarBaseActivity extends RxAppCompatActivity {
         setContentViews(savedInstanceState);
         //其他配置
         setAdditionConfigure();
-
+        //初始化titleBar
+        initTitleBar();
     }
 
     protected void setNotTitle() {
@@ -54,6 +57,7 @@ public class SuperTopBarBaseActivity extends RxAppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         viewContent = (FrameLayout) findViewById(R.id.viewContent);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
+
     }
 
     protected void setAdditionConfigure() {
@@ -62,6 +66,12 @@ public class SuperTopBarBaseActivity extends RxAppCompatActivity {
     protected void setContentViews(Bundle savedInstanceState) {
     }
 
+    private void initTitleBar() {
+        ImmersionBar.setTitleBar(this, toolbar);
+        immersionBar = ImmersionBar.with(this);
+        immersionBar.statusBarDarkFont(true, 0.2f)
+                .init();
+    }
     protected ViewStub getViewStub() {
         return (ViewStub) findViewById(R.id.tl_view_stub);
     }
@@ -83,8 +93,12 @@ public class SuperTopBarBaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         bind.unbind();
+        if (immersionBar != null) {
+            immersionBar.destroy();
+            immersionBar = null;
+        }
+        super.onDestroy();
     }
 
     @Override

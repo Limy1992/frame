@@ -119,4 +119,6 @@ dependencies {
         debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
         releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     }
+    //状态栏
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
 }

@@ -2,6 +2,7 @@ package lmy.com.utilslib.base.ui.activity;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.ViewStub;
 
 import lmy.com.utilslib.R;
@@ -30,8 +31,11 @@ public abstract class BaseTitleActivity extends SuperInitActivity {
     protected void initTitleBar() {
         //初始化设置 Toolbar
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayShowTitleEnabled(false);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+
         }
         //设置title
         setTitleText(setTextTitle());
