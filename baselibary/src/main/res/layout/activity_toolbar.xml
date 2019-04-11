@@ -31,7 +31,6 @@
 
         <!--如果某个页面title中间不是文本,其他布局,使用ViewStub-->
         <ViewStub
-            android:layout_marginRight="20dp"
             android:id="@+id/tl_view_stub"
             android:layout_width="match_parent"
             android:layout_height="40dp"

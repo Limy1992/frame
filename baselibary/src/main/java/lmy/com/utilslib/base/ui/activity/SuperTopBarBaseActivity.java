@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -111,6 +112,7 @@ public class SuperTopBarBaseActivity extends RxAppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }
 
 
