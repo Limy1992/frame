@@ -9,8 +9,9 @@ package lmy.com.utilslib.utils;
 public class ModelJumpCommon {
     /**web Key*/
     public static final String KEY_WEB = "keyWebUrl";
-
-
     public static final String WEB_VIEW_PROJECT = "/web/view";
+
+    /**login status interceptor*/
+    public static final int LOGIN_TYPE = 1001001;
 
 }
