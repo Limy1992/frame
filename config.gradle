@@ -37,7 +37,7 @@ ext {
             "cardview"                     : "com.android.support:cardview-v7:${dependVersion.support}",
 
             //黄油刀注解
-            "butterknife"                  : "com.jakewharton:butterknife:${dependVersion.butterknife}",
+            "butteglide-compilerrknife"    : "com.jakewharton:butterknife:${dependVersion.butterknife}",
             "butterknife-compiler"         : "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}",
             //recycleView辅助类 adapter
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:${dependVersion.BaseRecyclerViewAdapterHelper}",
